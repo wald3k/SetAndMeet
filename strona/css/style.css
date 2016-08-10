@@ -31,5 +31,15 @@ header form{
     text-align: center;
   }
 }
-
+/*Panele z wydarzeniami*/
+.panel-title {
+	border-bottom: 1px solid grey;
+}
+.panel-default h3{
+	text-align: center;
+}
+.panel-default:hover{
+	background-color: #f1f1f1;
+}
+/*Panele z wydarzeniami END*/
 /*For small Resolutuion END*/
