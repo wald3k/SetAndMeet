@@ -31,6 +31,7 @@ header form{
     text-align: center;
   }
 }
+/*For small Resolutuion END*/
 /*Panele z wydarzeniami*/
 .panel-title {
 	border-bottom: 1px solid grey;
@@ -42,4 +43,61 @@ header form{
 	background-color: #f1f1f1;
 }
 /*Panele z wydarzeniami END*/
-/*For small Resolutuion END*/
+
+
+/* Ikony font Awesome*/
+.icon-background1 {
+    color: #fff;
+}
+
+.icon-background2 {
+    color: #000;
+}
+.icon-background3 {
+    color: #ddd;
+}
+.custom-icon {
+  font-size:30px;
+  background:#666;
+  background:rgba(0,0,0,0.3);
+  padding:30px;
+  -webkit-border-radius:1100%;
+  -moz-border-radius:100%;
+  -o-border-radius:100%;
+  border-radius:100%;
+  border:6px solid #fff;
+  color:#fff;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46);
+  text-align:center;
+  display:table-cell;
+  vertical-align:middle;
+  width:60px;
+  height:60px;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  -o-transition:.5s;
+  transition:.5s;
+}
+.custom-icon:hover {
+  background:rgba(0,0,0,0.6);
+}
+.fix-editor {
+  display:none;
+}
+.icon-wrapper {
+  display:inline-block;
+}
+/* Ikony font Awesome END*/
+
+/*Carousel settings*/
+.carousel-inner img {
+  margin: auto;
+}
+/*Carousel settings END */
+
+/*pre-scrollable*/
+.pre-scrollable {
+  max-height: 150px;
+  overflow-y: scroll;
+}
+/*pre-scrollable END*/
