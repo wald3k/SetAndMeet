@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 #my imports
+from django.contrib.auth.models import User
 from django.utils import timezone
 # Create your models here.
 """
@@ -55,4 +56,4 @@ class Event(models.Model):
 		if not self.id:
 			self.created = timezone.now()
 		self.modified = timezone.now()
-		return super(User, self).save(*args, **kwargs)
+		return super(Event, self).save(*args, **kwargs)
