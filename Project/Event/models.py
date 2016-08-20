@@ -33,7 +33,7 @@ class Event(models.Model):
 	name = models.CharField(unique=True,null=True,max_length=30)
 	category = models.ForeignKey(Category, unique=False)
 	created     = models.DateTimeField(editable=False)
-    modified    = models.DateTimeField()
+	modified    = models.DateTimeField()
 	date_start = models.DateTimeField(blank = False,null = False)
 	date_end = models.DateTimeField(blank = True, null = True)
 	description = models.TextField()
@@ -50,9 +50,9 @@ class Event(models.Model):
 		return '%s' %(self.title)
 
 
-    def save(self, *args, **kwargs):
-        """ On save, update timestamps """
-        if not self.id:
-            self.created = timezone.now()
-        self.modified = timezone.now()
-        return super(User, self).save(*args, **kwargs)
+	def save(self, *args, **kwargs):
+		""" On save, update timestamps """
+		if not self.id:
+			self.created = timezone.now()
+		self.modified = timezone.now()
+		return super(User, self).save(*args, **kwargs)
