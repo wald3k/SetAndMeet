@@ -7,7 +7,7 @@ from django.conf import settings
 # Create your models here.
 
 class Profile(models.Model):
-     user = models.OneToOneField(settings.AUTH_USER_MODEL)
+     user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key = True)
      przezwisko = models.CharField(max_length = 30)
 
      def __unicode__(self):
