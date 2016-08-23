@@ -7,14 +7,17 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from Event.models import Event
 # Create your models here.
 
 class Profile(models.Model):
      user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key = True)
      przezwisko = models.CharField(max_length = 30)
+     events = models.ManyToManyField(Event)
+
 
      def __unicode__(self):
-         return "%s" % (self.przezwisko)
+         return "%s" % (self.user.username)
 
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)
 def create_profile(sender, instance, created, **kwargs):
