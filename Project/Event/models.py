@@ -14,6 +14,11 @@ class Category(models.Model):
 	name = models.CharField(unique = True, null = False, max_length = 30)
 	description = models.TextField(blank=True)
 	"""
+	Meta class that contains additional info ie. verbose_name_plural.
+	"""
+	class Meta:
+		verbose_name_plural = "Categories" #Changes plural name in admin-panel
+	"""
 	Displays Category in admin panel.
 	Returns:
 		String: name of the category
