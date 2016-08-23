@@ -48,7 +48,7 @@ class Event(models.Model):
 		Returns:
 			string: title of the event
 		"""
-		return '%s' %(self.title)
+		return '%s' %(self.name)
 
 
 	def save(self, *args, **kwargs):
