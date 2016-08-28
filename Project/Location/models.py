@@ -11,6 +11,7 @@ class Location(models.Model):
      postal_code = models.CharField(max_length = 6,blank=True)
      building_number = models.PositiveIntegerField(blank=True)
      city = models.CharField(max_length = 30,blank=True)
+     address = models.CharField(max_length = 128)
      COUNTRY_CHOICES = (('1', 'POLAND'),('2', 'USA'),('3', 'GERMANY'),('4', 'FRANCE'))
      country = models.CharField(max_length=9, choices=COUNTRY_CHOICES, default='POLAND')
      position = GeopositionField() #holds latitude & longitude + adds admin widget
