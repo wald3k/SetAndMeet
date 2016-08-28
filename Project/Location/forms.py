@@ -6,4 +6,4 @@ class LocationForm(ModelForm):
     class Meta:
         model = Location
         #excluded field
-        exclude = ('id',) 
+        exclude = ('name',) 
