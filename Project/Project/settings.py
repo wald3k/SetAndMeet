@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'Profile',
     'Message',
     'Comment',
+    'geoposition',
+    'Location',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -130,3 +132,15 @@ STATIC_URL = '/static/'
 
 
 #my changes
+
+#geoposition SETTINGS
+GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyApgBwHhWwbYLOLuj_0Dv3hMbkT6oM7a_0'
+GEOPOSITION_MAP_WIDGET_HEIGHT = 300
+GEOPOSITION_MAP_OPTIONS = {
+    'minZoom': 3,
+    'maxZoom': 20,
+}
+GEOPOSITION_MARKER_OPTIONS = {
+    'cursor': 'move'
+}
+#geoposition SETTINGS END
