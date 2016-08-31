@@ -5,8 +5,10 @@ from .models import Event, Category
 
 
 class EventAdmin(admin.ModelAdmin):
+    readonly_fields=('created','modified',) #show these fields in admin panel even though they are (editable=false) im models.py
     class Meta:
         model = Event
+
 
 class CategoryAdmin(admin.ModelAdmin):
     class Meta:
