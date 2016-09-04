@@ -36,14 +36,19 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites', #for 3rd party apps
     'django.contrib.staticfiles',
+    #third party apps
     'Event',
     'Profile',
-    'Message',
+    #'Message',
     'Comment',
     'geoposition',
     'Location',
+    'django_messages',
 ]
+#After adding 'django.contrib.sites', to installed apps
+SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,7 +69,11 @@ TEMPLATES = [
         'DIRS': [
         os.path.join(BASE_DIR,'Event'),
         os.path.join(BASE_DIR,'Profile'),
-        os.path.join(BASE_DIR,'Person'),
+        os.path.join(BASE_DIR,'Person')
+        #'/home/wald/Desktop/wsLic/myEnv/lib/python2.7/site-packages/django_messages',
+        #"/home/wald/Desktop/wsLic/Project/templates/",
+        #"/home/wald/Desktop/wsLic/myEnv/lib/python2.7/site-packages/geoposition/templates/geoposition"
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -73,6 +82,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #third party apps
+                #'django_messages.context_processors.inbox',
             ],
         },
     },

@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('Profile.urls'),name='test'),
     url(r'', include('Location.urls'),name='test2'),
+    url(r'^messages/', include('django_messages.urls')),
 ]
