@@ -141,6 +141,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#These STATICFILES_DIRS are common for all applications!
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    #'/var/www/static/',
+]
 
 #my changes
 
