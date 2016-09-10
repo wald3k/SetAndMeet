@@ -16,9 +16,15 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 
+from Profile.views import IndexView
+
 urlpatterns = [
+    url('', include('social.apps.django_app.urls', namespace='social')),
+    url('', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^admin/', admin.site.urls),
     url(r'', include('Profile.urls'),name='test'),
     url(r'', include('Location.urls'),name='test2'),
     url(r'^messages/', include('django_messages.urls')),
+
+
 ]

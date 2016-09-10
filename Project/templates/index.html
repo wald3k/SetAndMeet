@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="text/javascript">
+      if (window.location.hash == '#_=_') {
+        window.location.hash = '';
+      }
+      </script>
+  </head>
+  <body>
+     {{ request.user }}
+    {% if user.is_authenticated and not backends.associated %}
+      <p>
+        zalogowany nie przez social.
+      </p>
+    {% elif user.is_authenticated and backends.associated %}
+      <h1>Hello {{ request.user }}</h1>
+      <a href="/wyloguj/">Log me out!</a>
+
+    {% else %}
+      <a href="{% url 'social:begin' 'facebook'  %}">Facebook login</a>
+    {% endif %}
+
+  </body>
+</html>

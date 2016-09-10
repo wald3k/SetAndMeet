@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'geoposition',
     'Location',
     'django_messages',
+    'social.apps.django_app.default',
 ]
 #After adding 'django.contrib.sites', to installed apps
 SITE_ID = 1
@@ -84,6 +85,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 #third party apps
                 #'django_messages.context_processors.inbox',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -160,3 +163,41 @@ GEOPOSITION_MARKER_OPTIONS = {
     'cursor': 'move'
 }
 #geoposition SETTINGS END
+
+#Social auth settings start
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookAppOAuth2',
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/'
+#SOCIAL_AUTH_ALWAYS_ASSOCIATE = True
+#LOGIN_ERROR_URL = '/error/'
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id,name,email',
+}
+
+SOCIAL_AUTH_FACEBOOK_KEY = 689314807884596 #make sure this number is not in 'quotes'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'b968efbba34a3995b5350756b9f65f6f'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    #'Profile.pipeline.save_profile'
+    'Profile.pipeline.get_avatar',
+)
+
+
+
+#Social auth settings end
