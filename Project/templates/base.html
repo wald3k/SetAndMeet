@@ -27,22 +27,41 @@
     <header>
        <div class="container">
          <img src="{% static "img/logo.jpg" %}" class="logo">
-         <form class="form-inline">
-           <div class="form-group">
-             <label class="sr-only" for="exampleInputEmail3">Email address</label>
-             <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email">
-           </div>
-           <div class="form-group">
-             <label class="sr-only" for="exampleInputPassword3">Password</label>
-             <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
-           </div>
-           <button type="submit" class="btn btn-default">Sign in</button><br>
-           <div class="checkbox">
-             <label>
-               <input type="checkbox"> Remember me
-             </label>
-           </div>
-         </form>
+
+           {% if user.is_authenticated and not backends.associated %}
+             <div class="header-text">
+               Hello {{ request.user }} !
+               <a href="/wyloguj/">Log me out!</a>
+             </div>
+
+           {% elif user.is_authenticated and backends.associated %}
+             <div class="form-group">
+              Hello {{ request.user }} !
+                <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
+             </div>
+             <!-- <a href="/wyloguj/">Log me out!</a> -->
+          {% else %}
+          <form class="form-inline " name="LoginForm" action="/auth/" method="post">
+              {% csrf_token %}
+                <div class="form-group">
+                  <!-- <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email"> -->
+                    <input type="username" name="username" class="form-control" id="exampleInputPassword3" placeholder="Username">
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="exampleInputPassword3">Password</label>
+                  <input type="password" name="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-default">Sign in</button><br>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Remember me
+                  </label>
+                </div>
+                <a href="{% url 'social:begin' 'facebook'  %}">Facebook login</a>
+           </form>
+          {% endif %}
+
        </div>
      </header>
 

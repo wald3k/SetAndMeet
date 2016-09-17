@@ -20,6 +20,20 @@ header .logo{
 header form{
 	float:right;
 }
+
+
+.header-text a:link{
+    color:#FFFFFF;
+}
+.header-text a:visited{
+    color:#fff;
+}
+.header-text a:hover{
+    color:#56C4E8;
+}
+
+
+
 /*Header koniec*/
 
 

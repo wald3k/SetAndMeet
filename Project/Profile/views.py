@@ -11,6 +11,45 @@ from django.views.generic import TemplateView
 from django.contrib.auth import logout
 
 # Create your views here.
+
+from django.shortcuts import render_to_response,redirect
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+
+# def login_user(request):
+#     username = password = ''
+#     if request.POST:
+#         username = request.POST.get('username',False)
+#         password = request.POST.get('password',False)
+#         user = authenticate(username=username, password=password)
+#         if user is not None:
+#             if user.is_active:
+#                 login(request, user)
+#                 return HttpResponseRedirect('/')
+#     #return render_to_response('base.html', context_instance=RequestContext(request))
+#     return render(request, 'base.html', RequestContext(request))
+#     # print "Tu jestem!"
+#     # context_dict = {}
+
+
+from django.contrib import auth
+from django.core.context_processors import csrf
+from django.http import HttpResponseRedirect
+
+def auth_view(request):
+    username = request.POST.get('username','')
+    password = request.POST.get('password','')
+    user = auth.authenticate(username=username, password = password)
+    if user is not None:
+        auth.login(request, user)
+        return HttpResponseRedirect('/')
+    else:
+        return HttpResponseRedirect('/')
+
+
+
+
 @login_required
 def test(request):
     current_user = request.user
@@ -37,7 +76,8 @@ class ProfileListView(ListView):
         return context
 
 class IndexView(TemplateView):
-    template_name = 'index.html'
+    #template_name = 'index.html'
+    template_name = 'base.html'
 
 def wyloguj(request):
     logout(request)
