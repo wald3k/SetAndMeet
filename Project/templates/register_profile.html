@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+  <form method="POST" enctype="multipart/form-data" action="/register_profile/" >
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+          <div class="form-group text-error">
+              {{ form.non_field_errors }}
+          </div>
+      {% endif %}
+
+      {% for hidden in form.hidden_fields %}
+          {{ hidden }}
+      {% endfor %}
+      {% for field in form.visible_fields %}
+          {{ field.label }}:
+          {{ field.help_text}}<br />
+          {{ field }}<br />
+          {% if field.errors %}<br />
+              <span>{{ field.errors|striptags }}</span>
+          {% endif %}
+      {% endfor %}
+      <input type="submit" name="submit" value="Register user" class="btn btn-info test-button"/>
+  </form>
+{% endblock %}

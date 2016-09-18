@@ -47,8 +47,30 @@ def auth_view(request):
     else:
         return HttpResponseRedirect('/')
 
+from django.contrib.auth.forms import UserCreationForm
+from .forms import MyRegistrationForm
+
+def register_profile(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/')
+    else:
+        if request.method == 'POST':
+            form = MyRegistrationForm(data=request.POST, files=request.FILES)
+            print request.FILES['avatar']
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/')
+            print form.errors
 
 
+        context = {}
+        context.update(csrf(request))
+        context['form'] = MyRegistrationForm()
+
+        return render(request, 'register_profile.html', context)
+
+def user_created(request):
+    return render_to_response('user_created.html')
 
 @login_required
 def test(request):

@@ -21,7 +21,9 @@ header form{
 	float:right;
 }
 
-
+.header-text{
+		margin-right: 100px;
+}
 .header-text a:link{
     color:#FFFFFF;
 }

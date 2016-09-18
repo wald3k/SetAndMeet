@@ -72,6 +72,7 @@ TEMPLATES = [
         os.path.join(BASE_DIR,'Event'),
         os.path.join(BASE_DIR,'Profile'),
         os.path.join(BASE_DIR,'Person'),
+
         #'/home/wald/Desktop/wsLic/myEnv/lib/python2.7/site-packages/django_messages',
         #"/home/wald/Desktop/wsLic/myEnv/lib/python2.7/site-packages/geoposition/templates/geoposition"
 

@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^$', views.IndexView.as_view()),
     url(r'^auth/$', views.auth_view),
     url(r'^wyloguj/$', views.wyloguj),
+    url(r'^user_created/$', views.user_created),
+    url(r'^register_profile/$', views.register_profile, name='register_profile'),
 ]
