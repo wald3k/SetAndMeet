@@ -21,6 +21,11 @@ header form{
 	float:right;
 }
 
+/*Showing username, avatar and logout information*/
+.welcome-group{
+	float:right;
+}
+
 .header-text{
 		margin-right: 100px;
 }
