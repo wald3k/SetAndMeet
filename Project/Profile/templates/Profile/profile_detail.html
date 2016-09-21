@@ -31,8 +31,8 @@
            {% if user.is_authenticated and not backends.associated %}
               <div class="welcome-group">
                Hello {{ request.user }} !<br />
-              <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="{{ profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
-               <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
+              <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="/{{ profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
+              <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
              </div>
 
            {% elif user.is_authenticated and backends.associated %}
@@ -61,7 +61,7 @@
                     <a href="{% url 'social:begin' 'facebook'  %}">Facebook login</a>
                   </label>
                   <label>
-                    <input name="remember_me" type="checkbox"> Remember me
+                    <input type="checkbox"> Remember me
                   </label>
                 </div>
 
@@ -92,14 +92,16 @@
             </div><!--/.nav-collapse -->
           </div>
        </nav>
-<!-- Put here carousel if you want -->
-{% block carousel_content %}
-{% endblock %}
 
 
 <section>
   <div class="message-div">
     {% block content %}
+        <p>This is a detail page of: {{ profile.user.id }}  {{ profile.przezwisko }}</p>
+        <p>
+            My events:
+            {{profile.events.name}}
+        </p>
     {% endblock %}
   </div>
 </section>

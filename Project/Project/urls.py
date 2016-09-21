@@ -22,8 +22,8 @@ urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
     url('', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^admin/', admin.site.urls),
-    url(r'', include('Profile.urls'),name='test'),
-    url(r'', include('Location.urls'),name='test2'),
+    url(r'', include('Profile.urls', namespace='Profile')),#namespaces are used in templates i.e   <a href="{% url 'Profile:profile_detail' user.userprofile.id %}">
+    url(r'', include('Location.urls', namespace='Location')),
     url(r'^messages/', include('django_messages.urls')),
 
 

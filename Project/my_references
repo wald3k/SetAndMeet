@@ -1,1 +1,7 @@
 https://www.fir3net.com/Web-Development/Django/django.html
+
+Rejestracja uzytkownika. Dodawanie Avataru na serwer
+http://stackoverflow.com/questions/17708629/request-files-always-empty-on-file-upload
+http://stackoverflow.com/questions/2799443/is-there-a-way-to-render-a-html-page-without-view-model
+http://stackoverflow.com/questions/23832039/django-imagefield-nonetype-object
+http://stackoverflow.com/questions/3111779/how-can-i-get-the-file-name-from-request-files

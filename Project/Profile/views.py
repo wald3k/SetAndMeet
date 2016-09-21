@@ -42,6 +42,8 @@ def auth_view(request):
     password = request.POST.get('password','')
     user = auth.authenticate(username=username, password = password)
     if user is not None:
+        if  request.POST.get('remember_me', None):
+            request.session.set_expiry(60 * 60 * 24)   #overwritting django session cookie age in seconds (0 means remember as long as browswer is opened)
         auth.login(request, user)
         return HttpResponseRedirect('/')
     else:
@@ -61,7 +63,6 @@ def register_profile(request):
                 form.save()
                 return HttpResponseRedirect('/')
             print form.errors
-
 
         context = {}
         context.update(csrf(request))
@@ -84,7 +85,7 @@ def test(request):
 def profile_detail(request,profile_pk):
     p  = Profile.objects.get(pk=profile_pk)
     context = {'profile':p}
-    template = 'Profile/base.html'
+    template = 'Profile/profile_detail.html'
     return render(request,template,context)
 
 
@@ -104,3 +105,14 @@ class IndexView(TemplateView):
 def wyloguj(request):
     logout(request)
     return redirect('/')
+
+def home_page(request):
+    if not request.user.is_authenticated():
+        context = {}
+    else:
+        current_user = request.user
+        p = Profile.objects.get(user = current_user)
+        context = {}
+        context = {'user':request.user,'profile':p}
+    template = 'index.html'
+    return render(request,template,context)

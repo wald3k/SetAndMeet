@@ -198,7 +198,5 @@ SOCIAL_AUTH_PIPELINE = (
     #'Profile.pipeline.save_profile'
     'Profile.pipeline.get_avatar',
 )
-
-
-
 #Social auth settings end
+SESSION_COOKIE_AGE = 360 #Defining Django session cookie age in seconds 

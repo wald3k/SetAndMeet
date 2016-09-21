@@ -12,7 +12,7 @@ from Event.models import Event
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'avatars/user_{0}/{1}'.format(instance.user.id, filename)
+    return 'static/avatars/user_{0}/{1}'.format(instance.user.id, filename)
 
 class Profile(models.Model):
      user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key = True)
