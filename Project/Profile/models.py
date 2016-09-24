@@ -18,7 +18,8 @@ class Profile(models.Model):
      user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key = True)
      przezwisko = models.CharField(max_length = 30)
      #events = models.ManyToManyField(Event, null=True, blank=True)
-     avatar = models.ImageField(upload_to=user_directory_path)
+     avatar = models.ImageField(upload_to=user_directory_path, default='static/avatars/!default_user/user.png')
+     friends = models.ManyToManyField("self", blank = True) #friends_set is a reference to friends list
 
 
      def __unicode__(self):
