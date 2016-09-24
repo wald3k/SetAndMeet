@@ -7,7 +7,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from Event.models import Event
+#from Event.models import Event
 # Create your models here.
 
 def user_directory_path(instance, filename):
@@ -17,7 +17,7 @@ def user_directory_path(instance, filename):
 class Profile(models.Model):
      user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key = True)
      przezwisko = models.CharField(max_length = 30)
-     events = models.ManyToManyField(Event, null=True, blank=True)
+     #events = models.ManyToManyField(Event, null=True, blank=True)
      avatar = models.ImageField(upload_to=user_directory_path)
 
 

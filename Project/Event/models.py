@@ -5,6 +5,7 @@ from django.db import models
 #my imports
 from django.contrib.auth.models import User
 from django.utils import timezone
+from Profile.models import Profile
 # Create your models here.
 """
 Model to represent a category for an Event.
@@ -46,7 +47,8 @@ class Event(models.Model):
 	person_limit = models.PositiveIntegerField(null=True, default = 0)
 	cur_capacity = models.PositiveIntegerField(editable=False, default = 0)
 	fee = models.PositiveIntegerField(default = 0)
-
+	#profiles = models.ForeignKey(Profile, on_delete=models.CASCADE)
+	profiles = models.ManyToManyField(Profile, blank=True)
 	def __unicode__(self):
 		"""
 		Displays Event in admin panel.

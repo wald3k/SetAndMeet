@@ -5,3 +5,7 @@ http://stackoverflow.com/questions/17708629/request-files-always-empty-on-file-u
 http://stackoverflow.com/questions/2799443/is-there-a-way-to-render-a-html-page-without-view-model
 http://stackoverflow.com/questions/23832039/django-imagefield-nonetype-object
 http://stackoverflow.com/questions/3111779/how-can-i-get-the-file-name-from-request-files
+
+Zapamietywanie sesji:
+https://djangosnippets.org/snippets/1881/
+http://stackoverflow.com/questions/15100400/django-remember-me-with-built-in-login-view-and-authentication-form
