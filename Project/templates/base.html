@@ -25,50 +25,49 @@
 
   <body>
     <header>
-       <div class="container">
-         <img src="{% static "img/logo.jpg" %}" class="logo">
+      <div class="container">
+        <a href="/"><img src="{% static "img/cool_logo.png" %}" class="logo"></a>
 
-           {% if user.is_authenticated and not backends.associated %}
-              <div class="welcome-group">
-               Hello {{ request.user }} !<br />
-              <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="{{ profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
-               <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
-             </div>
-
-           {% elif user.is_authenticated and backends.associated %}
+          {% if user.is_authenticated and not backends.associated %}
              <div class="welcome-group">
               Hello {{ request.user }} !<br />
-              <a href="{% url 'Profile:profile_detail' user.id %}"><img  src="{{ profile.avatar }}" class="img-circle" height="50" width="50"/> </a>
+             <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
               <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
-             </div>
-             <!-- <a href="/wyloguj/">Log me out!</a> -->
-          {% else %}
-          <form class="form-inline " name="LoginForm" action="/auth/" method="post">
-              {% csrf_token %}
-                <div class="form-group">
-                  <!-- <label class="sr-only" for="exampleInputEmail3">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email"> -->
-                    <input type="username" name="username" class="form-control" id="exampleInputPassword3" placeholder="Username">
-                </div>
-                <div class="form-group">
-                  <label class="sr-only" for="exampleInputPassword3">Password</label>
-                  <input type="password" name="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-default">Sign in</button><br>
-                <div class="checkbox">
-                  <label class="header-text">
-                    <a href="/register_profile">Register a new user</a>
-                    <a href="{% url 'social:begin' 'facebook'  %}">Facebook login</a>
-                  </label>
-                  <label>
-                    <input name="remember_me" type="checkbox"> Remember me
-                  </label>
-                </div>
+            </div>
 
-           </form>
-          {% endif %}
+          {% elif user.is_authenticated and backends.associated %}
+            <div class="welcome-group">
+             Hello {{ request.user }} !<br />
+             <a href="{% url 'Profile:profile_detail' user.id %}"><img  src="../{{ profile.avatar }}" class="img-circle" height="50" width="50"/> </a>
+             <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
+            </div>
+            <!-- <a href="/wyloguj/">Log me out!</a> -->
+         {% else %}
+         <form class="form-inline " name="LoginForm" action="/auth/" method="post">
+             {% csrf_token %}
+               <div class="form-group">
+                 <!-- <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                 <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email"> -->
+                   <input type="username" name="username" class="form-control" id="exampleInputPassword3" placeholder="Username">
+               </div>
+               <div class="form-group">
+                 <label class="sr-only" for="exampleInputPassword3">Password</label>
+                 <input type="password" name="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
+               </div>
+               <button type="submit" class="btn btn-default">Sign in</button><br>
+               <div class="checkbox">
+                 <label class="header-text">
+                   <a href="/register_profile">Register a new user</a>
+                   <a href="{% url 'social:begin' 'facebook'  %}"><i class="fa fa-facebook"></i>acebook login</a>
+                 </label>
+                 <label>
+                   <input name="remember_me" type="checkbox"> Remember me
+                 </label>
+               </div>
 
-       </div>
+          </form>
+         {% endif %}
+          </div>
      </header>
 
        <nav class="navbar navbar-default">
@@ -84,7 +83,7 @@
             <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href="#members">Members</a></li>
+                <li><a href="/profile_list">Members</a></li>
                 <li><a href="#events">Events</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#profile">Contact</a></li>

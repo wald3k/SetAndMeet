@@ -1,14 +1,46 @@
 {% extends "base.html" %}
+{% load static %}
+
+
 {% block content %}
 <h1>Profiles</h1>
-<ul>
-{% for profile in object_list %}
-    <li> <a href="{% url 'profile_detail' profile.pk %}">  {{ profile.user.username }} </a>
-      {{ profile.user.email }}
-      {{ profile.przezwisko }}
-    </li>
-{% empty %}
-    <li>No profiles yet.</li>
-{% endfor %}
-</ul>
+
+<section>
+  <div class="container pre-scrollable">
+    <div class="row">
+      <div class="panel panel-default ">
+        <div class="panel-heading">
+          <h4>
+            USERS
+          </h4>
+        </div>
+        <table class="table table-fixed ">
+          <thead>
+            <tr>
+              <th class="col-md-3">USER</th>
+              <th class="col-md-6">Email</th>
+              <th class="col-md-3">Avatar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for profile in object_list %}
+              <tr>
+                <td class="col-md-3"> <a href="{% url 'Profile:profile_detail' profile.user.id %}">  {{ profile.user.username }} </a> </td>
+                <td class="col-md-6"> {{ profile.user.email }} </td>
+                <td class="col-md-3">
+                      <img  src="../../{{ profile.avatar }}" class="img-circle" height="40" width="40"/>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td>No profiles yet.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

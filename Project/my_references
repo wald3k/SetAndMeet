@@ -9,3 +9,12 @@ http://stackoverflow.com/questions/3111779/how-can-i-get-the-file-name-from-requ
 Zapamietywanie sesji:
 https://djangosnippets.org/snippets/1881/
 http://stackoverflow.com/questions/15100400/django-remember-me-with-built-in-login-view-and-authentication-form
+
+Gdy problemy z logowaniem do fb. Tu jest lista pipeline. Mi brakowalo crate user.
+https://stackoverflow.com/questions/29575713/retrieving-profile-picture-from-google-and-facebook-in-python-social-auth
+
+Wyswietlanie bledow w formach
+https://docs.djangoproject.com/en/dev/topics/forms/#form-objects
+
+ListView, dodanie template_processora dzieki ktoremu mozna w template'ach uzywac request.user
+http://stackoverflow.com/questions/14422651/grabbing-current-logged-in-user-with-django-class-views

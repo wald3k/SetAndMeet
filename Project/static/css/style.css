@@ -118,7 +118,7 @@ header form{
 
 /*pre-scrollable*/
 .pre-scrollable {
-  max-height: 150px;
+  max-height: 500px;
   overflow-y: scroll;
 }
 /*pre-scrollable END*/

@@ -48,8 +48,8 @@ class Event(models.Model):
 	cur_capacity = models.PositiveIntegerField(editable=False, default = 0)
 	fee = models.PositiveIntegerField(default = 0)
 	#profiles = models.ForeignKey(Profile, on_delete=models.CASCADE)
-	profiles = models.ManyToManyField(Profile, blank=True) #profile_set.get(name='name of a profile') to access elements via m2m relation 
-	host = models.ForeignKey(Profile, blank = False, null = False, related_name="host")
+	profiles = models.ManyToManyField(Profile, blank=True) #profile_set.get(name='name of a profile') to access elements via m2m relation
+	host = models.ForeignKey(Profile, blank = False, null = False, related_name="hosted_events") #related name is what can be accessed from inside Profile model
 	def __unicode__(self):
 		"""
 		Displays Event in admin panel.
