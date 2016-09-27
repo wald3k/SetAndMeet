@@ -31,14 +31,14 @@
           {% if user.is_authenticated and not backends.associated %}
              <div class="welcome-group">
               Hello {{ request.user }} !<br />
-             <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
+             <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ user.profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
               <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
             </div>
 
           {% elif user.is_authenticated and backends.associated %}
             <div class="welcome-group">
              Hello {{ request.user }} !<br />
-             <a href="{% url 'Profile:profile_detail' user.id %}"><img  src="../{{ profile.avatar }}" class="img-circle" height="50" width="50"/> </a>
+             <a href="{% url 'Profile:profile_detail' user.id %}"><img  src="../../{{ user.profile.avatar }}" class="img-circle" height="50" width="50"/> </a>
              <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
             </div>
             <!-- <a href="/wyloguj/">Log me out!</a> -->

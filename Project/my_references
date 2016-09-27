@@ -18,3 +18,7 @@ https://docs.djangoproject.com/en/dev/topics/forms/#form-objects
 
 ListView, dodanie template_processora dzieki ktoremu mozna w template'ach uzywac request.user
 http://stackoverflow.com/questions/14422651/grabbing-current-logged-in-user-with-django-class-views
+
+
+Pre-delete signal do usuwania imagefield gdy usuwamy obiekt.
+http://stackoverflow.com/questions/16041232/django-delete-filefield
