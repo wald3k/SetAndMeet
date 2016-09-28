@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('Profile.urls', namespace='Profile')),#namespaces are used in templates i.e   <a href="{% url 'Profile:profile_detail' user.userprofile.id %}">
     url(r'', include('Location.urls', namespace='Location')),
+    url(r'', include('Event.urls', namespace='Event')),
     url(r'^messages/', include('django_messages.urls')),
 
 

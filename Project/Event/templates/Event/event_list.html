@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<h1>Profiles</h1>
+
+<section>
+  <div class="container pre-scrollable">
+    <div class="row">
+      <div class="panel panel-default ">
+        <div class="panel-heading">
+          <h4>
+            USERS
+          </h4>
+        </div>
+        <table class="table table-fixed ">
+          <thead>
+            <tr>
+              <th class="col-md-3">Name</th>
+              <th class="col-md-2">Category</th>
+              <th class="col-md-3">Hosted by</th>
+              <th class="col-md-1">Fee</th>
+              <th class="col-md-1">Current capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in object_list %}
+              <tr>
+                <td class="col-md-3"> <a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a> </td>
+                <td class="col-md-2"> {{ event.category }} </td>
+                <td class="col-md-3"> {{ event.host }} </td>
+                <td class="col-md-1"> {{ event.fee }} </td>
+                {% if event.cur_capacity < event.person_limit %}
+                  <td class="col-md-1"> <span class="badge alert-success">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>
+                {% else %}
+                  <td class="col-md-1"> <span class="badge alert-danger">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>
+                {% endif %}
+                <td class="col-md-2"> <a href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
+
+              </tr>
+            {% empty %}
+              <tr>
+                <td>No Events yet.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
