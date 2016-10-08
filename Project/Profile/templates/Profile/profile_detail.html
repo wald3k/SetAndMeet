@@ -4,12 +4,80 @@
 
 {% block content %}
 <section>
-  <div class="message-div">
-        <p>This is a detail page of: {{ profile.user.id }}  {{ profile.przezwisko }}</p>
-        <p>
-            My events:
-            {{profile.events.name}}
-        </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <a href="{% url 'Profile:profile_detail' profile.user.id %}">
+              <img  src="../../{{ profile.avatar }}" class="img-circle" height="150" width="150"/>
+          </a>
+          <span style="margin: 20px; font-size:40px;">
+            {{ profile.user.username }}
+            <br />
+            <span class="rating">
+              <img src="{% static "img/star.png" %}" height="20" width="20">
+              <img src="{% static "img/star.png" %}" height="20" width="20">
+              <img src="{% static "img/star.png" %}" height="20" width="20">
+              <img src="{% static "img/star.png" %}" height="20" width="20">
+              <img src="{% static "img/star.png" %}" height="20" width="20">
+            </span>
+          </span>
+          <br />
+          <button type="button" class=font-size:30px;"btn btn-default">Show friends</button>
+          <button type="button" class="btn btn-primary">Message</button>
+          <button type="button" class="btn btn-success">Invite to friends</button>
+          <button type="button" class="btn btn-warning">Gallery</button>
+      </div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+      <div class="slider">
+        <div class="slider-title">
+          List of events
+        </div>
+          <ul class="slider-faq">
+            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
+            <li class="slider-a">Lorem ipsuim..........</li>
+            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
+            <li class="slider-a">Lorem ipsuim..........</li>
+            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
+            <li class="slider-a">Lorem ipsuim..........</li>
+            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
+            <li class="slider-a">Lorem ipsuim..........</li>
+            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
+            <li class="slider-a">Lorem ipsuim..........</li>
+            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
+            <li class="slider-a">Lorem ipsuim..........</li>
+            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
+            <li class="slider-a">Lorem ipsuim..........</li>
+            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
+            <li class="slider-a">Lorem ipsuim..........</li>
+          </ul>
+      </div>
+    </div>
+  <div class="col-md-4">
+    <!-- galery -->
+    <div class="galery">
+      <div class="galery-title">
+        List of friends
+      </div>
+
+
+      <div class="row">
+      {% for friend in profile.friends.all %}
+          <div class="col-md-4">
+            <a href="{% url 'Profile:profile_detail' friend.user.id %}">
+              <img  src="../../{{ friend.avatar }}" class="img-circle" height="70" width="70"/>
+            </a>
+          </div>
+          {% if forloop.counter|divisibleby:3 %}
+      </div>
+      <div class="row">
+          {% endif %}
+      {% endfor %}
+      </div>
+      <a href="#">See all</a>
+
+    </div>
   </div>
 </section>
 {% endblock %}

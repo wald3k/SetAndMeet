@@ -7,6 +7,10 @@ body {
   text-align: center;
 }
 */
+*{
+	margin:0;
+	padding:0;
+}
 /*Header poczatek*/
 header{
 	background-image: linear-gradient(#04519b, #044687 60%, #033769);
@@ -21,6 +25,9 @@ header form{
 	float:right;
 }
 
+section{
+	width: 80%;
+}
 /*Showing username, avatar and logout information*/
 .welcome-group{
 	float:right;
@@ -129,3 +136,73 @@ header form{
   display: table;
   margin: auto;
 }
+/*My slider*/
+.slider{
+		font-family:'Tahoma', sans-serif;
+		color:#666;
+		background:#f8f8f8;
+		line-height: 1.5em;
+		width:80%;
+		margin:30px 0;
+		overflow: auto;
+}
+.slider-title ul, li{
+	list-style: none;
+}
+.slider-title{
+	height:50px;
+	background:#24497F;
+	font-weight: bold;
+	color:#fff;
+	font-size: 25px;
+	text-align: center;
+	padding: 10px;
+}
+.slider-faq li{
+	padding:10px;
+}
+
+.slider-q{
+	float:left;
+	background: #eee;
+	font-weight: bold;
+	color:#333;
+	cursor: pointer;
+	border-bottom:1px #ddd solid;
+	font-size:110%;
+	width: 100%;
+}
+.slider-a{
+	float:left;
+	background: #f9f9f9;
+	color:#666;
+	line-height: 1.7em;
+	width: 100%;
+}
+
+.slider-faq .slider-a{
+	display: none;
+}
+
+.rotate{
+	transform: rotate(90deg);
+	/*Adding vendor specific selectors*/
+	-moz-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+}
+
+
+/*My slider END*/
+
+/* GALERY */
+.galery-title{
+	margin-top: 30px;
+	height:50px;
+	background:#24497F;
+	font-weight: bold;
+	color:#fff;
+	font-size: 25px;
+	text-align: center;
+	padding: 10px;
+}
+/*Galery END*/

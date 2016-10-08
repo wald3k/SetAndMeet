@@ -1,0 +1,41 @@
+ce6f84f was Waldemar Sobiecki, 3 days ago, message: Dodane widoki: event_list, event_detail, event_join. Widoki wymagaja jeszcze rozpatrzenia warunkow (np. gdy uzytkownik nie jest zalogowany, dodanie sortowania tabeli z eventami za pomoca javascript itp.).
+9793145 was Waldemar Sobiecki, 4 days ago, message: Poprawianie wyswietlanie avataru zalogowanego uzytkownika bez wzgledu na to czyj profil przegladamy(male zmiany w base.html).
+a46d70a was Waldemar Sobiecki, 5 days ago, message: Prace nad profile listview. Poprawne wyswietlanie avatarow na glownej stronie. Dodany pipeline do zapisywania avatarow z facebooka na dysk lokalny.
+54d7896 was Waldemar Sobiecki, 7 days ago, message: Dodane pole host w modelu Event. Dodana relacja friends typu ManyToMany w modelu Profile.
+961b5f2 was Waldemar Sobiecki, 7 days ago, message: Zmiany w relacji ManyToMany. Dodano pole w modelu Event a usunieto z Profile.
+12f2dad was Waldemar Sobiecki, 7 days ago, message: Modyfikacja pliku requirements.txt o aplikacje potrzebne do generowania diagramu baz danych stworzonego na podstawie modeli Django.
+eca2370 was Waldemar Sobiecki, 10 days ago, message: Usuniecie starych sciezek do avataorw. Dodanie domyslnego czasu przechowywania klucza sesji w settings.py. Dodanie namespace do pliku urls.py co pozwala na podawanie user.id do profile_detail. Dodanie Wyswietlania ikony zalogowanego uzytkownika w rogu aplikacji. Rozdzielenie plikow html na base.html i index.html. Dodana metoda home_page w Profile.views.py.
+c8643b5 was Waldemar Sobiecki, 10 days ago, message: Dodana nowa sciezka do zapisu avatarow. Umozliwi latwiejsze czytanie url z poziomu template'ow.
+1541316 was Waldemar Sobiecki, 13 days ago, message: Dodana rejestracja uzytkownika(User) i polaczenie go z profilem (Profile). Dziala wgrywanie avataru na serwer. Template'y robocze. Kod wymaga czyszczenia.
+914d97c was Waldemar Sobiecki, 2 weeks ago, message: Dodane logowanie przez glowna strone.
+7dbe71a was Waldemar Sobiecki, 2 weeks ago, message: Przeniesienie szablonu base z aplikacji messages w srodowisku wirtualnym do katalogu templates w projekcie.
+f5978b4 was Waldemar Sobiecki, 2 weeks ago, message: Dodanie widoku profile_list. Testy z dzialaniem odwolan do url profile_detail. Prosty szablon w html, zeby zobaczyc jak to moze wygladac.
+2dae5f3 was Waldemar Sobiecki, 3 weeks ago, message: Dodanie modulu python-social-auth. Wstepne testy. Dodany pipeline ladujacy sciezke prowadzaca do avatara z facebooka. Dodany roboczy szablon index.html.
+ec1d0ee was Waldemar Sobiecki, 4 weeks ago, message: Dodana sciezka do templatesow w katalogu projektu. Skopiowane do folderu templates szablony dla aplikacji django_messages. Dla innych aplikacji zewnetrznych szablony mozna wgrywac w ten sam sposob.
+af98c21 was Waldemar Sobiecki, 4 weeks ago, message: Utworzenie folderu static przechowujacego wspolne dla wszystkich aplikacji pliki css, img itp. Ustawienie sciezek do tych plikow w settings.py
+94da8b7 was Waldemar Sobiecki, 4 weeks ago, message: Dodanie aplikacji django-messages.Modyfikacje w settings.py. Dodany plik base.html w katalogu templates w site-packages/django_messages/template co umozliwilo wyswietlanie szablonow.
+f538dc4 was Waldemar Sobiecki, 4 weeks ago, message: Ustawienia pol created & modified. Uzupelniona metoda save. Dodanie tych pol do wyswietlaniu w panelu administracyjnym.
+e354c61 was Waldemar Sobiecki, 5 weeks ago, message: Zainstalowanie Pillow potrzebnego dla imageField. Dodanie pola imageField do profilu. Pole to sluzy do przechowywania sciezki do avatara uzytkownika.
+59c2df7 was Waldemar Sobiecki, 5 weeks ago, message: Dodanie plikow do ignorowanych przez GIT: -db.sqlite3 oraz foldery migrations w aplikacjach w projekcie Django.Uzupelnienie pliku requirements.txt o geoposition i geopy.
+7a9c6f5 was Waldemar Sobiecki, 5 weeks ago, message: Po Location. Pusta baza danych.
+b1d6741 was Waldemar Sobiecki, 5 weeks ago, message: Dodanie domyslnej lokalizacji do Location. Usuniecie pol w modelu i zostawienie tylko zbiorczego (name), ktora przechowuje ulice, numer, kod pocztowy, miasto itp. Dodanie metody unicode wypisujacej obiekt Location np. w panelu admina
+4b7f180 was Waldemar Sobiecki, 5 weeks ago, message: Dodanie sygnalu pre-save, ktory bedzie w przyszlosci wyciagal dane z dl. i szer. geogr. i nadawal nazwe miejsocowsci/ulicy itp. Zarejestrowanie sygnalow w plikach __init__.py i apps.py
+6ae0ae8 was Waldemar Sobiecki, 5 weeks ago, message: Dodanie aplikacji geopositiondo Location. Dziala w panelu admina. Zmodyfikowanie pliku settings.py
+4c59d99 was Waldemar Sobiecki, 6 weeks ago, message: Dodanie aplikacji do zarzadzania systemem komentarzy do wydarzen.
+f5e4a20 was Waldemar Sobiecki, 6 weeks ago, message: Dodanie poprawnej plural name.
+e26ae13 was Waldemar Sobiecki, 6 weeks ago, message: Poprawione wyswietlanie w panelu admina.
+93f9b90 was Waldemar Sobiecki, 6 weeks ago, message: Poprawione wyswietlanie w panelu admina.
+0c33aa8 was Waldemar Sobiecki, 6 weeks ago, message: Dodanie aplikacji Message.
+0bf59cd was Waldemar Sobiecki, 6 weeks ago, message: Swieza baza po makemigrations i migrate.
+d7a0f98 was Waldemar Sobiecki, 6 weeks ago, message: Usuniecie bazy danych.
+f84143a was Waldemar Sobiecki, 6 weeks ago, message: Poprawiona metoda save w modelu Event. Zmieniona strefa czasowa w settings.py
+435ed19 was Waldemar Sobiecki, 6 weeks ago, message: Dodanie do modelu Profile signal receivera. Profile jest tworzony za kazdym razem gdy tworzony jest User.
+b9b480a was Waldemar Sobiecki, 6 weeks ago, message: Poprawione wciecia w modelu Event.
+ca72be7 was Waldemar Sobiecki, 6 weeks ago, message: Dodanych pare obiektow do bazy danych.
+c19c5df was Waldemar Sobiecki, 6 weeks ago, message: Dalsze postepy w pracach nad strona
+50353af was Waldemar Sobiecki, 7 weeks ago, message: Dalsze prace nad strona. Dodanie Awesome Font.
+8b7c726 was Waldemar Sobiecki, 7 weeks ago, message: Wstepny zarys strony
+8578364 was Waldemar Sobiecki, 7 weeks ago, message: Dodanie startowego szablonu strony
+1a767ad was Waldemar Sobiecki, 3 months ago, message: Zarys Aplikacji Events, Profile/Person
+ffab563 was Waldemar Sobiecki, 3 months ago, message: Stworzenie pustego projektu Django.
+bdd55f9 was Waldemar Sobiecki, 3 months ago, message: Pierwszy commit. Plik requirements dla virtualEnv i plik .gitignore

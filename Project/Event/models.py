@@ -6,6 +6,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from Profile.models import Profile
+from Location.models import Location
+
+from django.db.models.signals import post_init #for adding host to participants
 # Create your models here.
 """
 Model to represent a category for an Event.
@@ -50,6 +53,7 @@ class Event(models.Model):
 	#profiles = models.ForeignKey(Profile, on_delete=models.CASCADE)
 	profiles = models.ManyToManyField(Profile, blank=True) #profile_set.get(name='name of a profile') to access elements via m2m relation
 	host = models.ForeignKey(Profile, blank = False, null = False, related_name="hosted_events") #related name is what can be accessed from inside Profile model
+	where = models.ForeignKey(Location, blank = False, null = False, related_name="location") #related name is what can be accessed from inside Profile model
 	def __unicode__(self):
 		"""
 		Displays Event in admin panel.
@@ -66,3 +70,13 @@ class Event(models.Model):
 			self.modified = self.created
 		self.modified = timezone.now()
 		return super(Event, self).save(*args, **kwargs)
+
+
+
+
+# def extraInitForMyEvent(**kwargs):
+#    instance = kwargs.get('instance')
+#    instance.profiles.add(instance.host)
+#    instance.cur_capacity = instance.cur_capacity =  + 1
+#
+# post_init.connect(extraInitForMyEvent, Event)
