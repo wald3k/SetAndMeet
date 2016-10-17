@@ -90,7 +90,22 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#profile">Contact</a></li>
               </ul>
+
+              <form id="user-search-input"
+                  action="{% url 'Profile:search'%}" method="GET">
+                   <div class="input-group ">
+                       <input type="text"  class="search-query form-control" name="q" placeholder="Search for a user..." />
+                       <span class="input-group-btn">
+                           <button class="btn btn-danger" type="submit">
+                               <span class=" glyphicon glyphicon-search"></span>
+                           </button>
+                       </span>
+                   </div>
+             </form>
+
+              </div>
             </div><!--/.nav-collapse -->
+
           </div>
        </nav>
 <!-- Put here carousel if you want -->

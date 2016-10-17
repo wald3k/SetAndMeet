@@ -131,3 +131,16 @@ def home_page(request):
         context = {'user':request.user,'profile':p}
     template = 'index.html'
     return render(request,template,context)
+
+"""
+View for finding all user Profiles that contains given part of the user.username field.
+"""
+class ProfileSearchView(ListView):
+    model = Profile
+    #select_related = ['user']
+    template_name = 'profile_list.html'
+    #context_object_name = 'profiles'
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        return self.model.objects.filter(user__username__icontains=query)

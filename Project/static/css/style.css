@@ -50,14 +50,34 @@ section{
 
 /*Header koniec*/
 
+/*Search for Users START*/
+
+.search-query{
+	width:50%;
+	max-width:50%;
+	float:right !important;
+	margin-left: 20px;
+}
+#user-search-input{
+	margin: 10px 0;
+}
+
+/*Search for Users END*/
 
 /*For small Resolution*/
 @media(max-width: 991px) {
+	section{
+		width: 100%;
+	}
   header form{
     float:none;
     margin-top: 20px;
     text-align: center;
   }
+	.search-query{
+		width:100%;
+		max-width:100%;
+	}
 }
 /*For small Resolutuion END*/
 /*Panele z wydarzeniami*/
