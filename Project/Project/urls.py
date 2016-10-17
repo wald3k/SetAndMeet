@@ -17,6 +17,7 @@ from django.conf.urls import url,include
 from django.contrib import admin
 
 from Profile.views import IndexView
+from django.views.generic import TemplateView #To go straight to a template view i.e. about/contact pages
 
 urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
@@ -26,6 +27,8 @@ urlpatterns = [
     url(r'', include('Location.urls', namespace='Location')),
     url(r'', include('Event.urls', namespace='Event')),
     url(r'^messages/', include('django_messages.urls')),
+    url(r'^about/$', TemplateView.as_view(template_name='about.html')),     #Go straight to the URL
+    url(r'^contact/$', TemplateView.as_view(template_name='contact.html')), #Go straight to the URL
 
 
 ]
