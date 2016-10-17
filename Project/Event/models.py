@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from Profile.models import Profile
 from Location.models import Location
+from Profile.models import Profile
+from django.core.validators import MaxValueValidator, MinValueValidator #for integerfield validators
 
 from django.db.models.signals import post_init #for adding host to participants
 # Create your models here.
@@ -54,6 +56,8 @@ class Event(models.Model):
 	profiles = models.ManyToManyField(Profile, blank=True) #profile_set.get(name='name of a profile') to access elements via m2m relation
 	host = models.ForeignKey(Profile, blank = False, null = False, related_name="hosted_events") #related name is what can be accessed from inside Profile model
 	where = models.ForeignKey(Location, blank = False, null = False, related_name="location") #related name is what can be accessed from inside Profile model
+	public = models.BooleanField(blank=False, null = False, default = True)					#if event is public it should be visible for everyone
+	rating = models.DecimalField(default=0, max_digits=9, decimal_places=2)					#average rating of this event
 	def __unicode__(self):
 		"""
 		Displays Event in admin panel.
@@ -71,12 +75,18 @@ class Event(models.Model):
 		self.modified = timezone.now()
 		return super(Event, self).save(*args, **kwargs)
 
+class EventRating(models.Model):
+	event = models.ForeignKey(Event)
+	author = models.ForeignKey(Profile)
+	pub_date = models.DateTimeField(auto_now_add='true')
+	rating = models.IntegerField(blank=False, null=False, default=0, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
 
-
-# def extraInitForMyEvent(**kwargs):
-#    instance = kwargs.get('instance')
-#    instance.profiles.add(instance.host)
-#    instance.cur_capacity = instance.cur_capacity =  + 1
-#
-# post_init.connect(extraInitForMyEvent, Event)
+	#Rather than here make it in the forms
+	# def save(self):
+	# 	try:
+	# 		eventRating = EventRating.objects.get(event = self.event, author = self.author)
+	# 		print "Object exists, raising exception!"
+	# 		raise Exception('This user already rated this event!. Not saving to the database!')
+	# 	except EventRating.DoesNotExist:
+	# 		print "Object doesn't exist." #object doesnt exists so pass it to save!
