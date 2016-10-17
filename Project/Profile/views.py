@@ -37,6 +37,8 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
 
+from django.db.models import Q #for seach users
+
 def auth_view(request):
     username = request.POST.get('username','')
     password = request.POST.get('password','')
@@ -143,4 +145,5 @@ class ProfileSearchView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
-        return self.model.objects.filter(user__username__icontains=query)
+        return self.model.objects.filter(Q(user__username__icontains=query) | Q(user__email__icontains=query))
+        #return self.model.objects.filter(user__username__icontains=query, user__email__icontains=query)
