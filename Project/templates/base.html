@@ -16,13 +16,15 @@
     <!-- FontAwesome-->
     <link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
 
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css"  href="{% static "css/style.css" %}" >
+    <!-- Importing JQuery that is common for every other page that needs to use Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="{% static "js/script.js" %}"></script>
+
+    {% block my_js_scripts %}
+    {% endblock %}
   </head>
 
   <body>
@@ -90,7 +92,7 @@
               <form id="user-search-input"
                   action="{% url 'Profile:search'%}" method="GET">
                    <div class="input-group ">
-                       <input type="text"  class="search-query form-control" name="q" placeholder="Search for a user..." />
+                       <input type="text"  class="search-query form-control" name="q" placeholder="Search for a user..." value='{{ request.get.q }}' />
                        <span class="input-group-btn">
                            <button class="btn btn-danger" type="submit">
                                <span class=" glyphicon glyphicon-search"></span>
