@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django_messages',
     'social.apps.django_app.default',
     'django_extensions', #for graphviz
+    'Shout',
+    'rest_framework', #adding django-rest-framework
 ]
 #After adding 'django.contrib.sites', to installed apps
 SITE_ID = 1
@@ -203,4 +205,4 @@ SOCIAL_AUTH_PIPELINE = (
     'Profile.pipeline.get_avatar',
 )
 #Social auth settings end
-SESSION_COOKIE_AGE = 360 #Defining Django session cookie age in seconds
+SESSION_COOKIE_AGE = 1209600 #Defining Django session cookie age in seconds 1209600(2 weeks, in seconds)

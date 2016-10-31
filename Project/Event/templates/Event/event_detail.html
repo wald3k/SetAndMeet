@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
+<!-- Importing specific JS scripts HERE -->
+{% block carousel_content %}
+  <script type="text/javascript" src="{% static "js/shout.js" %}"></script>
+{% endblock %}
 
+{% block tabs %}
+  {% include "includes/tabs.html" with active_tab='events' %}
+{% endblock %}
 {% block content %}
 <section>
   <div class="message-div">
@@ -10,11 +17,19 @@
           <div class="col-md-12"><h1>{{ event.name }}</h1></div>
         </div>
         <div class="row">
-          <div class="col-md-1"><a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ user.profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a></div>
+          <div class="col-md-1">
+            <div class="avatar-medium">
+                <!-- <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ user.profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a> -->
+                <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ user.profile.avatar.url }}" class="img-circle"/></a>
+            </div>
+          </div>
+
         </div>
   </div>
+  <div id="wydarzenie" numer_wydarzenia="{{ event.pk }}"></div>
+  <!-- http://racingtadpole.com/blog/django-ajax-and-jquery/ -->
   <div class="container">
-  <h2>Current participants</h2>
+  <h2 >Current participants</h2>
   <ul class="list-group">
     {% for profile in event.profiles.all %}
       <li class="list-group-item">
@@ -26,7 +41,10 @@
             <span class="badge alert-success">12</span>
           </div>
           <div class="col-md-6">
-            <a style="float:right;" href="{% url 'Profile:profile_detail' profile.user.id %}"> <img  src="../../{{ profile.avatar.url }}" class="img-circle"  height="30" width="30"/></a>
+            <div class="avatar-small" style="float:right;" >
+              <a  href="{% url 'Profile:profile_detail' profile.user.id %}"> <img  src="../../{{ profile.avatar.url }}" class="img-circle"/></a>
+            </div>
+
           </div>
         </div>
       </li>
@@ -34,4 +52,39 @@
   </ul>
 </div>
 </section>
+
+<div id="shoutbox">
+  <h1>Shoutbox</h1>
+
+      <ul>
+        <div id="shouts">
+        {% for shout in event.shout_set.all %}
+          <!-- <li>{{ shout.date_created|date:'Y-m-d H:i' }}   <span style="color:blue;font-weight:bold;font-size:1.2em;"> {{ shout.author }} </span> {{ shout.text }} </li> -->
+          <li>
+            <!-- Create a now variable -->
+            {% now "Y-m-d" as todays_date %}
+            <!-- If message was posted today: -->
+            {% if todays_date <= shout.date_created|date:"Y-m-d" %}
+              {{ shout.date_created|date:'H:i' }}
+            <!-- <span style="color:blue;font-weight:bold;font-size:1.2em;"> {{ shout.author }} </span> -->
+            <!-- Message was posted in previous days: -->
+            {% else %}
+              {{ shout.date_created|date:'Y-m-d H:i' }}
+            {% endif %}
+            <a href="{% url 'Profile:profile_detail' shout.author.user.id %}"> <img  src="../../{{ shout.author.user.profile.avatar.url }}" class="img-circle"   title="{{shout.author.user.username}}" /></a>
+            {{ shout.text }}
+            </br>
+          </li>
+
+        {% endfor %}
+        </div>
+      </ul>
+
+
+    <form>{% csrf_token %}
+        <label>Shout text: </label>
+        <input type="text" id="shout"/>
+        <input type="submit" id="submit" value="SHOUT!"/>
+  </form>
+</div>
 {% endblock %}

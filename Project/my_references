@@ -22,3 +22,27 @@ http://stackoverflow.com/questions/14422651/grabbing-current-logged-in-user-with
 
 Pre-delete signal do usuwania imagefield gdy usuwamy obiekt.
 http://stackoverflow.com/questions/16041232/django-delete-filefield
+
+
+Tworzenie Search form, dodawanie stron about/contact
+http://stackoverflow.com/questions/16904173/writing-a-very-basic-search-form-in-django
+http://stackoverflow.com/questions/16105756/django-admin-use-one-to-one-relationship-in-search-fields
+http://stackoverflow.com/questions/15341285/how-to-call-a-django-function-on-button-click
+http://stackoverflow.com/questions/15946345/how-to-use-search-forms-with-django-class-based-views
+
+Tworzenie shoutboxa bez odswiezania strony
+http://stackoverflow.com/questions/11647715/how-to-submit-form-without-refreshing-page-using-django-ajax-jquery
+
+Tworzenie sortowanej listy np.eventow:
+http://stackoverflow.com/questions/2272370/sortable-table-columns-in-django
+
+
+Puste zwracanie HTML
+https://pythonhaven.wordpress.com/2009/07/13/django-powered-ajax-chat-%E2%80%93-part-2/
+
+Jak brac zmienne template i przekazywac je do AJAX'A za pomoca JQUERY  np. dla id_wydarzenia
+http://racingtadpole.com/blog/django-ajax-and-jquery/
+
+DALSZE PRACE NAD SHOUTBOXEM
+http://stackoverflow.com/questions/16598477/remove-double-quotes-from-json-return-data-using-jquery                             - jak zamieniac jakies znaki w stringu  w js
+http://stackoverflow.com/questions/29435612/why-is-innerhtml-returning-undefined											-pobieranei w js zawartosci jakiegos diva

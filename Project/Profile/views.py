@@ -45,7 +45,7 @@ def auth_view(request):
     user = auth.authenticate(username=username, password = password)
     if user is not None:
         if  request.POST.get('remember_me', None):
-            request.session.set_expiry(86400)   #overwritting django session cookie age in seconds (0 means remember as long as browswer is opened)
+            request.session.set_expiry(0)   #overwritting django session cookie age in seconds (0 means remember as long as browswer is opened)
         auth.login(request, user)
         return HttpResponseRedirect('/')
     else:
