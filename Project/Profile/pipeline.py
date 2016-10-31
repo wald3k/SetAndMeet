@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from .models import Profile
 
 from django.conf import settings#for user
+import os #for deleting imagefield
 
 
 
@@ -53,4 +54,7 @@ def get_avatar(backend, strategy, details, response,
         profile = Profile.objects.get(user = u)
         response = urlopen(url)
         io = BytesIO(response.read())
+        if(profile.avatar != None):#some avatar exists
+            print "deleting " + profile.avatar.name 
+            os.remove(profile.avatar.name)#delete old avatar before saving a new one! os.remove by filepath
         profile.avatar.save("user_{}".format(u.id), File(io))

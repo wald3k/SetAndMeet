@@ -38,7 +38,7 @@ from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
 
 from django.db.models import Q #for seach users
-
+"""User logs to the application."""
 def auth_view(request):
     username = request.POST.get('username','')
     password = request.POST.get('password','')
