@@ -1,8 +1,10 @@
 setInterval(get_all_shouts, 6000); //60000 MS == 1 minute
-setInterval(scroll_shoutbox, 6000); //60000 MS == 1 minute
+//setInterval(scroll_shoutbox, 6000); //60000 MS == 1 minute
 
 $(document).ready(function(){//when document is ready run this function
   $('#submit').on('click', function(e){
+    var message = $('#shout').val(); //grab value of an input
+    $('#shout').val('');//clear input box
     //alert($('#shout').val());
     var profile_avatar = $('.avatar-medium').html();
     console.log("Testuje console");
@@ -15,8 +17,7 @@ $(document).ready(function(){//when document is ready run this function
       type:'POST',
       url:'/shout_add/',
       data:{
-        text:$(
-        '#shout').val(),
+        text:message,
         event_id: wydarzenie,
         avatar: profile_avatar,
         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
@@ -37,13 +38,14 @@ $(document).ready(function(){//when document is ready run this function
                     if(index == len - 1){
                       var message_text = JSON.stringify(item.fields.text);
                       message_text = message_text.replace(/\"/g, ""); //replacy any " to nothing
-                      console.log("only onece in this if!");
+                      console.log("Enter this if only once!");
                         new_html = profile_avatar + message_text;
                     }
         });
         // new_html += "\n</ul>";
         var old_html = $('#shouts').html();
         $('#shouts').html(old_html +"</br>" + new_html);//replacing content of id shouts with new html!
+        scroll_shoutbox();//scroll to the bottom
       }
     })
 
@@ -90,11 +92,12 @@ function get_all_shouts() {
     },
     success:function(response){
       $('#shouts').html(response);//replacing content of id shouts with new html!
+      scroll_shoutbox();//scroll to the bottom
     }
   })
 }
 
 function scroll_shoutbox() {
   console.log("Scrolling down")
-  $("#shoutbox").scrollTop($("#shoutbox").scrollTop() + 1000);
+  $("#shouts").scrollTop($("#shouts").scrollTop() + 9999999999);
 }

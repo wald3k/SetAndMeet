@@ -55,6 +55,6 @@ def get_avatar(backend, strategy, details, response,
         response = urlopen(url)
         io = BytesIO(response.read())
         if(profile.avatar != None):#some avatar exists
-            print "deleting " + profile.avatar.name 
+            print "deleting " + profile.avatar.name
             os.remove(profile.avatar.name)#delete old avatar before saving a new one! os.remove by filepath
         profile.avatar.save("user_{}".format(u.id), File(io))

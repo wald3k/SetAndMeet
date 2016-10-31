@@ -9,6 +9,10 @@ from Profile.models import Profile
 #from django.urls import reverse #This works no longer on  Django 1.9
 from django.core.urlresolvers import reverse #Works on Djngo 1.9 and up!
 import json
+import time
+from datetime import datetime #for date comparison
+from datetime import timedelta
+
 
 
 from django.core import serializers
@@ -40,8 +44,6 @@ def shout_add(request):
     response = serializers.serialize('json', event_shouts) #if you want to send all shouts
     print "\n\n"
     print response
-    response['avatar'] = str(avatar) #jak dodac avatar do respnsa?
-
     return HttpResponse(response, content_type='application/json')
 # @login_required
 # def shout_list(request):
@@ -67,6 +69,15 @@ def shout_list(request):
         avatar = shout.author.avatar
         profile_detail = reverse('Profile:profile_detail', args=(shout.author.user.id,))
         html += "<br><li>"
+        #This is how to compare two dates
+        date1 = shout.date_created + timedelta(+0.5)
+        date2 = timezone.now()
+        if(date1 <= date2):#if shout was created day before or earlier show date & hours & mins.
+            html += shout.date_created.strftime("%Y-%m-%d %H:%M")
+        else:
+            #print shout.date_created.strftime("%H:%M")
+            #print time.time()
+            html += shout.date_created.strftime("%H:%M")#else if shout was created today show only hours & mins.
         html += """<a href=""" + '"' + profile_detail +  '"' + """> <img  src="../../""" +  str(avatar) + """" class="img-circle"   title="""" + shout.author.user.username +  """ " /></a>"""
         html += shout.text
         html += "</li>"
