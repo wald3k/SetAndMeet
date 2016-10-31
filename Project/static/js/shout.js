@@ -1,5 +1,5 @@
-setInterval(get_all_shouts, 60000); //60000 MS == 1 minute
-setInterval(scroll_shoutbox, 60000); //60000 MS == 1 minute
+setInterval(get_all_shouts, 6000); //60000 MS == 1 minute
+setInterval(scroll_shoutbox, 6000); //60000 MS == 1 minute
 
 $(document).ready(function(){//when document is ready run this function
   $('#submit').on('click', function(e){
@@ -52,6 +52,31 @@ $(document).ready(function(){//when document is ready run this function
 
 
 //Get send this query as set in interval. Retrieve all shouts!
+// function get_all_shouts() {
+//   var profile_avatar = $('.avatar-medium').html();
+//   var wydarzenie = $('#wydarzenie').attr('numer_wydarzenia');
+//   console.log("hi");
+//   $.ajax({
+//     type:'POST',
+//     url:'/shout_list/',
+//     data:{
+//       event_id: wydarzenie,
+//       csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+//     },
+//     success:function(json_response){
+//       var new_html = "";
+//       var len = json_response.length;       //check length of json_response array
+//       jQuery.each(json_response, function(index, item) {
+//                   new_html+= "<br><li>";
+//                   new_html += profile_avatar;
+//                   new_html+= JSON.stringify(item.fields.text);
+//                   new_html+= "</li>";
+//                   console.log(new_html);
+//       });
+//       $('#shouts').html(new_html);//replacing content of id shouts with new html!
+//     }
+//   })
+// }
 function get_all_shouts() {
   var profile_avatar = $('.avatar-medium').html();
   var wydarzenie = $('#wydarzenie').attr('numer_wydarzenia');
@@ -63,17 +88,8 @@ function get_all_shouts() {
       event_id: wydarzenie,
       csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
     },
-    success:function(json_response){
-      var new_html = "";
-      var len = json_response.length;       //check length of json_response array
-      jQuery.each(json_response, function(index, item) {
-                  new_html+= "<br><li>";
-                  new_html += profile_avatar;
-                  new_html+= JSON.stringify(item.fields.text);
-                  new_html+= "</li>";
-                  console.log(new_html);
-      });
-      $('#shouts').html(new_html);//replacing content of id shouts with new html!
+    success:function(response){
+      $('#shouts').html(response);//replacing content of id shouts with new html!
     }
   })
 }
