@@ -27,12 +27,21 @@ from django.http import HttpResponseRedirect
 """
 Returns view for a specified Event
 """
-@login_required #Not required. Everyone can see, even guests.
+#@login_required #Not required. Everyone can see, even guests.
 def event_detail(request,event_pk):
     e  = Event.objects.get(pk=event_pk)
     context = {'user':request.user,'event':e}
-    template = 'Event/event_detail.html'
-    return render(request,template,context)
+    if request.user.is_authenticated():
+        if request.user.is_active:
+            template = 'Event/event_detail.html'
+            return render(request,template,context)
+    else:
+        template = 'Event/event_description.html'
+        return render(request,template,context)
+
+
+
+
 
 """
 Returns a list of all Events
