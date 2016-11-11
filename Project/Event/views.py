@@ -54,13 +54,41 @@ class EventListView(ListView):
         context = super(EventListView, self).get_context_data(**kwargs) #in template reference by {{ object. }}
         return context
 
-
+"""
+Registers logged user for the event(if there are still spots for the event).
+"""
 def event_join(request,event_pk):
-        e  = Event.objects.get(pk=event_pk)
-        context = {'user':request.user,'event':e}
+        e  = Event.objects.get(pk=event_pk)                                     #get reference to an event user wants to join
+        user = request.user
+        context = {'user':user,'event':e}                               #adding user to the context dictinary
         if(e.cur_capacity < e.person_limit):
-            e.cur_capacity = e.cur_capacity + 1
-            e.profiles.add(request.user.profile) #see models.py for name of profile set
-            e.save()
-        template = 'Event/event_list.html'
-        return render(request,template,context)
+            if (not e.profiles.filter(user_id=user.id).exists()):               #filters profile from profiles by user_id field
+                e.cur_capacity = e.cur_capacity + 1
+                e.profiles.add(request.user.profile) #see models.py for name of profile set
+                e.save()
+                template = 'Event/event_detail.html'
+                return render(request,template,context)
+            else:
+                print "User already logged in!"
+        else:
+            print "No spots left!"
+        return HttpResponseRedirect('/event_list')
+        # template = 'Event/event_list.html'
+        # return render(request,template,context)
+
+
+"""
+Unregisters user from the event
+"""
+def event_leave(request,event_pk):
+    e  = Event.objects.get(pk=event_pk)                                     #get reference to an event user wants to join
+    user = request.user
+    context = {'user':user,'event':e}                               #adding user to the context dictinary
+    if (e.profiles.filter(user_id=user.id).exists()):               #filters profile from profiles by user_id field
+        e.cur_capacity = e.cur_capacity - 1
+        e.profiles.remove(request.user.profile)                     #remove from manyToMany refrecence
+        e.save()
+        return HttpResponseRedirect('/event_list')
+    else:
+        print "User was not registered for the event!"
+        return HttpResponseRedirect('/')

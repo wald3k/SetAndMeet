@@ -39,7 +39,11 @@
                 {% else %}
                   <td class="col-md-1"> <span class="badge alert-danger">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>
                 {% endif %}
-                <td class="col-md-2"> <a href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
+                {% if request.user.profile in event.profiles.all %}
+                  <td class="col-md-2"> <a href="{% url 'Event:event_leave' event.id %}">  Unregister! </a> </td>
+                {% else %}
+                  <td class="col-md-2"> <a href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
+                {% endif %}
 
               </tr>
             {% empty %}
