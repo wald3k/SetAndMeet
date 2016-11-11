@@ -1,8 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block tabs %}
+{% include "includes/tabs.html" with active_tab='home' %}
+{% endblock %}
 {% block content %}
 
 
-  <form method="POST" enctype="multipart/form-data" action="/register_profile/" >
+  <form enctype="multipart/form-data" method="POST"  action="/register_profile/" >
       {% csrf_token %}
 
 

@@ -54,20 +54,22 @@ def auth_view(request):
 from django.contrib.auth.forms import UserCreationForm
 from .forms import MyRegistrationForm
 
+"""
+Creating a new Profile by users.
+"""
 def register_profile(request):
-    context = {} #create a context dictionary
+    context = {}                                                                #create a context dictionary
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
     else:
         if request.method == 'POST':
             form = MyRegistrationForm(data=request.POST, files=request.FILES)
-            if form.is_valid():
+            if form.is_valid():                                             #formed filled without properly
                 form.save()
                 return HttpResponseRedirect('/')
             print form.errors
-        else:
-            form = MyRegistrationForm()
-
+        else:                                                               #Entered here from method GET i.e. by typing address. It means that new form will be created.
+            form = MyRegistrationForm()                                     #creating new empty form
         context.update(csrf(request))
         context['form'] = form
 

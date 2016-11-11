@@ -14,8 +14,11 @@ class MyRegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(MyRegistrationForm, self).save(commit=True)
-        user.email = self.cleaned_data['email']
         user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        if user.email and User.objects.filter(email=user.email).exclude(username=user.username).count():    #Check if email address is unique, otherwise raise exception
+            raise forms.ValidationError(u'Email addresses must be unique.')
+
 
         if commit:
             user.save()
