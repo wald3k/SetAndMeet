@@ -7,83 +7,87 @@
   {% include "includes/tabs.html" with active_tab='events' %}
 {% endblock %}
 {% block content %}
+
 <section>
 
+
+  <div class="event-description">
+        {{ event.description }}
+  </div>
         <div class="row">
-          <div class="col-md-12"><h1>{{ event.name }}</h1></div>
-        </div>
-        <div class="row">
-            {{ event.profiles.all.0 }}
-              <div class="col-md-7">
-                <h4>Host of the event: </h4>
-              </div>
-            <div class="col-md-3">
-              <div class="avatar-medium">
-                <a href="{% url 'Profile:profile_detail' event.host.pk %}"> <img  src="../../{{ event.host.avatar.url }}" class="img-circle"/></a>
+          <div class="col-md-4">
+            <h1>{{ event.name }}</h1>
+            <div class="row">
+                  <div class="col-md-7">
+                    <h4>Host of the event: </h4>
+                  <a href="{% url 'Profile:profile_detail' event.host.pk %}">  {{ event.host.user.username }} </a>
+                  </div>
+                <div class="col-md-5">
+                  <div class="avatar-medium">
+                    <a href="{% url 'Profile:profile_detail' event.host.pk %}"> <img  src="../../{{ event.host.avatar.url }}" class="img-circle"/></a>
+                  </div>
+                </div>
+            </div>
+            {{event.date_start}}
+            <br />
+            	{{event.date_end}}
+              <br />
+              Cost: {{event.fee}}
+              <br />
+
+              <br />
+              {% if event.cur_capacity < event.person_limit %}
+                Current capacity: <span class="badge alert-success" style="font-size: 30px;">{{ event.cur_capacity }}/{{ event.person_limit }}</span>
+                <a href="{% url 'Event:event_join' event.id %}"><button type="button"  class="btn btn-success">  Join now! </button></a>
+              {% else %}
+                Current capacity: <span class="badge alert-danger" style="font-size: 30px;">{{ event.cur_capacity }}/{{ event.person_limit }}</span>
+                <span class="label label-default clickMe" style="font-size: 16px; margin-top: 20px;">No spots!</span>
+              {% endif %}
+          </div>
+          <div class="col-md-8">
+            <!-- using external webpage is possible but problem with exceeding limit of 25 000 views occurs -->
+            <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+            <div style="overflow:hidden;height:500px;width:600px;">
+              <div id="gmap_canvas" style="height:500px;width:600px;">
+                <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+                <a class="google-map-code" href="http://www.themecircle.net" id="get-map-data">themecircle</a>
               </div>
             </div>
+              <script type="text/javascript"> function init_map(){
+                var myOptions = {
+                  zoom:14,
+                  center:new google.maps.LatLng({{ event.where.position.latitude }},{{ event.where.position.longitude }}),
+                  mapTypeId: google.maps.MapTypeId.ROADMAP};
+                  map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);
+                  marker = new google.maps.Marker({map: map,position: new google.maps.LatLng({{ event.where.position.latitude }},         {{ event.where.position.longitude }})})
+                  ;infowindow = new google.maps.InfoWindow({content:"{{event.where}}" })
+                  ;google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker)
+                  ;}google.maps.event.addDomListener(window, 'load', init_map);
+                </script> -->
+                <h3>{{ event.where }}</h3>
+                    <div id="map"></div>
+                    <script>
+                      function initMap() {
+                        var my_place = {lat: {{ event.where.position.latitude }}, lng: {{ event.where.position.longitude }}};
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                          zoom: 17,
+                          center: my_place
+                        });
+                        var marker = new google.maps.Marker({
+                          position: my_place,
+                          map: map,
+                        });
+                      }
+                    </script>
+
+
+                <script async defer
+                  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApgBwHhWwbYLOLuj_0Dv3hMbkT6oM7a_0&callback=initMap">
+                </script>
+
+
+            </div>
         </div>
-        <div class="row">
-          <div class="col-md-7">
-            <h4>Description: </h4>
-          </div>
-          <div class="col-md-7">
-              {{ event.description }}
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2">
-            <h4>Location: </h4>
-          </div>
-          <div class="col-md-10">
-              {{ event.where }}
-          </div>
-        </div>
-        <p>
-            {{event.date_start}}
-        </p>
-          	{{event.date_end}}
-        <p>
-          {{event.description}}
-        </p>
-        <p>
-          {{event.person_limit}}
-        </p>
-        <p>
-          {{event.cur_capacity }}
-        </p>
-        <p>
-          {{event.fee}}
-        </p>
-
-
-        {{ event.where.position.latitude }}
-        {{ event.where.position.longitude }}
-
-
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<div style="overflow:hidden;height:500px;width:600px;">
-  <div id="gmap_canvas" style="height:500px;width:600px;">
-    <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
-    <a class="google-map-code" href="http://www.themecircle.net" id="get-map-data">themecircle</a>
-  </div>
-</div>
-<script type="text/javascript"> function init_map(){
-  var myOptions = {
-    zoom:14,
-    center:new google.maps.LatLng({{ event.where.position.latitude }},{{ event.where.position.longitude }}),
-    mapTypeId: google.maps.MapTypeId.ROADMAP};
-    map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);
-    marker = new google.maps.Marker({map: map,position: new google.maps.LatLng({{ event.where.position.latitude }},         {{ event.where.position.longitude }})})
-    ;infowindow = new google.maps.InfoWindow({content:"{{event.where}}" })
-    ;google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker)
-    ;}google.maps.event.addDomListener(window, 'load', init_map);
-  </script>
-
-
-
-
 
 </section>
 

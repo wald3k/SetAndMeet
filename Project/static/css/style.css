@@ -101,7 +101,7 @@ section{
 
 }
 #shouts{
-	height: :200px;
+	height: 200px;
 	border: #444 1px solid;
 	overflow:auto;
 	max-height: 400px;
@@ -113,10 +113,26 @@ section{
 	list-style: none;
 	line-height: 1.7em;
 }
-
+/*Event detail not logged START*/
+.event-description{
+	background: #f2f2f3;
+	padding: 40px 20px;
+	text-align: center;
+}
+/*Event detail not logged END*/
 
 
 /*Shoutbox END*/
+
+
+/*GOOGLE MAPS START*/
+/*https://developers.google.com/maps/documentation/javascript/adding-a-google-map*/
+#map {
+			 height: 400px;
+			 width: 100%;
+			}
+
+/*GOOGLE MAPS END*/
 
 
 /*For small Resolution*/
