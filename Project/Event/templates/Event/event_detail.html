@@ -35,7 +35,7 @@
       <li class="list-group-item">
         <div class="row">
           <div class="col-md-3">
-            <a style="display: table-cell;vertical-align: middle;" href="{% url 'Profile:profile_detail' user.id %}">{{profile.user.username}} </a>
+            <a style="display: table-cell;vertical-align: middle;" href="{% url 'Profile:profile_detail' profile.user.id %}">{{profile.user.username}} </a>
           </div>
           <div class="col-md-3">
             <span class="badge alert-success">12</span>
