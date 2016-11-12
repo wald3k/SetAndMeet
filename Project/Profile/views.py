@@ -153,3 +153,26 @@ class ProfileSearchView(ListView):
         query = self.request.GET.get("q")
         return self.model.objects.filter(Q(user__username__icontains=query) | Q(user__email__icontains=query))
         #return self.model.objects.filter(user__username__icontains=query, user__email__icontains=query)
+
+def add_friend(request,profile_pk):
+    logged_user = Profile.objects.get(user=request.user)                       #get currently logged user
+    friend_user = Profile.objects.get(pk=profile_pk) #get user that we want to invite to friends
+    print logged_user
+    print friend_user
+    if(logged_user == friend_user):
+        print "Can't be friend with himself."
+    else:
+        logged_user.friends.add(friend_user)             #added a new friend
+        print "Friend added"
+    return redirect(request.META['HTTP_REFERER']) #redirect to previous url.
+
+def remove_friend(request,profile_pk):
+    logged_user = Profile.objects.get(user=request.user)                       #get currently logged user
+    friend_user = Profile.objects.get(pk=profile_pk) #get user that we want to invite to friends
+    print logged_user
+    print friend_user
+    if(friend_user in logged_user.friends.all()):
+        logged_user.friends.remove(friend_user)
+        friend_user.friends.remove(logged_user)
+        print "friend removed"
+    return redirect(request.META['HTTP_REFERER']) #redirect to previous url.

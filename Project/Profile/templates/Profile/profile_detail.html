@@ -31,7 +31,15 @@
           <br />
           <button type="button" class=font-size:30px;"btn btn-default">Show friends</button>
           <button type="button" class="btn btn-primary">Message</button>
-          <button type="button" class="btn btn-success">Invite to friends</button>
+          {% if user.pk == profile.user.pk %}
+          <!--  Don't display anything-->
+          {% else %}
+            {% if user.profile in profile.friends.all %}
+                <a href="{% url 'Profile:remove_friend' profile.user.id %}" class="btn btn-danger">Remove friend</a>
+            {% else  %}
+              <a href="{% url 'Profile:add_friend' profile.user.id %}" class="btn btn-success">Invite</a>
+            {% endif %}
+          {% endif %}
           <button type="button" class="btn btn-warning">Gallery</button>
       </div>
 </div>
@@ -73,7 +81,7 @@
       {% for friend in profile.friends.all %}
           <div class="col-md-4">
             <a href="{% url 'Profile:profile_detail' friend.user.id %}">
-              <img  src="../../{{ friend.avatar }}" class="img-circle" height="70" width="70"/>
+              <img  src="../../{{ friend.avatar }}" class="img-circle" height="70" width="70"  title="{{ friend.user.username }}"/>
             </a>
           </div>
           {% if forloop.counter|divisibleby:3 %}

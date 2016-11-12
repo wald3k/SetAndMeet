@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^register_profile/$', views.register_profile, name='register_profile'),
     url(r'^login_secondary/$', views.login_secondary, name='login_secondary'),
     url(r'^search/$', views.ProfileSearchView.as_view(), name="search"),
+    url(r'^add_friend/(?P<profile_pk>\d+)/$', views.add_friend, name='add_friend'),
+    url(r'^remove_friend/(?P<profile_pk>\d+)/$', views.remove_friend, name='remove_friend'),
 ]
