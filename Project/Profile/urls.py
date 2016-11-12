@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^wyloguj/$', views.wyloguj),
     url(r'^user_created/$', views.user_created),
     url(r'^register_profile/$', views.register_profile, name='register_profile'),
+    url(r'^login_secondary/$', views.login_secondary, name='login_secondary'),
     url(r'^search/$', views.ProfileSearchView.as_view(), name="search"),
 ]

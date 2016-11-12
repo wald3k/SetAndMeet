@@ -47,7 +47,8 @@ def auth_view(request):
         if  request.POST.get('remember_me', None):
             request.session.set_expiry(0)   #overwritting django session cookie age in seconds (0 means remember as long as browswer is opened)
         auth.login(request, user)
-        return HttpResponseRedirect('/')
+        #return HttpResponseRedirect('/')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER','/')) #after login go to last loaction
     else:
         return HttpResponseRedirect('/')
 
@@ -74,6 +75,9 @@ def register_profile(request):
         context['form'] = form
 
         return render(request, 'register_profile.html', context)
+
+def login_secondary(request):
+    return render(request, 'login.html')
 
 def user_created(request):
     return render_to_response('user_created.html')

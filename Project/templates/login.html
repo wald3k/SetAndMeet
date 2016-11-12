@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Play it gathers people that want have fun and play together!">
+    <meta name="author" content="Waldemar Sobiecki">
+
+    <title>Play it! The easiest way to play game!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <!-- FontAwesome-->
+    <link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- source: https://github.com/Haixing-Hu/bootstrap3-ie10-viewport-bug-workaround -->
+    <link href="{% static "css/ie10-viewport-bug-workaround.css" %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css"  href="{% static "css/style.css" %}" >
+    <!-- Importing JQuery that is common for every other page that needs to use Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    {% block my_js_scripts %}
+    {% endblock %}
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <a href="/"><img src="{% static "img/cool_logo.png" %}" class="logo"></a>
+
+          {% if user.is_authenticated and not backends.associated %}
+             <div class="welcome-group">
+              Hello {{ request.user }} !<br />
+             <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ user.profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
+              <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
+            </div>
+
+          {% elif user.is_authenticated and backends.associated %}
+            <div class="welcome-group">
+             Hello {{ request.user }} !<br />
+             <a href="{% url 'Profile:profile_detail' user.id %}"><img  src="../../{{ user.profile.avatar }}" class="img-circle" height="50" width="50"/> </a>
+             <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
+            </div>
+            <!-- <a href="/wyloguj/">Log me out!</a> -->
+         {% else %}
+         {% endif %}
+          </div>
+     </header>
+
+       <nav class="navbar navbar-default">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+
+              {% block tabs %}
+              {% include "includes/tabs.html" with active_tab='home' %}
+              {% endblock  %}
+
+              <form id="user-search-input"
+                  action="{% url 'Profile:search'%}" method="GET">
+                   <div class="input-group ">
+                       <input type="text"  class="search-query form-control" name="q" placeholder="Search for a user..." value='{{ request.get.q }}' />
+                       <span class="input-group-btn">
+                           <button class="btn btn-danger" type="submit">
+                               <span class=" glyphicon glyphicon-search"></span>
+                           </button>
+                       </span>
+                   </div>
+             </form>
+
+              </div>
+            </div><!--/.nav-collapse -->
+
+          </div>
+       </nav>
+       <div class="login_secondary">
+         <h3>Please login to view the information</h3>
+         <form name="SecondaryLoginForm" action="/auth/?next={{request.path}}" method="post">
+           {% csrf_token %}
+           <input type="username" name="username"  placeholder="Username"></br>
+           <input type="password" name="password" placeholder="Password"></br>
+           <button type="submit">Sign in</button><br>
+         </form>
+       </div>
+
+
+
+
+
+
+
+
+
+
+  <footer>
+      <div class="container">
+        <p>Waldemar Sobiecki &copy; 2016, All Rights Reserved</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static "js/bootstrap.js" %}"></script>
+  </body>
+</html>
