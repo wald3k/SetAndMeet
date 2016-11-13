@@ -28,6 +28,66 @@ header form{
 section{
 	width: 80%;
 }
+/*Dropdown menu START*/
+/*http://www.w3schools.com/howto/howto_js_dropdown.asp*/
+/* Dropdown Button */
+.dropbtn-left {
+	 background-color: #4CAF50;
+	 color: white;
+	 padding: 16px;
+	 font-size: 16px;
+	 border: none;
+	 cursor: pointer;
+	 margin-right: 0px;
+	 border-right: none;
+}
+.dropbtn-right {
+	 background-color: #4CAF50;
+	 color: white;
+	 padding: 16px;
+	 font-size: 16px;
+	 border: none;
+	 cursor: pointer;
+	 margin-left: -5px;
+	 border-left: none;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn-left:hover,.dropbtn-right:hover, .dropbtn:focus {
+	 background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+	 position: relative;
+	 display: inline-block;
+	 z-index:9; /*Show the whole dropdown on top ofevery other div*/
+	 margin-left: 0px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+	 display: none;
+	 position: absolute;
+	 background-color: #f9f9f9;
+	 min-width: 160px;
+	 box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	 color: black;
+	 padding: 12px 16px;
+	 text-decoration: none;
+	 display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+/*DROPDOWN MENU END*/
 .login_secondary{
 	text-align: center;
 }

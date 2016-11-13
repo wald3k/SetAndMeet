@@ -37,6 +37,16 @@
              <div class="welcome-group">
               Hello {{ request.user }} !<br />
              <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ user.profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
+             <div class="dropdown">
+              <a href="{% url 'Profile:profile_detail' user.id %}"><button class="dropbtn-left">Action Center</button></a>
+               <button onclick="myFunction()" class="dropbtn-right">
+                 <i  class="fa fa-caret-down" aria-hidden="true"></i>
+               </button>
+               <div id="myDropdown" class="dropdown-content">
+                 <a href="#">Create Event</a>
+                 <a href="#">Rate Event</a>
+                 <a href="#">Settings</a>
+               </div>
               <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
             </div>
 
@@ -44,6 +54,19 @@
             <div class="welcome-group">
              Hello {{ request.user }} !<br />
              <a href="{% url 'Profile:profile_detail' user.id %}"><img  src="../../{{ user.profile.avatar }}" class="img-circle" height="50" width="50"/> </a>
+             <div class="dropdown">
+              <a href="{% url 'Profile:profile_detail' user.id %}"><button class="dropbtn-left">Action Center</button></a>
+               <button onclick="myFunction()" class="dropbtn-right">
+                 <i  class="fa fa-caret-down" aria-hidden="true"></i>
+               </button>
+               <div id="myDropdown" class="dropdown-content">
+                 <a href="#">Create Event</a>
+                 <a href="#">Rate Event</a>
+                 <a href="#">Settings</a>
+               </div>
+            <button class="dropbtn-left">Log me out!
+            </button>
+            </div>
              <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
             </div>
             <!-- <a href="/wyloguj/">Log me out!</a> -->
@@ -133,5 +156,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="{% static "js/bootstrap.js" %}"></script>
+    <script src="{% static "js/dropdown.js" %}"></script>
   </body>
 </html>
