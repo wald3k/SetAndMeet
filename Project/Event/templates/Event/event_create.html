@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block tabs %}
+  {% include "includes/tabs.html" with active_tab='events' %}
+{% endblock %}
+{% block content %}
+<section>
+  <!-- <form method="POST" class="event-create-form">{% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="save btn btn-default">Save</button>
+    </form> -->
+    <form action="." method="post">
+    {% csrf_token %}
+    {{ location_form.as_p }}
+    {{ event_form.as_p }}
+    <input type="submit" value="Register">
+</form>
+</section>
+
+<script type="text/javascript" src="//maps.google.com/maps/api/js?key=AIzaSyApgBwHhWwbYLOLuj_0Dv3hMbkT6oM7a_0"></script>
+<script type="text/javascript" src="/static/geoposition/geoposition.js"></script>
+<!-- For calendar widget -->
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %} "/>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %} "/>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/global.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}"/>
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/actions.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+{% endblock %}

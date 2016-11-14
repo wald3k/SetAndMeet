@@ -75,6 +75,18 @@ class Event(models.Model):
 		self.modified = timezone.now()
 		return super(Event, self).save(*args, **kwargs)
 
+	"""
+	Adds a Profile reference to profiles list in the Event model and then saves changes to the database.
+	"""
+	def add_participant(self,profile):
+		if isinstance(profile, Profile):
+			if(not profile in self.profiles.all() and self.cur_capacity < self.person_limit):#if profile is not already on the list and there are free spots left
+				self.profiles.add(profile)
+				self.cur_capacity = self.cur_capacity + 1
+				self.save()									#save changes to the DB
+				return True									#successfully added a new profile
+		return False										#Couldn't add profile to list of participants
+
 class EventRating(models.Model):
 	event = models.ForeignKey(Event)
 	author = models.ForeignKey(Profile)
