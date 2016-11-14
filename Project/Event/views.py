@@ -121,11 +121,11 @@ def event_create(request):
         cat = form1['category'].value()                                                 #category is given as an integer i.e: 1,2,3....
         category = Category.objects.get(pk=cat)                                         #get Category by pk and not by name
         d_start = form1['date_start'].value()                                           #get Date string in format 2016-12-24
-        t_start = form1['time_start'].value()                                           #get time string in format 23:54:07
-        date_start = datetime.strptime(d_start + " " + t_start, '%Y-%m-%d %H:%M:%S')    #create a datetime object
+        print d_start
+        date_start = datetime.strptime(d_start, '%Y/%m/%d %H:%M')    #create a datetime object
+        print date_start
         d_end = form1['date_end'].value()
-        t_end = form1['time_end'].value()
-        date_end = datetime.strptime(d_end + " " + t_end, '%Y-%m-%d %H:%M:%S')          #create a datetime object
+        date_end = datetime.strptime(d_end, '%Y/%m/%d %H:%M')          #create a datetime object
         description = form1['description'].value()
         person_limit = form1['person_limit'].value()
         fee = form1['fee'].value()

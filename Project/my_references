@@ -68,6 +68,11 @@ Tworzenie formy dla event_create
 http://stackoverflow.com/questions/25961468/how-to-generate-a-form-in-django-like-in-the-admin
 http://stackoverflow.com/questions/11101651/django-forms-having-multiple-models-in-meta-class
 http://stackoverflow.com/questions/226510/django-forms-how-to-use-prefix-parameter
+http://stackoverflow.com/questions/38601/using-django-time-date-widgets-in-custom-form									Uzywanie calendar widget w formie
+http://stackoverflow.com/questions/1450463/django-datetimewidget-not-showing-up
+
+http://vitalets.github.io/combodate/				Skrypt w js do wybierania daty
+http://xdsoft.net/jqplugins/datetimepicker/		Skrypt uzyty w aplikacji do wybierania czasu/daty
 
 
 
