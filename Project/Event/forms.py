@@ -23,7 +23,8 @@ class EventForm(ModelForm):
 
     class Meta:
         model = Event
-        exclude = ('rating','where','host','date_start','date_end','profiles') #Excluding fields from original model
+        #exclude = ('rating','where','host','date_start','date_end','profiles') #Excluding fields from original model
+        fields=['date_start','date_end','name','category','description','person_limit','fee','public']
 
 """
 Class represents Location form that will be shown to end-user via HTML.
