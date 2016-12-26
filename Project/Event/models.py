@@ -31,6 +31,9 @@ class Category(models.Model):
 	"""
 	def __unicode__(self):
 		return '%s' % (self.name)
+
+
+
 """
  Model to contain information about an event.
  :title: Title of an event
@@ -53,11 +56,11 @@ class Event(models.Model):
 	cur_capacity = models.PositiveIntegerField(editable=False, default = 0)
 	fee = models.PositiveIntegerField(default = 0)
 	#profiles = models.ForeignKey(Profile, on_delete=models.CASCADE)
-	profiles = models.ManyToManyField(Profile, blank=True) #profile_set.get(name='name of a profile') to access elements via m2m relation
+	profiles = models.ManyToManyField(Profile, blank=True) #profile_set.get(name='name of a profile') to access elements via m2m relation or profiles.all
 	host = models.ForeignKey(Profile, blank = False, null = False, related_name="hosted_events") #related name is what can be accessed from inside Profile model
 	where = models.ForeignKey(Location, blank = False, null = False, related_name="location") #related name is what can be accessed from inside Profile model
 	public = models.BooleanField(blank=False, null = False, default = True)					#if event is public it should be visible for everyone
-	rating = models.DecimalField(default=0, max_digits=9, decimal_places=2)					#average rating of this event
+	#rating = models.DecimalField(default=0, max_digits=9, decimal_places=2)					#average rating of this eventuser = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key = True)
 	def __unicode__(self):
 		"""
 		Displays Event in admin panel.
@@ -86,9 +89,50 @@ class Event(models.Model):
 				self.save()									#save changes to the DB
 				return True									#successfully added a new profile
 		return False										#Couldn't add profile to list of participants
+	def add_event_rating(self, author, rating):
+		print timezone.now()
+		print self.date_end
+		print author
+		print rating
+		#Check if user already rated this event:
+		already_rated = EventRating.objects.filter(event = self, author = author).exists()
+		if(already_rated == True):
+			print "User has already rated this event!"
+			return 						#exit function 
+		if(rating < 1 or rating > 5):
+			print "Rating out of range!"
+			return
+		if(self.date_end < timezone.now()): #Event is finished so participants can rate an event
+			print "Go ahead rate this event"
+			if(author in self.profiles.all()):#check if author of a new rating was taking part in an event
+				print "This user was on the list :)"
+				event_rating = EventRating.objects.create(event = self, author = author, rating = rating)
+				print "Successfully saved rating!"
+			else:
+				print "This user was not on the list! Cannot save this rating!"
+		else:								#Event has not been finished yet!
+			print "Too early to rate this event!"
+	"""
+	Calculates average rating
+	"""
+	def calculate_rating(self):
+		all_ratings = EventRating.objects.filter(event = self)
+		result = 0
+		i = 0
+		if(len(all_ratings) > 0):
+			for e_rating in all_ratings:
+				result = result + e_rating.rating
+				i = i + 1
+			result = result / (i)					#If wants floating point number use this:result = result / (i * 1.0)
+		print "Overal rating for event with id: " + str(self.id) + " is: " + str(result)
+		return result
+		
 
+"""
+Class representing raing of an event.
+"""
 class EventRating(models.Model):
-	event = models.ForeignKey(Event)
+	event  =models.ForeignKey(Event) #on_delete=models.CASCADE: when deleting Event, EventRating will also be deleted.
 	author = models.ForeignKey(Profile)
 	pub_date = models.DateTimeField(auto_now_add='true')
 	rating = models.IntegerField(blank=False, null=False, default=0, validators=[MinValueValidator(1), MaxValueValidator(5)])
