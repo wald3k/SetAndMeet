@@ -1,6 +1,6 @@
 from django.contrib import admin
 #my imports
-from .models import Event, Category, EventRating
+from .models import Event, Category
 # Register your models here.
 
 
@@ -13,12 +13,8 @@ class EventAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     class Meta:
         model = Category
-class EventRatingAdmin(admin.ModelAdmin):
-    class Meta:
-        model = EventRating
 
 
 #Registering Classes in admin panel
 admin.site.register(Event, EventAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(EventRating, EventRatingAdmin)

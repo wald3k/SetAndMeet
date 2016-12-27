@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_extensions', #for graphviz
     'Shout',
     'rest_framework', #adding django-rest-framework
+    'RatingSystem',#for EventRating & ProfileRating
 ]
 #After adding 'django.contrib.sites', to installed apps
 SITE_ID = 1

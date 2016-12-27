@@ -8,8 +8,7 @@ from django.utils import timezone
 from Profile.models import Profile
 from Location.models import Location
 from Profile.models import Profile
-from django.core.validators import MaxValueValidator, MinValueValidator #for integerfield validators
-
+#from RatingSystem.models import EventRating
 from django.db.models.signals import post_init #for adding host to participants
 # Create your models here.
 """
@@ -89,60 +88,3 @@ class Event(models.Model):
 				self.save()									#save changes to the DB
 				return True									#successfully added a new profile
 		return False										#Couldn't add profile to list of participants
-	def add_event_rating(self, author, rating):
-		print timezone.now()
-		print self.date_end
-		print author
-		print rating
-		#Check if user already rated this event:
-		already_rated = EventRating.objects.filter(event = self, author = author).exists()
-		if(already_rated == True):
-			print "User has already rated this event!"
-			return 						#exit function 
-		if(rating < 1 or rating > 5):
-			print "Rating out of range!"
-			return
-		if(self.date_end < timezone.now()): #Event is finished so participants can rate an event
-			print "Go ahead rate this event"
-			if(author in self.profiles.all()):#check if author of a new rating was taking part in an event
-				print "This user was on the list :)"
-				event_rating = EventRating.objects.create(event = self, author = author, rating = rating)
-				print "Successfully saved rating!"
-			else:
-				print "This user was not on the list! Cannot save this rating!"
-		else:								#Event has not been finished yet!
-			print "Too early to rate this event!"
-	"""
-	Calculates average rating
-	"""
-	def calculate_rating(self):
-		all_ratings = EventRating.objects.filter(event = self)
-		result = 0
-		i = 0
-		if(len(all_ratings) > 0):
-			for e_rating in all_ratings:
-				result = result + e_rating.rating
-				i = i + 1
-			result = result / (i)					#If wants floating point number use this:result = result / (i * 1.0)
-		print "Overal rating for event with id: " + str(self.id) + " is: " + str(result)
-		return result
-		
-
-"""
-Class representing raing of an event.
-"""
-class EventRating(models.Model):
-	event  =models.ForeignKey(Event) #on_delete=models.CASCADE: when deleting Event, EventRating will also be deleted.
-	author = models.ForeignKey(Profile)
-	pub_date = models.DateTimeField(auto_now_add='true')
-	rating = models.IntegerField(blank=False, null=False, default=0, validators=[MinValueValidator(1), MaxValueValidator(5)])
-
-
-	#Rather than here make it in the forms
-	# def save(self):
-	# 	try:
-	# 		eventRating = EventRating.objects.get(event = self.event, author = self.author)
-	# 		print "Object exists, raising exception!"
-	# 		raise Exception('This user already rated this event!. Not saving to the database!')
-	# 	except EventRating.DoesNotExist:
-	# 		print "Object doesn't exist." #object doesnt exists so pass it to save!
