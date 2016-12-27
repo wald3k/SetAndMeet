@@ -56,5 +56,9 @@ def get_avatar(backend, strategy, details, response,
         io = BytesIO(response.read())
         if(profile.avatar != None):#some avatar exists
             print "deleting " + profile.avatar.name
-            os.remove(profile.avatar.name)#delete old avatar before saving a new one! os.remove by filepath
+            try:
+                os.remove(profile.avatar.name)#delete old avatar before saving a new one! os.remove by filepath
+            except Exception as e:
+                print ("EXCEPTION TYPE - %s"%str(type(e)))
+
         profile.avatar.save("user_{}".format(u.id), File(io))
