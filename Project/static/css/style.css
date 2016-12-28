@@ -28,6 +28,24 @@ header form{
 section{
 	width: 80%;
 }
+/*Menu Buttons START*/
+/*Like home/ Events/ Members etc.*/
+.menu-button{
+	margin: 10px 5px 5px 0px;
+}
+.menu-button a{
+		font-size: 1.3em !important; 
+		font-weight: bold;
+}
+/*Overwritting Bootstrap file:*/
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #555;
+  background-color: #e7e7e7;
+}
+/*Finished overwritting*/
+/*Menu Buttons END*/
 /*Dropdown menu START*/
 /*http://www.w3schools.com/howto/howto_js_dropdown.asp*/
 /* Dropdown Button */
@@ -149,6 +167,7 @@ section{
 	max-width:50%;
 	float:right !important;
 	margin-left: 20px;
+	margin-top:10px;
 }
 #user-search-input{
 	margin: 10px 0;
