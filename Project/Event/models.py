@@ -88,6 +88,12 @@ class Event(models.Model):
 				self.save()									#save changes to the DB
 				return True									#successfully added a new profile
 		return False										#Couldn't add profile to list of participants
+	"""Checks if profile is registered to the event"""
+	def is_on_list(self, profile):
+		if(profile in self.profiles.all()):
+			return True
+		else:
+			return False #profile is not on the list of participants.
 
 
 	"""Checks if Event is started. If Event"""

@@ -28,6 +28,7 @@ from Location.models import Location
 from geoposition.fields import GeopositionField
 from geoposition import Geoposition
 from datetime import datetime
+from Profile.models import Profile #import Profile object
 
 
 """
@@ -35,15 +36,17 @@ Returns view for a specified Event
 """
 #@login_required #Not required. Everyone can see, even guests.
 def event_detail(request,event_pk):
-    e  = Event.objects.get(pk=event_pk)
-    context = {'user':request.user,'event':e}
+    e  = Event.objects.get(pk=event_pk) #get reference to event with id passed to function as an argument
+    context = {'user':request.user,'event':e}   #create context dictionary(that will be passed to render class)
     if request.user.is_authenticated():
-        if request.user.is_active:
+        p = Profile.objects.get(user = request.user) #get reference to Profile that is bound to this user
+        if request.user.is_active and e.is_on_list(p):
             template = 'Event/event_detail.html'
-            return render(request,template,context)
+        else:
+            template = 'Event/event_description.html' #If user is not a participant then he cannot see event details
     else:
         template = 'Event/event_description.html'
-        return render(request,template,context)
+    return render(request,template,context) #No matter what if. Return render shortcut class
 
 
 
