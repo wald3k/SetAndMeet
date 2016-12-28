@@ -204,23 +204,6 @@ section{
 
 /*GOOGLE MAPS END*/
 
-
-/*For small Resolution*/
-@media(max-width: 991px) {
-	section{
-		width: 100%;
-	}
-  header form{
-    float:none;
-    margin-top: 20px;
-    text-align: center;
-  }
-	.search-query{
-		width:100%;
-		max-width:100%;
-	}
-}
-/*For small Resolutuion END*/
 /*Panele z wydarzeniami*/
 .panel-title {
 	border-bottom: 1px solid grey;
@@ -279,6 +262,10 @@ section{
 /* Ikony font Awesome END*/
 
 /*Carousel settings*/
+#carouselSection{
+	margin: auto; 
+	width: 50%;
+}
 .carousel-inner img {
   margin: auto;
 }
@@ -367,3 +354,36 @@ section{
 	padding: 10px;
 }
 /*Galery END*/
+
+
+
+
+/*
+***************************SMALL RESOLUTUION SETTINGS***************************
+*/
+/*For small Resolution*/
+@media(max-width: 991px) {
+	section{
+		width: 100%;
+	}
+  header form{
+    float:none;
+    margin-top: 20px;
+    text-align: center;
+  }
+	.search-query{
+		width:100%;
+		max-width:100%;
+	}
+	/*Carousel settings for small resolution*/
+	#carouselSection{
+		margin: 0; 
+		width: 100%;
+	}
+	.carousel-inner img {
+	  margin: auto;
+	  width: 100%;
+	}
+	/*Carousel settings END */
+}
+/*For small Resolutuion END*/

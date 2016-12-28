@@ -43,7 +43,7 @@ class EventRatingManager:
 		print event.date_end
 		print author
 		print rating
-		#Check if user already rated this event:
+		#Check if user already rated this event:Z
 		already_rated = EventRating.objects.filter(event = event, author = author).exists()
 		if(already_rated == True):
 			print "User has already rated this event!"
