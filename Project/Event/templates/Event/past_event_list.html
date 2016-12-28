@@ -1,26 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
-{% load humanize %} 
+
 {% block tabs %}
-  {% include "includes/tabs.html" with active_tab='archive' %}
+  {% include "includes/tabs.html" with active_tab='events' %}
 {% endblock %}
 
 {% block content %}
 <h1>Profiles</h1>
+
 <section>
   <div class="container pre-scrollable">
     <div class="row">
       <div class="panel panel-default ">
         <div class="panel-heading">
           <h4>
-            ALL EVENTS
+            PAST EVENTS
           </h4>
         </div>
         <table class="table table-fixed ">
           <thead>
             <tr>
               <th class="col-md-3">Name</th>
-              <th class="col-md-2">Ended</th>
               <th class="col-md-2">Category</th>
               <th class="col-md-3">Hosted by</th>
               <th class="col-md-1">Fee</th>
@@ -31,7 +31,6 @@
             {% for event in object_list %}
               <tr>
                 <td class="col-md-3"> <a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a> </td>
-                <td class="col-md-2"> {{ event.date_end|naturaltime|capfirst }}  </td>
                 <td class="col-md-2"> {{ event.category }} </td>
                 <td class="col-md-3"> {{ event.host }} </td>
                 <td class="col-md-1"> {{ event.fee }} </td>
@@ -40,13 +39,10 @@
                 {% else %}
                   <td class="col-md-1"> <span class="badge alert-danger">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>
                 {% endif %}
-                {% if not event.is_finished %}
-                  {% if request.user.profile in event.profiles.all %}
-                    <td class="col-md-2"> <a href="{% url 'Event:event_leave' event.id %}">  Unregister! </a> </td>
-                  {% else %}
-                    <td class="col-md-2"> <a href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
-                  {% endif %}
+                {% if request.user.profile in event.profiles.all %}
+                  <td class="col-md-2"> <a href="{% url 'Event:event_review' event.id %}">  Review this event </a> </td>
                 {% endif %}
+
               </tr>
             {% empty %}
               <tr>
@@ -58,5 +54,7 @@
       </div>
     </div>
   </div>
+
 </section>
+
 {% endblock %}

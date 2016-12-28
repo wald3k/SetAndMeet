@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'Shout',
     'rest_framework', #adding django-rest-framework
     'RatingSystem',#for EventRating & ProfileRating
+    'django.contrib.humanize',#possible to write in django-templates: {{ event.end_date|naturaltime|capfirst }}. Also dont forget to {% load humanize %} in a template file.
 ]
 #After adding 'django.contrib.sites', to installed apps
 SITE_ID = 1

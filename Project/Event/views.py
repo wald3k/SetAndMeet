@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.views.generic.list import ListView
 from django.utils import timezone
+from datetime import datetime as dt, timedelta
 
 from django.views.generic import TemplateView
 from django.contrib.auth import logout
@@ -48,20 +49,36 @@ def event_detail(request,event_pk):
         template = 'Event/event_description.html'
     return render(request,template,context) #No matter what if. Return render shortcut class
 
-
-
-
-
 """
 Returns a list of all Events
 """
 class EventListView(ListView):
     model = Event
-    template_name = 'event_list.html'
-
+    template_name = '/event_list.html'
+    queryset = Event.objects.order_by('-date_end')[:50] #Return maximum 50 results.
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs) #in template reference by {{ object. }}
         return context
+"""
+Returns a list of upcoming Events
+"""
+class UpcomingEventListView(ListView):
+    model = Event
+    template_name = 'Event/upcoming_event_list.html'
+    days_number = 30 #That many days will be addet till current time to display events starting at this time.
+
+    def get_context_data(self, **kwargs):
+        context = super(UpcomingEventListView, self).get_context_data(**kwargs) #in template reference by {{ object. }}
+        context['table_header'] = "UPCOMING EVENTS THAT START WITHIN " + str(self.days_number) + " DAYS:"
+        return context
+    """Define your own query if needed. Otherwise all Events will be returned"""
+    def get_queryset(self):
+        startdate = timezone.now()
+        enddate = timezone.now() + timedelta(days=self.days_number) #where event.start_date begins during next 30 days
+        qs = super(UpcomingEventListView, self).get_queryset()
+        return qs.filter(date_start__range=[startdate, enddate]).order_by('date_start')[:20]
+        # qs = super(UpcomingEventListView, self).get_queryset()
+        # return qs.filter(fee__exact=0)
 
 """
 Registers logged user for the event(if there are still spots for the event).
@@ -145,3 +162,20 @@ def event_create(request):
         }
     template = 'Event/event_create.html'                                                #Destination template browswer will redirect to.
     return render(request,template, context)
+
+"""
+User can make a review of an Event if Event is already finished.
+"""
+def event_review(request,event_pk):
+    print "Made review:)"
+
+def past_event_list(request):
+    all_events = Event.objects.all()
+    profile = Profile.objects.get(pk = request.user.id)
+    events = []
+    for e in all_events:
+        if(e.is_finished() == True and e.is_on_list(profile)):#event is finished and user was participating
+            events.append(e)
+    context = {'user':request.user,'object_list':events}   #create context dictionary(that will be passed to render class)
+    template = 'Event/past_event_list.html'
+    return render(request,template,context) #No matter what if. Return render shortcut class
