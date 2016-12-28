@@ -88,3 +88,20 @@ class Event(models.Model):
 				self.save()									#save changes to the DB
 				return True									#successfully added a new profile
 		return False										#Couldn't add profile to list of participants
+
+
+	"""Checks if Event is started. If Event"""
+	def is_started(self):
+		if(self.date_start < timezone.now()):
+			print str(self.date_start) + " < " + str(timezone.now()) + " this event has already started!"
+			return True
+		else:
+			return False
+
+	"""Checks if Event is finished. If finished returns True"""
+	def is_finished(self):
+		if(self.date_end < timezone.now()):
+			print str(self.date_end) + " < " + str(timezone.now()) + " this event has already ended."
+			return True
+		else:
+			return False
