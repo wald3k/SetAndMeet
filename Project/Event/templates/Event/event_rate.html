@@ -18,37 +18,13 @@
         <div class="row">
           <div class="col-md-8"> <span style="font-size: 1.8em;background:#99ff99;">{{ event.name }}   </span>
             <span class="rating">
-                {% if  event_rating == 1 %}
+                {% for i in "12345" %}
+                  {% if i|add:0 <  event_rating|add:1 %}
                   <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  {% else %}
                   <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>                               
-                {% elif event_rating == 2 %}
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>  
-                {% elif event_rating == 3 %}
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>                 
-                {% elif event_rating == 4 %}
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>                 
-                {% elif event_rating == 5 %}
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
-                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>             
-                {% endif %}
+                  {% endif %}
+                {% endfor %}
                 = {{ event_rating }} stars.
             </span>
           </div>
@@ -67,7 +43,7 @@
             <h4><a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a></h4>
           </div>
           <div class="col-md-3">
-            <div class="rating-select">
+            <div class="event_rating-select">
               <ul>
                 <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
                 <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
@@ -76,7 +52,7 @@
                 <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>                            
               </ul>
             </div>
-            <div class = "rev-btn-submit">
+            <div class = "event_rev-btn-submit">
                <div class="btn btn-default">Send this review!</div>
             </div>
           </div>
@@ -94,7 +70,18 @@
             </div>
           </div>
           <div class="col-md-3">
-            <span class="badge alert-success">12</span>
+            <div class="rating-select">
+              <ul>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>                            
+              </ul>
+            </div>
+            <div class = "rev-btn-submit {{ profile.user.id }}">
+               <div class="btn btn-default">Send this review!</div>
+            </div>
           </div>
           <div class="col-md-6">
           </div>

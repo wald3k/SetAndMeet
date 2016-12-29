@@ -2,13 +2,13 @@
 $(function(){
     var is_rated = false;
     var clicked_button = 0;
-    $('.rating-select .btn').on('mouseover', function(){
+    $('.event_rating-select .btn').on('mouseover', function(){
         $(this).removeClass('btn-default').addClass('btn-warning');
         $(this).prevAll().removeClass('btn-default').addClass('btn-warning'); //for all previous siblings of selected button
         $(this).nextAll().removeClass('btn-warning').addClass('btn-default'); //for all next siblings of selected button
     });
 
-    $('.rating-select').on('mouseleave', function(){
+    $('.event_rating-select').on('mouseleave', function(){
         active = $(this).parent().find('.selected');
         if(active.length) {
             active.removeClass('btn-default').addClass('btn-warning');
@@ -19,7 +19,7 @@ $(function(){
         }
     });
 
-    $('.rating-select .btn').click(function(){
+    $('.event_rating-select .btn').click(function(){
         if($(this).hasClass('selected')) {
             $('.rating-select .selected').removeClass('selected');
             is_rated = false;
@@ -31,7 +31,7 @@ $(function(){
         }
     });
 //My additional functions
-    $('.rev-btn-submit .btn').click(function(){
+    $('.event_rev-btn-submit .btn').click(function(){
         if(is_rated == true) {
             var rated_event = $('#wydarzenie').attr('numer_wydarzenia');  //gets event.id
             var author = $('#user_info').attr('request_user_id');
@@ -46,7 +46,7 @@ $(function(){
 
 //Global function existing to serve everyone
 function send_event_rating(myevent, author, rating) {         
-    alert("Sending ajax query for event with id: " + myevent + ". Your rating is: " + rating + ". Your user id: " + author);  
+    //alert("Sending ajax query for event with id: " + myevent + ". Your rating is: " + rating + ". Your user id: " + author);  
     //Sending actual AJAX QUERY TO DB HERE..........
     $.ajax({
         type:'POST',
