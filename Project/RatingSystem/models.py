@@ -131,7 +131,19 @@ class ProfileRatingManager:
 			result = result / (i)					#If wants floating point number use this:result = result / (i * 1.0)
 		print "Overal rating for user: %s in an event: %s is: %d" % (target_profile.user.username,event.name,result)
 		return result
-		"""
+
+	def calculate_number_of_ratings_for_event(self,event, target_profile):
+		all_ratings = ProfileRating.objects.filter(event = event, rated_profile = target_profile)
+		result = 0
+		i = 0
+		if(len(all_ratings) > 0):
+			for p_rating in all_ratings:
+				result = result + p_rating.rating
+				i = i + 1
+			result = result / (i)					#If wants floating point number use this:result = result / (i * 1.0)
+		return i
+
+	"""
 	Calculates average rating for profile (from all events).
 	target_profile: Profile object that we want to calculate rating for.
 	"""

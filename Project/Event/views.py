@@ -190,13 +190,17 @@ def event_rate(request, event_pk):
             erm = EventRatingManager()  
             context['event_rating'] = erm.calculate_rating(event_pk)                      
             template = 'Event/event_rate.html' 
-            arr = [] 
+            arr = [] #array that will store average rating for Profile in selected Event.
+            arr2= [] #array that will store number of reviews for this Profile in selected Event.
             print context      
             prm = ProfileRatingManager()
             for prof in e.profiles.all():
                 temp = prm.calculate_rating_for_event(e,prof)
+                temp2 = prm.calculate_number_of_ratings_for_event(e,prof)
                 arr.append(temp)
+                arr2.append(temp2)
             context['profile_ratings'] = arr
+            context['no_of_profile_ratings'] = arr2
             print context   
         else:
             template = '/' #If user is not a participant then he cannot see event details

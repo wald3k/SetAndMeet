@@ -81,6 +81,9 @@ http://stackoverflow.com/questions/12762995/how-to-use-star-rating-of-font-aweso
 
 http://zurb.com/forrst/posts/Compare_string_and_integer_in_Django_templates-0Azhttp://zurb.com/forrst/posts/Compare_string_and_integer_in_Django_templates-0Az                            Jak konwertowac stringi w DJANGO TEMPLATE LANGUAGE NA  INTEGER.w commicie z dnia 29-12-2016.
 
+Tworzenie template-tags dla DJANGO TEMPLATE LANGUAGE(Umozliwia np. wyszukanie elementu o indeksie z listy)
+http://stackoverflow.com/questions/8948430/get-list-item-dynamically-in-django-templates
+http://stackoverflow.com/questions/5493776/django-current-tags-is-not-a-valid-tag-library
 
 
 

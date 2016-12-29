@@ -74,13 +74,20 @@
           <div class="col-md-3">
             <div class="rating-select">
               <ul>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>                            
+                <!-- Create a temporary variable name. -->
+                {% with profile_ratings|lookup:forloop.counter0 as average %} 
+                <!-- Loop 5 times as there are 5 stars in rating system. -->
+                  {% for i in "12345" %}
+                    {% if i|add:0 < average|add:1  %}
+                    <li class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                    {% else %}
+                    <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                    {% endif %}
+                  {% endfor %}   
+                {% endwith %}                                          
               </ul>
-              You granted this profile with {{profile_ratings|lookup:forloop.counter0}} stars!
+              Average  rating:{{profile_ratings|lookup:forloop.counter0}} stars!</br>
+              Number of reviews: {{no_of_profile_ratings|lookup:forloop.counter0}} 
             </div>
             <div class = "rev-btn-submit {{ profile.user.id }}">
                <div class="btn btn-default">Send this review!</div>

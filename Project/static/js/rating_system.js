@@ -40,8 +40,6 @@ $(function(){
             alert("Cannot send review!");
         }
     });
-
-
 });
 
 //Global function existing to serve everyone
