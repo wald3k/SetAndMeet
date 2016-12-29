@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load my_custom_tags %}
 <!-- Importing specific JS scripts HERE -->
 {% block carousel_content %}
   <script type="text/javascript" src="{% static "js/rating_system.js" %}"></script>
@@ -45,11 +45,13 @@
           <div class="col-md-3">
             <div class="event_rating-select">
               <ul>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
-                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>                            
+               {% for i in "12345" %}
+                  {% if i|add:0 <  event_rating|add:1 %}
+                  <li class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                  {% else %}
+                  <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                  {% endif %}
+                {% endfor %}                   
               </ul>
             </div>
             <div class = "event_rev-btn-submit">
@@ -78,6 +80,7 @@
                 <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
                 <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>                            
               </ul>
+              You granted this profile with {{profile_ratings|lookup:forloop.counter0}} stars!
             </div>
             <div class = "rev-btn-submit {{ profile.user.id }}">
                <div class="btn btn-default">Send this review!</div>

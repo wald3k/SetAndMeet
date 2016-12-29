@@ -31,7 +31,7 @@ from geoposition import Geoposition
 from datetime import datetime
 from Profile.models import Profile #import Profile object
 
-from RatingSystem.models import EventRatingManager
+from RatingSystem.models import EventRatingManager, ProfileRatingManager
 """
 Returns view for a specified Event
 """
@@ -189,8 +189,15 @@ def event_rate(request, event_pk):
         if request.user.is_active and e.is_on_list(p):#can rate event
             erm = EventRatingManager()  
             context['event_rating'] = erm.calculate_rating(event_pk)                      
-            template = 'Event/event_rate.html'    
-            print context        
+            template = 'Event/event_rate.html' 
+            arr = [] 
+            print context      
+            prm = ProfileRatingManager()
+            for prof in e.profiles.all():
+                temp = prm.calculate_rating_for_event(e,prof)
+                arr.append(temp)
+            context['profile_ratings'] = arr
+            print context   
         else:
             template = '/' #If user is not a participant then he cannot see event details
     else:
