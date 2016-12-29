@@ -40,7 +40,7 @@
                   <td class="col-md-1"> <span class="badge alert-danger">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>
                 {% endif %}
                 {% if request.user.profile in event.profiles.all %}
-                  <td class="col-md-2"> <a href="{% url 'Event:event_review' event.id %}">  Review this event </a> </td>
+                  <td class="col-md-2"> <a href="{% url 'Event:event_rate' event.id %}">  Review this event </a> </td>
                 {% endif %}
 
               </tr>

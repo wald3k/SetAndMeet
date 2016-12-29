@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- Importing specific JS scripts HERE -->
+{% block carousel_content %}
+  <script type="text/javascript" src="{% static "js/rating_system.js" %}"></script>
+{% endblock %}
+
+{% block tabs %}
+  {% include "includes/tabs.html" with active_tab='events' %}
+{% endblock %}
+{% block content %}
+<section>
+  <div class="message-div">
+        <div class="row">
+          <div class="col-md-12"><h1>How was this Event? Please share your comment!</h1></div>
+        </div>
+        <div class="row">
+          <div class="col-md-8"> <span style="font-size: 1.8em;background:#99ff99;">{{ event.name }}   </span>
+            <span class="rating">
+                {% if  event_rating == 1 %}
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>                               
+                {% elif event_rating == 2 %}
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>  
+                {% elif event_rating == 3 %}
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>                 
+                {% elif event_rating == 4 %}
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>                 
+                {% elif event_rating == 5 %}
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>
+                  <div class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-star-empty"></span></div>             
+                {% endif %}
+                = {{ event_rating }} stars.
+            </span>
+          </div>
+          <div class="col-md-8"> 
+          </div>
+        </div>
+  </div>
+  <div id="wydarzenie" numer_wydarzenia="{{ event.pk }}"></div>
+  <!-- http://racingtadpole.com/blog/django-ajax-and-jquery/ -->
+  <div class="container">
+  <h2 >Your scoreboard:</h2>
+  <ul class="list-group">
+       <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-3">
+            <h4><a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a></h4>
+          </div>
+          <div class="col-md-3">
+            <div class="rating-select">
+              <ul>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
+                <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>                            
+              </ul>
+            </div>
+            <div class = "rev-btn-submit">
+               <div class="btn btn-default">Send this review!</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+          </div>
+        </div>
+      </li>
+    {% for profile in event.profiles.all %}
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-3">
+            <a style="display: table-cell;vertical-align: middle;" href="{% url 'Profile:profile_detail' profile.user.id %}">{{profile.user.username}} </a>
+            <div class="avatar-small" style="float:left;" >
+              <a  href="{% url 'Profile:profile_detail' profile.user.id %}"> <img  src="../../{{ profile.avatar.url }}" class="img-circle"/></a>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <span class="badge alert-success">12</span>
+          </div>
+          <div class="col-md-6">
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+</section>
+
+<div id="shoutbox">
+  <h1>Historical Shoutbox(changes disabled)</h1>
+
+      <ul>
+        <div id="shouts">
+        {% for shout in event.shout_set.all %}
+          <!-- <li>{{ shout.date_created|date:'Y-m-d H:i' }}   <span style="color:blue;font-weight:bold;font-size:1.2em;"> {{ shout.author }} </span> {{ shout.text }} </li> -->
+          <li>
+            <!-- Create a now variable -->
+            {% now "Y-m-d" as todays_date %}
+            <!-- If message was posted today: -->
+            {% if todays_date <= shout.date_created|date:"Y-m-d" %}
+              {{ shout.date_created|date:'H:i' }}
+            <!-- <span style="color:blue;font-weight:bold;font-size:1.2em;"> {{ shout.author }} </span> -->
+            <!-- Message was posted in previous days: -->
+            {% else %}
+              {{ shout.date_created|date:'Y-m-d H:i' }}
+            {% endif %}
+            <a href="{% url 'Profile:profile_detail' shout.author.user.id %}"> <img  src="../../{{ shout.author.user.profile.avatar.url }}" class="img-circle"   title="{{shout.author.user.username}}" /></a>
+            {{ shout.text }}
+            </br>
+          </li>
+
+        {% endfor %}
+        </div>
+      </ul>
+</div>
+{% endblock %}

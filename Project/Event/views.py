@@ -31,7 +31,7 @@ from geoposition import Geoposition
 from datetime import datetime
 from Profile.models import Profile #import Profile object
 
-
+from RatingSystem.models import EventRatingManager
 """
 Returns view for a specified Event
 """
@@ -178,4 +178,21 @@ def past_event_list(request):
             events.append(e)
     context = {'user':request.user,'object_list':events}   #create context dictionary(that will be passed to render class)
     template = 'Event/past_event_list.html'
+    return render(request,template,context) #No matter what if. Return render shortcut class
+
+"""User can rate an Event after it is finished"""
+def event_rate(request, event_pk):
+    e  = Event.objects.get(pk=event_pk) #get reference to event with id passed to function as an argument
+    context = {'user':request.user,'event':e}   #create context dictionary(that will be passed to render class)
+    if request.user.is_authenticated():
+        p = Profile.objects.get(user = request.user) #get reference to Profile that is bound to this user
+        if request.user.is_active and e.is_on_list(p):#can rate event
+            erm = EventRatingManager()  
+            context['event_rating'] = erm.calculate_rating(event_pk)                      
+            template = 'Event/event_rate.html'    
+            print context        
+        else:
+            template = '/' #If user is not a participant then he cannot see event details
+    else:
+        template = '/'
     return render(request,template,context) #No matter what if. Return render shortcut class

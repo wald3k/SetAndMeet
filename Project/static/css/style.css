@@ -373,7 +373,17 @@ section{
 	padding: 10px;
 }
 /*Galery END*/
+/*RATING SYSTEM START*/
 
+
+.rating-select ul li{
+	display: block-inline;
+}
+
+
+
+
+/*RATING SYSTEM END*/
 
 
 

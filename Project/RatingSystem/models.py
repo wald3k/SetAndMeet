@@ -47,20 +47,22 @@ class EventRatingManager:
 		already_rated = EventRating.objects.filter(event = event, author = author).exists()
 		if(already_rated == True):
 			print "User has already rated this event!"
-			return 						#exit function 
+			return False					#exit function 
 		if(rating < 1 or rating > 5):
 			print "Rating out of range!"
-			return
+			return False
 		if(event.date_end < timezone.now()): #Event is finished so participants can rate an event
 			print "Go ahead rate this event"
 			if(author in event.profiles.all()):#check if author of a new rating was taking part in an event
 				print "This user was on the list :)"
 				event_rating = EventRating.objects.create(event = event, author = author, rating = rating)
 				print "Successfully saved rating!"
+				return True
 			else:
 				print "This user was not on the list! Cannot save this rating!"
 		else:								#Event has not been finished yet!
 			print "Too early to rate this event!"
+		return False
 	"""
 	Calculates average rating
 	"""
@@ -73,7 +75,7 @@ class EventRatingManager:
 				result = result + e_rating.rating
 				i = i + 1
 			result = result / (i)					#If wants floating point number use this:result = result / (i * 1.0)
-		print "Overal rating for event with id: " + str(event.id) + " is: " + str(result)
+		print "Overal rating for this event is %d" % (result)
 		return result
 
 """Class enables to add Profile ratings and to calculate rating for specific profile. """
