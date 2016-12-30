@@ -119,11 +119,12 @@ class ProfileRatingManager:
 	"""Checkks if target Profile was Rated by an author in given Event. Returs true if already rated."""
 	def check_if_already_rated(self, event, author, target_profile):
 		already_rated = ProfileRating.objects.filter(event = event, author = author, rated_profile = target_profile).exists()
+		print already_rated
 		if (already_rated == True):
 			return True #Target profile was already rated by the author in this event!
 		else:
 			return False
-			
+
 	"""
 	Calculates average rating for target profile in selected event.
 	event: Event object - will calculate ratings only from this event.

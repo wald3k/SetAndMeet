@@ -192,15 +192,19 @@ def event_rate(request, event_pk):
             template = 'Event/event_rate.html' 
             arr = [] #array that will store average rating for Profile in selected Event.
             arr2= [] #array that will store number of reviews for this Profile in selected Event.
+            arr3 = []#checks if already rated
             print context      
             prm = ProfileRatingManager()
             for prof in e.profiles.all():
                 temp = prm.calculate_rating_for_event(e,prof)
                 temp2 = prm.calculate_number_of_ratings_for_event(e,prof)
+                temp3 = prm.check_if_already_rated(e,request.user.id,prof)
                 arr.append(temp)
                 arr2.append(temp2)
+                arr3.append(temp3)
             context['profile_ratings'] = arr
             context['no_of_profile_ratings'] = arr2
+            context['already_rated'] = arr3
             print context   
         else:
             template = '/' #If user is not a participant then he cannot see event details

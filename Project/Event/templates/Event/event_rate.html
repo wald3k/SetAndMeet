@@ -32,7 +32,7 @@
           </div>
         </div>
   </div>
-  <div id="wydarzenie" numer_wydarzenia="{{ event.pk }}"></div>
+  <div id="wydarzenie" numer_wydarzenia="{{ event.pk }}" logged_user_pk="{{ user.id }}"></div>
   <!-- http://racingtadpole.com/blog/django-ajax-and-jquery/ -->
   <div class="container">
   <h2 >Your scoreboard:</h2>
@@ -55,7 +55,7 @@
               </ul>
             </div>
             <div class = "event-rev-btn-submit">
-               <div class="btn btn-default">Send this review!</div>
+               <div class="btn btn-default">Send Event rating!</div>
             </div>
           </div>
           <div class="col-md-6">
@@ -72,7 +72,7 @@
             </div>
           </div>
           <div class="col-md-3">
-            <div class="profile-rating-select">
+            <div  already_rated="{{already_rated|lookup:forloop.counter0}}" average-rating="{{profile_ratings|lookup:forloop.counter0}}" user_id = "{{ profile.user.id }}" class="profile-rating-select">
               <ul>
                 <!-- Create a temporary variable name. -->
                 {% with profile_ratings|lookup:forloop.counter0 as average %} 
@@ -88,10 +88,11 @@
               </ul>
               Average  rating:{{profile_ratings|lookup:forloop.counter0}} stars!</br>
               Number of reviews: {{no_of_profile_ratings|lookup:forloop.counter0}} 
+                <div  class = "profile-rev-btn-submit {{ profile.user.id }}">
+                  <div class="btn btn-default">SHOW USER ID:</div>
+                </div>
             </div>
-            <div  class = "profile-rev-btn-submit {{ profile.user.id }}">
-               <div user_id = "{{ profile.user.id }}"class="btn btn-default">Send this review!</div>
-            </div>
+
           </div>
           <div class="col-md-6">
           </div>
@@ -129,4 +130,5 @@
         </div>
       </ul>
 </div>
+<div id="snackbar">Some text some message..</div>
 {% endblock %}

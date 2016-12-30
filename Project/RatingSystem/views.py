@@ -41,3 +41,23 @@ def has_been_rated(request):
 	else:
 		response = {'error':'not a post request!'}
 	return HttpResponse(json.dumps(response), content_type='application/json')#return JSON to AJAX query
+
+
+def rate_target_profile(request):
+	if(request.method == 'POST'):
+		#Gathering information from AJAX query
+		event_pk  =   request.POST['event_pk']
+		author_pk =  request.POST['author_pk']
+		target_pk =  request.POST['target_pk']
+		rating    =  int(request.POST['rating'])
+		#Get reference to objects
+		event_reference = Event.objects.get(pk=event_pk)
+		author_reference = Profile.objects.get(pk = author_pk)
+		target_profile_reference = Profile.objects.get(pk = target_pk)
+		#Create ProfileRatingManager
+		prm = ProfileRatingManager()
+		adding_successfull = prm.add_profile_rating(event_reference, author_reference, target_profile_reference, rating)
+		response = {'rating_added': adding_successfull}
+	else:
+		response = {'error':'not a post request!'}
+	return HttpResponse(json.dumps(response), content_type='application/json')#return JSON to AJAX query
