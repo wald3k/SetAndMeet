@@ -43,7 +43,7 @@
             <h4><a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a></h4>
           </div>
           <div class="col-md-3">
-            <div class="event_rating-select">
+            <div class="event-rating-select">
               <ul>
                {% for i in "12345" %}
                   {% if i|add:0 <  event_rating|add:1 %}
@@ -54,7 +54,7 @@
                 {% endfor %}                   
               </ul>
             </div>
-            <div class = "event_rev-btn-submit">
+            <div class = "event-rev-btn-submit">
                <div class="btn btn-default">Send this review!</div>
             </div>
           </div>
@@ -72,7 +72,7 @@
             </div>
           </div>
           <div class="col-md-3">
-            <div class="rating-select">
+            <div class="profile-rating-select">
               <ul>
                 <!-- Create a temporary variable name. -->
                 {% with profile_ratings|lookup:forloop.counter0 as average %} 
@@ -89,8 +89,8 @@
               Average  rating:{{profile_ratings|lookup:forloop.counter0}} stars!</br>
               Number of reviews: {{no_of_profile_ratings|lookup:forloop.counter0}} 
             </div>
-            <div class = "rev-btn-submit {{ profile.user.id }}">
-               <div class="btn btn-default">Send this review!</div>
+            <div  class = "profile-rev-btn-submit {{ profile.user.id }}">
+               <div user_id = "{{ profile.user.id }}"class="btn btn-default">Send this review!</div>
             </div>
           </div>
           <div class="col-md-6">

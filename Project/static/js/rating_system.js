@@ -2,13 +2,13 @@
 $(function(){
     var is_rated = false;
     var clicked_button = 0;
-    $('.event_rating-select .btn').on('mouseover', function(){
+    $('.event-rating-select .btn').on('mouseover', function(){
         $(this).removeClass('btn-default').addClass('btn-warning');
         $(this).prevAll().removeClass('btn-default').addClass('btn-warning'); //for all previous siblings of selected button
         $(this).nextAll().removeClass('btn-warning').addClass('btn-default'); //for all next siblings of selected button
     });
 
-    $('.event_rating-select').on('mouseleave', function(){
+    $('.event-rating-select').on('mouseleave', function(){
         active = $(this).parent().find('.selected');
         if(active.length) {
             active.removeClass('btn-default').addClass('btn-warning');
@@ -19,19 +19,19 @@ $(function(){
         }
     });
 
-    $('.event_rating-select .btn').click(function(){
+    $('.event-rating-select .btn').click(function(){
         if($(this).hasClass('selected')) {
-            $('.rating-select .selected').removeClass('selected');
+            $('.event-rating-select .selected').removeClass('selected');
             is_rated = false;
         } else {
-            $('.rating-select .selected').removeClass('selected');
+            $('.event-rating-select .selected').removeClass('selected');
             $(this).addClass('selected');
             is_rated = true;
             clicked_button = $('.selected').index() + 1;//indexes start at 0!
         }
     });
 //My additional functions
-    $('.event_rev-btn-submit .btn').click(function(){
+    $('.event-rev-btn-submit .btn').click(function(){
         if(is_rated == true) {
             var rated_event = $('#wydarzenie').attr('numer_wydarzenia');  //gets event.id
             var author = $('#user_info').attr('request_user_id');
@@ -41,6 +41,19 @@ $(function(){
         }
     });
 });
+
+/*Function for Profile Ratings*/
+$(function(){
+    $('.profile-rev-btn-submit .btn').click(function(){
+        var rated_profile = $(this).attr('user_id');  //gets user.id
+        alert(rated_profile);
+        has_been_rated();
+    });
+});
+
+
+
+
 
 //Global function existing to serve everyone
 function send_event_rating(myevent, author, rating) {         
@@ -63,6 +76,25 @@ function send_event_rating(myevent, author, rating) {
             else{
                 alert("You have already rated this event!");
             }
+        }
+    });
+}
+/*Check if this user has already been rated by logged user*/
+function has_been_rated() {         
+    //alert("Sending ajax query for event with id: " + myevent + ". Your rating is: " + rating + ". Your user id: " + author);  
+    //Sending actual AJAX QUERY TO DB HERE..........
+    $.ajax({
+        type:'POST',
+        url:'/has_been_rated/',
+        data: {
+            event_pk:1,
+            author_pk: 2,
+            target_pk: 4,
+            rating: 3,
+            csrfmiddlewaretoken: getCookie("csrftoken")
+        },
+        success:function(json_response){
+            console.log("Profile already rated?: " + json_response['profile_was_rated']);
         }
     });
 }
