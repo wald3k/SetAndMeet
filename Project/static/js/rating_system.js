@@ -1,3 +1,5 @@
+/*Some of the functions are calling show_snackbar function. This function is in show_snackbar.js file!
+It works because this function is first included in base.html file. in <script> tag.*/
 /*Handling Event RATINGS START*/
 $(function(){
     var is_rated = false;
@@ -115,7 +117,7 @@ $(function(){
                 $(this).parent().parent().attr('already_rated','True');
                 rating = $('.selected').index() + 1;//indexes start at 0!
                 rate_target_profile(rated_event,author,rated_profile,rating);
-                show_snackbar("Rating added. Refresh page to see new average!");
+                show_snackbar("2"); //Snackbar function is in snackbar.js file
         }
         else{
             alert("You've already reviewed this Profile!");
@@ -207,16 +209,3 @@ function getCookie(c_name)
     }
     return "";
  }
-
-
- /*Snackbar functionality*/
- function show_snackbar(text) {
-    // Get the snackbar DIV
-    var x = document.getElementById("snackbar")
-
-    // Add the "show" class to DIV
-    x.className = "show";
-    x.innerHTML = text;
-    // After 3 seconds, remove the show class from DIV
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-}
