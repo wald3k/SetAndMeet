@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load humanize %}
 {% block tabs %}
   {% include "includes/tabs.html" with active_tab='upcoming_events' %}
 {% endblock %}
@@ -22,7 +22,8 @@
             <tr>
               <th class="col-md-3">Name</th>
               <th class="col-md-2">Category</th>
-              <th class="col-md-3">Hosted by</th>
+              <th class="col-md-2">Ends within</th>
+              <th class="col-md-1">Hosted by</th>
               <th class="col-md-1">Fee</th>
               <th class="col-md-1">Current capacity</th>
             </tr>
@@ -32,7 +33,8 @@
               <tr>
                 <td class="col-md-3"> <a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a> </td>
                 <td class="col-md-2"> {{ event.category }} </td>
-                <td class="col-md-3"> {{ event.host }} </td>
+                <td class="col-md-2"> {{ event.date_end|naturaltime|capfirst }} </td>
+                <td class="col-md-1"> {{ event.host }} </td>
                 <td class="col-md-1"> {{ event.fee }} </td>
                 {% if event.cur_capacity < event.person_limit %}
                   <td class="col-md-1"> <span class="badge alert-success">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>

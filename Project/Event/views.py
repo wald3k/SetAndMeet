@@ -66,17 +66,19 @@ class UpcomingEventListView(ListView):
     model = Event
     template_name = 'Event/upcoming_event_list.html'
     days_number = 30 #That many days will be addet till current time to display events starting at this time.
-
+    number_of_results = 20
     def get_context_data(self, **kwargs):
         context = super(UpcomingEventListView, self).get_context_data(**kwargs) #in template reference by {{ object. }}
-        context['table_header'] = "UPCOMING EVENTS THAT START WITHIN " + str(self.days_number) + " DAYS:"
+        context['table_header'] = "UPCOMING EVENTS WITHIN NEXT DAYS" + " ( MAX " + str(self.number_of_results) + " RESULTS):"
         return context
     """Define your own query if needed. Otherwise all Events will be returned"""
     def get_queryset(self):
+        temp = timezone.now() - timedelta(days=self.days_number)
         startdate = timezone.now()
         enddate = timezone.now() + timedelta(days=self.days_number) #where event.start_date begins during next 30 days
         qs = super(UpcomingEventListView, self).get_queryset()
-        return qs.filter(date_start__range=[startdate, enddate]).order_by('date_start')[:20]
+        # return qs.filter(date_end__range=[startdate, enddate]).order_by('date_start')[:20]
+        return qs.filter(date_end__gte=timezone.now()).order_by('date_start')[:20]
         # qs = super(UpcomingEventListView, self).get_queryset()
         # return qs.filter(fee__exact=0)
 
