@@ -54,15 +54,19 @@
 </section>
 
 <div id="shoutbox">
-  <h1>Shoutbox</h1>
-
+  {% now "Y-m-d" as todays_date %}
+  {% if  todays_date < event.date_end|date:"Y-m-d" %}
+    <h1>Shoutbox</h1>
+    {% else %}
+    <h1>Historical Shoutbox(changes disabled)</h1>
+    {% endif %}
       <ul>
         <div id="shouts">
         {% for shout in event.shout_set.all %}
           <!-- <li>{{ shout.date_created|date:'Y-m-d H:i' }}   <span style="color:blue;font-weight:bold;font-size:1.2em;"> {{ shout.author }} </span> {{ shout.text }} </li> -->
           <li>
             <!-- Create a now variable -->
-            {% now "Y-m-d" as todays_date %}
+            
             <!-- If message was posted today: -->
             {% if todays_date <= shout.date_created|date:"Y-m-d" %}
               {{ shout.date_created|date:'H:i' }}
@@ -79,10 +83,13 @@
         {% endfor %}
         </div>
       </ul>
-    <form>{% csrf_token %}
-        <label>Shout text: </label>
-        <input type="text" id="shout"/>
-        <input type="submit" id="submit" value="SHOUT!"/>
-  </form>
+    {% now "Y-m-d" as todays_date %}
+    {% if  todays_date < event.date_end|date:"Y-m-d" %}
+      <form if="myform">{% csrf_token %}
+          <label>Shout text: </label>
+          <input type="text" id="shout"/>
+          <input type="submit" id="submit" value="SHOUT!"/>
+      </form>
+    {% endif %}
 </div>
 {% endblock %}

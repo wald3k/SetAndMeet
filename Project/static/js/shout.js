@@ -80,6 +80,10 @@ $(document).ready(function(){//when document is ready run this function
 //   })
 // }
 function get_all_shouts() {
+  element_exists = document.getElementById("#myform");//Trying to get element with given id
+  if(element_exists == null){ //This form doesn't exist. Probably because shout is no longer avaliable.
+    return;
+  }
   var profile_avatar = $('.avatar-medium').html();
   var wydarzenie = $('#wydarzenie').attr('numer_wydarzenia');
   console.log("hi");
