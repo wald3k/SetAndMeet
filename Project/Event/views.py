@@ -31,6 +31,7 @@ from geoposition import Geoposition
 from datetime import datetime
 from Profile.models import Profile #import Profile object
 from RatingSystem.models import EventRatingManager, ProfileRatingManager
+from django.db.models import Q #to perform i.e.: OR (|) queries
 """
 Returns view for a specified Event
 """
@@ -81,7 +82,9 @@ class UpcomingEventListView(ListView):
         enddate = timezone.now() + timedelta(days=self.days_number) #where event.start_date begins during next 30 days
         qs = super(UpcomingEventListView, self).get_queryset()
         # return qs.filter(date_end__range=[startdate, enddate]).order_by('date_start')[:20]
-        return qs.filter(date_end__gte=timezone.now()).order_by('date_start')[:20]
+        friends_list =  self.request.user.profile.friends.all()
+        #show events that end in future. An then filter them to show public or made by friends or if request user is a host.
+        return qs.filter(date_end__gte=timezone.now()).order_by('date_start').filter(Q(host__in=friends_list) | Q(public=True) | Q(host=self.request.user.profile))[:20]
         # qs = super(UpcomingEventListView, self).get_queryset()
         # return qs.filter(fee__exact=0)
 

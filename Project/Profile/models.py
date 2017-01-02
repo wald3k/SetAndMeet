@@ -17,7 +17,7 @@ class Profile(models.Model):
      user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key = True)
      przezwisko = models.CharField(max_length = 30)
      #events = models.ManyToManyField(Event, null=True, blank=True)
-     avatar = models.ImageField(upload_to=user_directory_path, default='static/defaults/!default_user_avatar/user.png')
+     avatar = models.ImageField(upload_to=user_directory_path, default='static/defaults/!default_user_avatar/user.png')# #default didn't quite work. When deleted profile the default img was also deleted
      friends = models.ManyToManyField("self",symmetrical=True, blank = True) #friends_set is a reference to friends list
 
      def __unicode__(self):
