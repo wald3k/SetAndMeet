@@ -18,11 +18,8 @@ class MyRegistrationForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         if user.email and User.objects.filter(email=user.email).exclude(username=user.username).count():    #Check if email address is unique, otherwise raise exception
             raise forms.ValidationError(u'Email addresses must be unique.')
-
-
         if commit:
             user.save()
-
         p = Profile.objects.get(pk = user.pk)
         p.przezwisko = "Default nickname"
         p.avatar = self.cleaned_data['avatar']

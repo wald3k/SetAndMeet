@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^past_event_list/$', views.past_event_list, name='past_event_list'),
     url(r'^upcoming_event_list/$', views.UpcomingEventListView.as_view(), name='upcoming_event_list'),
     url(r'^event_rate/(?P<event_pk>\d+)/$', views.event_rate, name='event_rate'),
+    url(r'^add_event_image/$', views.add_event_image, name='add_event_image'),
 ]

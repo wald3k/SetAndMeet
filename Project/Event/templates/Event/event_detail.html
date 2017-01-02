@@ -29,27 +29,61 @@
   <div id="wydarzenie" numer_wydarzenia="{{ event.pk }}"></div>
   <!-- http://racingtadpole.com/blog/django-ajax-and-jquery/ -->
   <div class="container">
-  <h2 >Current participants</h2>
-  <ul class="list-group">
-    {% for profile in event.profiles.all %}
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col-md-3">
-            <a style="display: table-cell;vertical-align: middle;" href="{% url 'Profile:profile_detail' profile.user.id %}">{{profile.user.username}} </a>
-          </div>
-          <div class="col-md-3">
-            <span class="badge alert-success">12</span>
-          </div>
-          <div class="col-md-6">
-            <div class="avatar-small" style="float:right;" >
-              <a  href="{% url 'Profile:profile_detail' profile.user.id %}"> <img  src="../../{{ profile.avatar.url }}" class="img-circle"/></a>
+    <div class ="col-md-9"
+    <h2 >Current participants</h2>
+    <ul class="list-group">
+      {% for profile in event.profiles.all %}
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-3">
+              <a style="display: table-cell;vertical-align: middle;" href="{% url 'Profile:profile_detail' profile.user.id %}">{{profile.user.username}} </a>
             </div>
+            <div class="col-md-3">
+              <span class="badge alert-success">12</span>
+            </div>
+            <div class="col-md-6">
+              <div class="avatar-small" style="float:right;" >
+                <a  href="{% url 'Profile:profile_detail' profile.user.id %}"> <img  src="../../{{ profile.avatar.url }}" class="img-circle"/></a>
+              </div>
 
+            </div>
           </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-md-3">
+        <div class="galery">
+        <div class="galery-title">
+          Event Photos
         </div>
-      </li>
-    {% endfor %}
-  </ul>
+        <div class="row">
+        {% for photo in event_photos %}
+            <div class="col-md-4">
+              <a href="../../{{ photo.img }}">
+                <img  src="../../{{ photo.img }}" class="img-circle" height="70" width="70"  title="uploaded by {{ photo.author.user.username }}"/>
+              </a>
+            </div>
+            {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+
+
+      <form action="{% url 'Event:add_event_image' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ event_image_form.as_p }}
+        <input type="hidden" name="event" value="{{ event.id }}">
+        <input type="submit" value="Add Event Image">
+      </form>
+
+
+      
+    </div>
+  </div>
 </div>
 </section>
 
@@ -85,7 +119,7 @@
       </ul>
     {% now "Y-m-d" as todays_date %}
     {% if  todays_date < event.date_end|date:"Y-m-d" %}
-      <form if="myform">{% csrf_token %}
+      <form id="myform">{% csrf_token %}
           <label>Shout text: </label>
           <input type="text" id="shout"/>
           <input type="submit" id="submit" value="SHOUT!"/>

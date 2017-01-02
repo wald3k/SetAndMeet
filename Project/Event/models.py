@@ -111,3 +111,27 @@ class Event(models.Model):
 			return True
 		else:
 			return False
+
+
+""" EventImage model"""
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'static/users/user_{0}/{1}'.format(instance.author.user.id, filename)
+class EventImage(models.Model):
+	#The related_name attribute specifies the name of the reverse relation from the User model back to your model.
+	#Tip:you can get this referece from Profile.eventimage_set.all #notice lowercase class name Django documentation: Following relationships 'backward'
+	author = models.ForeignKey(Profile, blank = False, null = False, related_name = "eventimagesset")	#who is uploading an image
+	event = models.ForeignKey(Event, blank = True, null = True, related_name="eventimages")
+	img_desc = models.TextField(blank=True, null=True)		
+	# Always include enctype='multipart/form-data' in form, otherwise ImageField() will not save file to disk! 								#short optional desc of a photo
+	img = models.ImageField(upload_to=user_directory_path, default='static/defaults/default_event_image/default_event.jpg')	#image file
+	
+	def __unicode__(self):
+		"""
+		Returns:
+			string: Information about the EventImage
+		"""
+		if(self.event != None):
+			return 'Image taken by "%s" during: "%s" event.' %(self.author,self.event)
+		else:
+			return 'Image taken by "%s"' %(self.author)

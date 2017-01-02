@@ -24,13 +24,12 @@ from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
 
 #Imports used in event_create and dealing with forms
-from .forms import EventForm, LocationForm
+from .forms import EventForm, LocationForm, EventImageForm
 from Location.models import Location
 from geoposition.fields import GeopositionField
 from geoposition import Geoposition
 from datetime import datetime
 from Profile.models import Profile #import Profile object
-
 from RatingSystem.models import EventRatingManager, ProfileRatingManager
 """
 Returns view for a specified Event
@@ -38,7 +37,11 @@ Returns view for a specified Event
 #@login_required #Not required. Everyone can see, even guests.
 def event_detail(request,event_pk):
     e  = Event.objects.get(pk=event_pk) #get reference to event with id passed to function as an argument
-    context = {'user':request.user,'event':e}   #create context dictionary(that will be passed to render class)
+    #Get all photos for an event
+    event_photos = e.eventimages.all()
+    # event_image_form = EventImageForm(prefix='EventImageForm', initial={'author': request.user.id,'event': event_pk})
+    event_image_form = EventImageForm()
+    context = {'user':request.user,'event':e,'event_photos':event_photos,'event_image_form': event_image_form}   #create context dictionary(that will be passed to render class)
     if request.user.is_authenticated():
         p = Profile.objects.get(user = request.user) #get reference to Profile that is bound to this user
         if request.user.is_active and e.is_on_list(p):
@@ -212,4 +215,22 @@ def event_rate(request, event_pk):
             template = '/' #If user is not a participant then he cannot see event details
     else:
         template = '/'
+    return render(request,template,context) #No matter what if. Return render shortcut class
+
+
+def add_event_image(request):
+    if request.method == 'POST':
+        form = EventImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            event_image = form.save(commit=False)
+            event_image.author = request.user.profile
+            event = Event.objects.get(pk = request.POST['event'])
+            event_image.event = event
+            event_image.save()
+            return HttpResponseRedirect('/success/url/')
+        else:
+            print "form not valid"
+    print form.errors
+    template = 'Event/event_list.html'
+    context = {}
     return render(request,template,context) #No matter what if. Return render shortcut class

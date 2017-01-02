@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Event
+from .models import Event, EventImage
 from geoposition.fields import GeopositionField
 from Location.models import Location
 from django.contrib.admin import widgets
@@ -34,3 +34,12 @@ class LocationForm(ModelForm):
     class Meta:
         model = Location
         fields = ('position',)
+
+"""
+Class represents an Event form to be shown to end-user via HTML.
+"""
+class EventImageForm(ModelForm):
+    class Meta:
+        model = EventImage
+        #rest of the filds will be passed from html form like that: <input type="hidden" name="event" value="{{ event.id }}">
+        fields=['img_desc','img']
