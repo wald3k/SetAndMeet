@@ -17,6 +17,9 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
+from Event.models import Event
+from RatingSystem.models import ProfileRatingManager
+
 # def login_user(request):
 #     username = password = ''
 #     if request.POST:
@@ -95,7 +98,12 @@ Returns view for a specified Profile
 #@login_required #Not required. Everyone can see, even guests.
 def profile_detail(request,profile_pk):
     p  = Profile.objects.get(pk=profile_pk)
-    context = {'user':request.user,'profile':p}
+    #take last x events of this user
+    events  = Event.objects.filter(host=p)[:10]
+    #Calculating profile rating
+    prm  = ProfileRatingManager()
+    profile_rating = prm.calculate_rating(p)
+    context = {'user':request.user,'profile':p,'hosted_events': events,'profile_rating':profile_rating}
     template = 'Profile/profile_detail.html'
     return render(request,template,context)
 

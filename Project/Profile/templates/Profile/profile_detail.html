@@ -20,12 +20,15 @@
           <span style="margin: 20px; font-size:40px;">
             {{ profile.user.username }}
             <br />
+            Rating of: 
             <span class="rating">
-              <img src="{% static "img/star.png" %}" height="20" width="20">
-              <img src="{% static "img/star.png" %}" height="20" width="20">
-              <img src="{% static "img/star.png" %}" height="20" width="20">
-              <img src="{% static "img/star.png" %}" height="20" width="20">
-              <img src="{% static "img/star.png" %}" height="20" width="20">
+                {% for i in "12345" %}
+                  {% if i|add:0 <  profile_rating|add:1 %}
+                  <img src="{% static "img/star.png" %}" height="20" width="20">
+                  {% else %}
+                  <img src="{% static "img/star-grey.png" %}" height="20" width="20">
+                  {% endif %}
+                {% endfor %}
             </span>
           </span>
           <br />
@@ -50,22 +53,19 @@
           List of events
         </div>
           <ul class="slider-faq">
-            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
-            <li class="slider-a">Lorem ipsuim..........</li>
-            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
-            <li class="slider-a">Lorem ipsuim..........</li>
-            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
-            <li class="slider-a">Lorem ipsuim..........</li>
-            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
-            <li class="slider-a">Lorem ipsuim..........</li>
-            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
-            <li class="slider-a">Lorem ipsuim..........</li>
-            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
-            <li class="slider-a">Lorem ipsuim..........</li>
-            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
-            <li class="slider-a">Lorem ipsuim..........</li>
-            <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> Lorem ipsuim..........</li>
-            <li class="slider-a">Lorem ipsuim..........</li>
+            {% if hosted_events %}
+              {% for event in hosted_events %}
+              <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> {{event.name}}</li>
+              <li class="slider-a">
+                {{event.description}}
+                <a href="{% url 'Event:event_detail' event.id %}">See more</a>
+
+              </li>
+              {% endfor %}
+              {% else %}
+                <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> This user has no hosted events</li>
+                <li class="slider-a">Hosting events is simple. Why not to try now?</li>
+            {% endif %}
           </ul>
       </div>
     </div>
