@@ -117,9 +117,9 @@
         {% endfor %}
         </div>
       </ul>
-    {% now "Y-m-d" as todays_date %}
-    {% if  todays_date < event.date_end|date:"Y-m-d" %}
-      <form id="myform">{% csrf_token %}
+    {% now "Y-m-d hh:mm" as todays_date %}
+    {% if  todays_date < event.date_end|date:"Y-m-d hh:mm" %}
+      <form id="#myform">{% csrf_token %}
           <label>Shout text: </label>
           <input type="text" id="shout"/>
           <input type="submit" id="submit" value="SHOUT!"/>

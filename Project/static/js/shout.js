@@ -1,6 +1,7 @@
 setInterval(get_all_shouts, 6000); //60000 MS == 1 minute
 //setInterval(scroll_shoutbox, 6000); //60000 MS == 1 minute
 
+
 $(document).ready(function(){//when document is ready run this function
   $('#submit').on('click', function(e){
     var message = $('#shout').val(); //grab value of an input
@@ -82,11 +83,12 @@ $(document).ready(function(){//when document is ready run this function
 function get_all_shouts() {
   element_exists = document.getElementById("#myform");//Trying to get element with given id
   if(element_exists == null){ //This form doesn't exist. Probably because shout is no longer avaliable.
+    //console.log("This form doesn't exist!! For debugging purposes.");
     return;
   }
   var profile_avatar = $('.avatar-medium').html();
   var wydarzenie = $('#wydarzenie').attr('numer_wydarzenia');
-  console.log("hi");
+  console.log("Getting all shouts");
   $.ajax({
     type:'POST',
     url:'/shout_list/',
