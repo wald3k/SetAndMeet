@@ -125,7 +125,7 @@ def event_leave(request,event_pk):
         e.cur_capacity = e.cur_capacity - 1
         e.profiles.remove(request.user.profile)                             #remove from manyToMany refrecence
         e.save()
-        return HttpResponseRedirect('/event_list')
+        return HttpResponseRedirect('/upcoming_event_list')
     else:
         print "User was not registered for the event!"
         return HttpResponseRedirect('/')

@@ -38,16 +38,17 @@
                 <td class="col-md-1"> {{ event.fee }} </td>
                 {% if event.cur_capacity < event.person_limit %}
                   <td class="col-md-1"> <span class="badge alert-success">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>
-                  <td id=""class="col-md-2"> <a onClick="javascript:show_snackbar('3');" href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
                 {% else %}
                   <td class="col-md-1"> <span class="badge alert-danger">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>
-                  <td id=""class="col-md-2"> <a onClick="javascript:show_snackbar('1');return false;" href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
                 {% endif %}
                 {% if request.user.profile in event.profiles.all %}
                   <td class="col-md-2"> <a href="{% url 'Event:event_leave' event.id %}">  Unregister! </a> </td>
                 {% else %}
-                 <!--  <td class="col-md-2"> <a href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td> -->
-  
+                  {% if event.cur_capacity < event.person_limit %}
+                    <td id=""class="col-md-2"> <a onClick="javascript:show_snackbar('3');" href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
+                  {% else %}
+                    <td id=""class="col-md-2"> <a onClick="javascript:show_snackbar('1');return false;" href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
+                  {% endif %}
                 {% endif %}
               </tr>
             {% empty %}
