@@ -435,17 +435,19 @@ section{
 }
 /*SNACKBAR/TOAST SETTINGS END*/
 
+/*Glyphicons START*/
+.icon-danger{
+	color: red;
+}
+/*Glyphicons END*/
 
+/*Tooltip SETTINGS START*/
+/*Overwritting Bootstrap tooltip classes*/
+.tooltip {
+  font-size: 18px;
+}
 
-
-
-
-
-
-
-
-
-
+/*Tooltip SETTINGS END*/
 /*
 ***************************SMALL RESOLUTUION SETTINGS***************************
 */

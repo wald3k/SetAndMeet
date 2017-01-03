@@ -59,7 +59,6 @@
               <li class="slider-a">
                 {{event.description}}
                 <a href="{% url 'Event:event_detail' event.id %}">See more</a>
-
               </li>
               {% endfor %}
               {% else %}
@@ -75,15 +74,18 @@
       <div class="galery-title">
         List of friends
       </div>
-
-
       <div class="row">
       {% for friend in profile.friends.all %}
           <div class="col-md-4">
             <a href="{% url 'Profile:profile_detail' friend.user.id %}">
               <img  src="../../{{ friend.avatar }}" class="img-circle" height="70" width="70"  title="{{ friend.user.username }}"/>
             </a>
-          </div>
+              {% if user.id == profile.user.id %}
+                <div style="float: left;">
+                  <a data-toggle="tooltip" data-placement="top" title="Remove from friends" href="{% url 'Profile:remove_friend' friend.user.id %}"><span class='glyphicon glyphicon-remove icon-danger'></span></a>
+                </div>
+              {% endif %}
+            </div>
           {% if forloop.counter|divisibleby:3 %}
       </div>
       <div class="row">
@@ -95,4 +97,11 @@
     </div>
   </div>
 </section>
+
+<script>
+// For showing tooltip before deletion of a user from list of friends
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 {% endblock %}
