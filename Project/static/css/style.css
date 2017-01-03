@@ -20,6 +20,7 @@ header{
 }
 header .logo{
 	float:left;
+	margin: 0px;
 }
 header form{
 	float:right;
@@ -454,10 +455,16 @@ section{
 		width: 100%;
 	}
   header form{
-    float:none;
-    margin-top: 20px;
+    float:right;
+    margin: 0px;
+    padding: 0px;
     text-align: center;
   }
+.welcome-group{
+	display: inline-block;
+	float: left;
+	width: 300px;
+}
 	.search-query{
 		width:100%;
 		max-width:100%;
