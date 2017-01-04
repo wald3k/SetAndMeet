@@ -49,7 +49,7 @@
               <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
             </div>
           {% elif user.is_authenticated and backends.associated %}
-            <div id="user_info" class="welcome-group" request_user_id="{{ request.user.id }}>"
+            <div id="user_info" class="welcome-group" request_user_id="{{ request.user.id }}"
              Hello {{ request.user }} !<br />
              <a href="{% url 'Profile:profile_detail' user.id %}"><img  src="../../{{ user.profile.avatar }}" class="img-circle" height="50" width="50"/> </a>
              <div class="dropdown">

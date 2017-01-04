@@ -21,7 +21,7 @@
             {{ profile.user.username }}
             <br />
             Rating of: 
-            <span class="rating">
+            <span class="rating" title="Average rate of {{profile_rating}} stars">
                 {% for i in "12345" %}
                   {% if i|add:0 <  profile_rating|add:1 %}
                   <img src="{% static "img/star.png" %}" height="20" width="20">

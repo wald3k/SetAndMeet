@@ -29,14 +29,20 @@ $(function(){
             $('.event-rating-select .selected').removeClass('selected');
             $(this).addClass('selected');
             is_rated = true;
+            console.log("Checked a box.")
             clicked_button = $('.selected').index() + 1;//indexes start at 0!
         }
     });
 //My additional functions
     $('.event-rev-btn-submit .btn').click(function(){
+        console.log("Is rated: " + is_rated);
         if(is_rated == true) {
+            console.log("Inside if")
             var rated_event = $('#wydarzenie').attr('numer_wydarzenia');  //gets event.id
             var author = $('#user_info').attr('request_user_id');
+            console.log(rated_event)
+            console.log(author)
+            console.log(clicked_button)
             send_event_rating(rated_event,author,clicked_button);//call to function
         } else {
             alert("Cannot send review!");
