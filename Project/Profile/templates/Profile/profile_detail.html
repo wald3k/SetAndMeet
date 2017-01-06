@@ -32,8 +32,7 @@
             </span>
           </span>
           <br />
-          <button type="button" class=font-size:30px;"btn btn-default">Show friends</button>
-          <button type="button" class="btn btn-primary">Message</button>
+          <a href="#" class="btn btn-primary">Message</a>
           {% if user.pk == profile.user.pk %}
           <!--  Don't display anything-->
           {% else %}
@@ -43,7 +42,7 @@
               <a href="{% url 'Profile:add_friend' profile.user.id %}" class="btn btn-success">Invite</a>
             {% endif %}
           {% endif %}
-          <button type="button" class="btn btn-warning">Gallery</button>
+          <a href="#" class="btn btn-warning">Gallery</a>
       </div>
 </div>
 <div class="row">
@@ -63,7 +62,11 @@
               {% endfor %}
               {% else %}
                 <li class="slider-q"><img src="{% static "img/arrow.png" %}" height="20" width="20"> This user has no hosted events</li>
-                <li class="slider-a">Hosting events is simple. Why not to try now?</li>
+                {% if user.is_authenticated %}
+                  <li class="slider-a">Hosting events is simple. Why not to <a href="/event_create/">try now?</a></li>
+                {% else %}
+                  <li class="slider-a">Hosting events is simple. You just need to  <a href="/login_secondary/">login first</a></li>
+                {% endif %}
             {% endif %}
           </ul>
       </div>

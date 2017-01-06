@@ -135,6 +135,7 @@ def event_leave(request,event_pk):
 """
 Create new Event
 """
+@login_required
 def event_create(request):
     if request.method == 'POST': #If form was sent via POST method:
         context = {}
