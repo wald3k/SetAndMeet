@@ -168,3 +168,11 @@ class ProfileRatingManager:
 			result = result / (i)					#If wants floating point number use this:result = result / (i * 1.0)
 		print "OVERAL RESULTS FOR: %s RATING: %d TOTAL REVIEWS: %d" % (target_profile.user.username, result, i)
 		return result
+	"""
+	Returns a number of total reviews for the profile.
+	"""
+	def get_number_of_ratings(self, target_profile):
+		print "Checking total number of ratings..."
+		all_ratings = ProfileRating.objects.filter(rated_profile = target_profile)
+		how_many = len(all_ratings) #This will return 0 if list is empty.
+		return how_many

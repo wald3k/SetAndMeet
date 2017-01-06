@@ -21,7 +21,7 @@
             {{ profile.user.username }}
             <br />
             Rating of: 
-            <span class="rating" title="Average rate of {{profile_rating}} stars">
+            <span class="rating" title="Average rate of {{profile_rating}} stars from {{ratings_qty}} reviews">
                 {% for i in "12345" %}
                   {% if i|add:0 <  profile_rating|add:1 %}
                   <img src="{% static "img/star.png" %}" height="20" width="20">
@@ -50,7 +50,7 @@
   <div class="col-md-8">
       <div class="slider">
         <div class="slider-title">
-          List of events
+          Hosted events: 
         </div>
           <ul class="slider-faq">
             {% if hosted_events %}

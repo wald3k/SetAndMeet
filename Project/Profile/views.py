@@ -103,7 +103,8 @@ def profile_detail(request,profile_pk):
     #Calculating profile rating
     prm  = ProfileRatingManager()
     profile_rating = prm.calculate_rating(p)
-    context = {'user':request.user,'profile':p,'hosted_events': events,'profile_rating':profile_rating}
+    total_number_of_ratings = prm.get_number_of_ratings(p)
+    context = {'user':request.user,'profile':p,'hosted_events': events,'profile_rating':profile_rating,'ratings_qty':total_number_of_ratings}
     template = 'Profile/profile_detail.html'
     return render(request,template,context)
 
