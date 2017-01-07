@@ -46,7 +46,7 @@
                  <a href="#">Rate Event</a>
                  <a href="#">Settings</a>
                </div>
-              <a style="color: #fff;" href="/wyloguj/">Log me out!</a>
+                <a href="/wyloguj/" class="btn btn-danger" style="padding: 13px;" role="button"><span style="font-size:1.5em;" class="glyphicon glyphicon-off"></span></a>
             </div>
           {% elif user.is_authenticated and backends.associated %}
             <div id="user_info" class="welcome-group" request_user_id="{{ request.user.id }}"
