@@ -19,10 +19,14 @@ class MyRegistrationForm(UserCreationForm):
         if user.email and User.objects.filter(email=user.email).exclude(username=user.username).count():    #Check if email address is unique, otherwise raise exception
             raise forms.ValidationError(u'Email addresses must be unique.')
         if commit:
-            user.save()
-        p = Profile.objects.get(pk = user.pk)
-        p.przezwisko = "Default nickname"
-        p.avatar = self.cleaned_data['avatar']
-        p.save()
-
+            user.save() #When User is saved then automatically Profile is created(also User post_save is called here).
+            #since profile is created I can get reference to it:
+            p = Profile.objects.get(pk = user.pk)
+            #If form had some additional fields they could be here
+            #i.e. change avatar (it will override one created in post_save create_profile fun. in models/signals.py)
+            #so do it only if self.cleaned_data['avatar'] is != None
+            if(self.cleaned_data['avatar'] != None):#user has chosen some avatar
+                print "User chose some avatar"
+                p.avatar = self.cleaned_data['avatar'] #avatar set and is no longer default img.
+            p.save()#save profile to DB
         return user

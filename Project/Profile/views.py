@@ -68,15 +68,15 @@ def register_profile(request):
     else:
         if request.method == 'POST':
             form = MyRegistrationForm(data=request.POST, files=request.FILES)
-            if form.is_valid():                                             #formed filled without properly
-                form.save()
-                return HttpResponseRedirect('/')
+            if form.is_valid():                  #validation of the form
+                newly_created_user = form.save() #reference to created User object. It fires post_save function.
+                print "New User object created."
+                return HttpResponseRedirect('/profile_list')
             print form.errors
         else:                                                               #Entered here from method GET i.e. by typing address. It means that new form will be created.
             form = MyRegistrationForm()                                     #creating new empty form
         context.update(csrf(request))
         context['form'] = form
-
         return render(request, 'register_profile.html', context)
 
 def login_secondary(request):
