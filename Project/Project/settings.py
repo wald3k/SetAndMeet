@@ -36,9 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.sites', #for 3rd party apps
+    'django.contrib.sites', #for setting domain name
     'django.contrib.staticfiles',
-    #third party apps
+    #----------- third party apps -----------
     'Event',
     'Profile',
     #'Message',
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'social.apps.django_app.default',
     'django_extensions', #for graphviz
     'Shout',
-    'rest_framework', #adding django-rest-framework
+    #'rest_framework', #adding django-rest-framework
     'RatingSystem',#for EventRating & ProfileRating
     'django.contrib.humanize',#possible to write in django-templates: {{ event.end_date|naturaltime|capfirst }}. Also dont forget to {% load humanize %} in a template file.
 ]
