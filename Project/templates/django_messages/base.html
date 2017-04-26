@@ -1,12 +1,40 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block content %}
+{% block tabs %}
+  {% include "includes/tabs.html" with active_tab='members' %}
 {% endblock %}
+
 {% block sidebar %}
-<ul class="subnavilist">
-    <li><a href="{% url 'messages_inbox' %} ">&raquo;&nbsp;{% trans "Inbox" %}</a></li>
-    <li><a href="{% url 'messages_outbox' %} ">&raquo;&nbsp;{% trans "Sent Messages" %}</a></li>
-    <li><a href="{% url 'messages_compose' %} ">&raquo;&nbsp;{% trans "New Message" %}</a></li>
-    <li><a href="{% url 'messages_trash' %} ">&raquo;&nbsp;{% trans "Trash" %}</a></li>
-</ul>
+	<ul class="subnavilist">
+		<li>
+			<a href="{% url 'messages_inbox' %} ">
+				<i class="fa fa-inbox" aria-hidden="true"></i> {% trans "Inbox" %}
+			</a>
+			
+		</li>
+		<li>
+			<a href="{% url 'messages_outbox' %} ">
+				<i class="fa fa-sign-out" aria-hidden="true"></i> {% trans "Sent Messages" %}
+			</a>
+			
+		</li>
+		<li>
+			<a href="{% url 'messages_compose' %} ">
+				<i class="fa fa-envelope" aria-hidden="true"></i> {% trans "New Message" %}
+			</a>
+			
+		</li>
+		<li>
+			<a href="{% url 'messages_trash' %} ">
+				<i class="fa fa-trash" aria-hidden="true"></i> {% trans "Trash" %}
+			</a>
+			
+		</li>
+	</ul>
 {% endblock %}
+
+
+
+
+
+

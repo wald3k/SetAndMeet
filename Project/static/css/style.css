@@ -186,10 +186,28 @@ section{
 .header-text a:hover{
     color:#56C4E8;
 }
-
-
-
 /*Header koniec*/
+/*SIDEBAR FOR DJANGO-MESSAGES START*/
+.subnavilist{
+	font-size: 3em;
+	float: left;
+}
+.subnavilist li a{
+	color:#000;
+}
+.subnavilist li a:hover{
+	color:#337ab7;
+}
+.messages{
+	font-size: 1.3em;
+}
+.messages td{
+	padding: 30px;
+}
+.messages th{
+	padding: 30px;
+}
+/*SIDEBAR END*/
 /*AVATAR SETTINGS START*/
 .avatar-medium{
 	width: 50px;
@@ -496,6 +514,23 @@ input[name=q]:focus{
 /*Loader is used to fade in and fade out an element by attaching this id to div. can be used by many components.*/
 #loader {
   transition: opacity 500 ease-in-out;
+}
+.event-rating-select{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.profile-rating-select{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.event-rev-btn-submit{
+	text-align: center;
+	margin-left: 35px;
+}
+.profile-rev-btn-submit{
+	text-align: center;
 }
 /*RATING SYSTEM END*/
 

@@ -42,7 +42,7 @@
           <div class="col-md-3">
             <h4><a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a></h4>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-9">
             <div class="event-rating-select">
               <ul>
                {% for i in "12345" %}
@@ -53,9 +53,9 @@
                   {% endif %}
                 {% endfor %}                   
               </ul>
-            </div>
-            <div class = "event-rev-btn-submit">
+              <div class = "event-rev-btn-submit">
                <div class="btn btn-default">Send Event rating!</div>
+              </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -71,7 +71,7 @@
               <a  href="{% url 'Profile:profile_detail' profile.user.id %}"> <img  src="../../{{ profile.avatar.url }}" class="img-circle"/></a>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-9">
             <div  already_rated="{{already_rated|lookup:forloop.counter0}}" average-rating="{{profile_ratings|lookup:forloop.counter0}}" user_id = "{{ profile.user.id }}" class="profile-rating-select">
               <ul>
                 <!-- Create a temporary variable name. -->
@@ -84,16 +84,16 @@
                     <li class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty"></span></li>
                     {% endif %}
                   {% endfor %}   
-                {% endwith %}                                          
-              </ul>
-              Average  rating:{{profile_ratings|lookup:forloop.counter0}} stars!</br>
+                {% endwith %}    
+              </br>Average  rating:{{profile_ratings|lookup:forloop.counter0}} stars!</br>
               Number of reviews: {{no_of_profile_ratings|lookup:forloop.counter0}} 
                 <div  class = "profile-rev-btn-submit {{ profile.user.id }}">
                   <div class="btn btn-default">SHOW USER ID:</div>
-                </div>
+                </div>                                      
+              </ul>
             </div>
 
-          </div>
+        </div>
           <div class="col-md-6">
           </div>
         </div>
