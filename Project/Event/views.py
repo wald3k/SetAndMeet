@@ -81,6 +81,8 @@ class UpcomingEventListView(ListView):
         startdate = timezone.now()
         enddate = timezone.now() + timedelta(days=self.days_number) #where event.start_date begins during next 30 days
         qs = super(UpcomingEventListView, self).get_queryset()
+        if self.request.user.is_anonymous():
+            return qs.filter(date_end__gte=timezone.now()).order_by('date_start').filter(Q(public=True))[:20]
         # return qs.filter(date_end__range=[startdate, enddate]).order_by('date_start')[:20]
         friends_list =  self.request.user.profile.friends.all()
         #show events that end in future. An then filter them to show public or made by friends or if request user is a host.
@@ -179,6 +181,7 @@ def event_review(request,event_pk):
     print "Made review:)"
 
 def past_event_list(request):
+    """Returns all events that have been finished and user took part in it"""
     all_events = Event.objects.all()
     profile = Profile.objects.get(pk = request.user.id)
     events = []
@@ -188,6 +191,18 @@ def past_event_list(request):
     context = {'user':request.user,'object_list':events}   #create context dictionary(that will be passed to render class)
     template = 'Event/past_event_list.html'
     return render(request,template,context) #No matter what if. Return render shortcut class
+
+def historical_event_list(request):
+    """Returns all events that have already been finished. Not only for logged user"""
+    all_events = Event.objects.all()
+    events = []
+    for e in all_events:
+        if(e.is_finished() == True):#event is finished and user was participating
+            events.append(e)
+    context = {'user':request.user,'object_list':events}   #create context dictionary(that will be passed to render class)
+    template = 'Event/historical_event_list.html'
+    return render(request,template,context) #No matter what if. Return render shortcut class
+
 
 """User can rate an Event after it is finished"""
 def event_rate(request, event_pk):
@@ -231,7 +246,8 @@ def add_event_image(request):
             event = Event.objects.get(pk = request.POST['event'])
             event_image.event = event
             event_image.save()
-            return HttpResponseRedirect('/success/url/')
+            #return HttpResponseRedirect('/Event/event_list.html')
+            return event_detail(request,event.pk)
         else:
             print "form not valid"
     print form.errors

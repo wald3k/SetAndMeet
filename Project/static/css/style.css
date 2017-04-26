@@ -1,7 +1,3 @@
-/*
-body {
-  padding-top: 50px;
-}
 .starter-template {
   padding: 40px 15px;
   text-align: center;
@@ -11,6 +7,62 @@ body {
 	margin:0;
 	padding:0;
 }
+/*About page START*/
+/*Font size for font-awesome*/
+@media(min-width: 991px) {
+	.my-custom-size{
+		margin-top: 30px;
+		font-size: 3em;
+	}
+	.my-custom-size2{
+		padding-top: 50px;
+		margin-top: 5px;
+		font-size: 1.5em;
+	}
+	.text-container{
+		vertical-align:middle;
+		width: 100%;
+		font-size: 3em;
+	    line-height: 100px;
+	    margin: 0;
+	}
+	.text-container h3 {
+	    vertical-align: middle;
+	    display: inline-block;
+	    text-align: center;
+	    font-size: 1em;
+		background-color: rgba(46, 90, 138, 0.1); 
+	    border-radius: 15px;
+	    padding: 50px ;  
+	    width: 100%;
+	    margin-left: 20px;
+	}
+	.fa-container{
+		text-align: center;
+	}
+	/*About page END*/
+	/*Horizontal line settings START*/
+	.about-hr {
+	  border:none;
+	  border-bottom:10px dashed #00264d;
+	  color:#fff;
+	  height:5px;
+	  width:100%;
+	  text-align: center;
+	  margin-bottom: 5px;
+	}
+}
+/*Horizontal line settins END*/
+/*Footer start*/
+#sticky-footer{
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:30px;
+   width:100%;
+   text-align: center;
+}
+/*Footer End*/
 /*Header poczatek*/
 header{
 	background-image: linear-gradient(#04519b, #044687 60%, #033769);
@@ -337,6 +389,10 @@ input[name=q]:focus{
 	text-align: center;
 	padding: 10px;
 }
+.slider-faq{
+	width: 100;
+	padding: 0;
+}
 .slider-faq li{
 	padding:10px;
 }
@@ -383,19 +439,66 @@ input[name=q]:focus{
 	font-size: 25px;
 	text-align: center;
 	padding: 10px;
+	cursor: pointer;
 }
 /*Galery END*/
+/*New galery class START*/
+.gallery-container{
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+	height: 300px;
+	background-color: none;
+	align-self: center; 
+	position: relative;
+	overflow: hidden;
+}
+.long-container{
+	height: 100%;
+
+}
+.gallery-item{
+	height: 100%;
+	float: left;
+}
+.see-previous,
+.see-next{
+	height: 100%;
+	width: 50px;
+	position: absolute;
+	left: 0;
+	display: flex;
+	transition: all 0.4s ease-in-out;
+	cursor: pointer;
+}
+.see-next{
+	right: 0;
+	left: auto;
+}
+.arrow-previous{
+	width: 100%;
+	align-self: center;
+	transform: rotate(180deg)
+}
+.arrow-next{
+	align-self: center;
+}
+.see-previous:hover,
+.see-next:hover{
+	background-color: rgba(0,0,0,0.5)
+}
+
+/*New galery calss END*/
 /*RATING SYSTEM START*/
-
-
 .rating-select ul li{
 	display: block-inline;
 }
-
-
-
-
+/*Loader is used to fade in and fade out an element by attaching this id to div. can be used by many components.*/
+#loader {
+  transition: opacity 500 ease-in-out;
+}
 /*RATING SYSTEM END*/
+
 
 
 /*SNACKBAR/TOAST SETTINGS START*/
@@ -503,4 +606,44 @@ input[name=q]:focus{
 	}
 	/*Carousel settings END */
 }
-/*For small Resolutuion END*/
+/*About page START*/
+/*Font size for font-awesome*/
+@media(max-width: 991px) {
+	.my-custom-size{
+		margin-top: 10px;
+		font-size: 1.4em;
+	}
+	.my-custom-size2{
+		margin-top: 4px;
+		font-size: 0.8em;
+	}
+	.text-container{
+		vertical-align:middle;
+		width: 100%;
+		font-size: 3em;
+	    line-height: 20px;
+	    margin: 0;
+	}
+	.text-container h3 {
+	    vertical-align: middle;
+	    display: inline-block;
+	    text-align: center;
+	    font-size: 1.2em;
+		background-color: rgba(46, 90, 138, 0.1); 
+	    border-radius: 20px;
+	    padding: 0px ;  
+	    width: 100%;
+	}
+	/*About page END*/
+	/*Horizontal line settings START*/
+	.about-hr {
+	  border:none;
+	  border-bottom:1px dashed #00264d;
+	  color:#fff;
+	  height:5px;
+	  width:100%;
+	  text-align: center;
+	  margin-bottom: 2px;
+	}
+}
+/*For small Resolutuion END

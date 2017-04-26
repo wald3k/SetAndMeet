@@ -2,7 +2,7 @@
 {% load static %}
 {% load humanize %}
 {% block tabs %}
-  {% include "includes/tabs.html" with active_tab='upcoming_events' %}
+  {% include "includes/tabs.html" with active_tab='archive' %}
 {% endblock %}
 
 {% block content %}
@@ -11,9 +11,9 @@
   <div class="container pre-scrollable">
     <div class="row">
       <div class="panel panel-default ">
-        <div class="panel-heading" style = "background-image: linear-gradient(#c9de96, #8ab66b 40%, #398235);">
+          <div class="panel-heading" style = "background-image: linear-gradient(#efc5ca, #d24b5a 40%,  #ba2737);">
           <h4 style = "font-weight: bold;color: white">
-            {{ table_header }}
+            PAST EVENTS
           </h4>
         </div>
         <table class="table table-fixed ">
@@ -21,11 +21,11 @@
             <tr>
               <th class="col-md-3">Name</th>
               <th class="col-md-2">Category</th>
-              <th class="col-md-2">Ends within</th>
+              <th class="col-md-2">Ended</th>
               <th class="col-md-1">Hosted by</th>
               <th class="col-md-1">Fee</th>
               <th class="col-md-1">Current capacity</th>
-              <th class="col-md-2">Action</th>
+              <th class="col-md-2">Action </th>
             </tr>
           </thead>
           <tbody>
@@ -42,14 +42,11 @@
                   <td class="col-md-1"> <span class="badge alert-danger">{{ event.cur_capacity }}/{{ event.person_limit }}</span> </td>
                 {% endif %}
                 {% if request.user.profile in event.profiles.all %}
-                  <td class="col-md-2"> <a href="{% url 'Event:event_leave' event.id %}">  Unregister! </a> </td>
+                  <td class="col-md-2"> <a href="{% url 'Event:event_rate' event.id %}">  Review this event </a> </td>
                 {% else %}
-                  {% if event.cur_capacity < event.person_limit %}
-                    <td id=""class="col-md-2"> <a onClick="javascript:show_snackbar('3');" href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
-                  {% else %}
-                    <td id=""class="col-md-2"> <a onClick="javascript:show_snackbar('1');return false;" href="{% url 'Event:event_join' event.id %}">  Join now! </a> </td>
-                  {% endif %}
+                   <td class="col-md-2"> ------------------ </td>
                 {% endif %}
+
               </tr>
             {% empty %}
               <tr>
@@ -61,6 +58,7 @@
       </div>
     </div>
   </div>
+
 </section>
 
 {% endblock %}

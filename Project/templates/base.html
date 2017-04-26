@@ -8,6 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Play it gathers people that want have fun and play together!">
     <meta name="author" content="Waldemar Sobiecki">
+    <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
 
     <title>Play it! The easiest way to play game!</title>
 
@@ -33,7 +34,7 @@
         <a href="/"><img src="{% static "img/cool_logo.png" %}" class="logo"></a>
           {% if user.is_authenticated and not backends.associated %}
              <div id="user_info"class="welcome-group" request_user_id="{{ request.user.id }}">
-              Hello {{ request.user }} !<br />
+            Hello {{ request.user }} !<br/>
              <a href="{% url 'Profile:profile_detail' user.id %}"> <img  src="../../{{ user.profile.avatar.url }}" class="img-circle"  height="50" width="50"/></a>
              <div class="dropdown">
               <a href="{% url 'Profile:profile_detail' user.id %}"><button class="dropbtn-left">Action Center</button></a>
@@ -128,12 +129,13 @@
     {% block content %}
     {% endblock %}
   </div>
+    <footer>
+      <div id="sticky-footer">
+        <p>Waldemar Sobiecki &copy; 2016, All Rights Reserved</p>
+      </div>
+    </footer>
 
-  <footer>
-    <div class="container">
-      <p>Waldemar Sobiecki &copy; 2016, All Rights Reserved</p>
-    </div>
-  </footer> 
+
   <!-- For Toast messages -->
 <div id="snackbar">Some text some message..</div>
     <!-- Bootstrap core JavaScript

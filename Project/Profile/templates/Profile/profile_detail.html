@@ -3,6 +3,7 @@
 
 {% block my_js_scripts %}
   <script type="text/javascript" src="{% static "js/script.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/jquery.bsPhotoGallery.js" %}"></script>
 {% endblock %}
 
 {% block tabs %}
@@ -97,12 +98,120 @@
       </div>
       <a href="#">See all</a>
     </div>
-  </div>
+<!-- Adding galery with user pictures -->
+      <div class="galery-title">
+        Photos taken by: {{ profile.user.username }}
+      </div>
+      <div class="gallery-container">
+        <div class="see-previous"><img src="{% static "img/arrow.png" %}" class="arrow-previous"> </div>
+          <div class="see-next"><img src="{% static "img/arrow.png" %}" class="arrow-next"> </div>
+        <div class="long-container">
+          {% for pic in uploaded_imgs %}
+          <a href="{% url 'Event:event_detail' pic.event.id %}">
+            <div class="gallery-item"><img src="../../{{ pic.img }}" height="400" width="400"></div>
+            <div class="test"> </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="gallery-container">
+     <div class="gallery-item-desc">No photos</div>
+     </div
+  </div>  <!-- End col-md-r -->
+</div>
+
+</div><!-- end of container -->
+
 </section>
 <script>
 // For showing tooltip before deletion of a user from list of friends
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
+    $('[data-toggle="tooltip"]').tooltip();   //shows text when toggling on elements
+    
+    //initialize gallery with user picrutes
+    var max_pictures = "{{ number_of_pictures }}";
+    if(max_pictures == 0){
+      $(".see-next").hide();
+      $(".see-previous").hide();
+      $(".see-previous").hide();
+      $(".gallery-container").hide()
+    }
+    console.log(max_pictures);
+    var window_width = $(window).width();
+    var main_width = $(".gallery-container").width();
+    var long_container = $(".long-container");
+    var item = $(".gallery-item");
+    var slide_number = 0;
+    var pic_descriptions = {{ pic_descriptions|safe }}
+    $(".gallery-item-desc").html(pic_descriptions[slide_number]);
+    long_container.css("width", main_width * max_pictures);
+    item.css("width",long_container.width() / 3);
+    //coding next button click
+    $(".see-next").click(function(){
+      if(slide_number < max_pictures-1){
+        slide_number++;
+        if(slide_number == max_pictures-1){
+          $(".see-next").animate({opacity: 0});
+        }else{
+          $(".see-next").animate({opacity: 1});
+        }
+
+        if(slide_number == 0){
+          $(".see-previous").animate({opacity: 0});
+        }else{
+          $(".see-previous").animate({opacity: 1});
+        }
+
+        var item_width   = $(".gallery-item").width();
+        var pixels_moved = item_width * slide_number;
+        long_container.animate({
+          marginLeft: -pixels_moved
+        });
+        $(".gallery-item-desc").html(pic_descriptions[slide_number]);
+     } 
+    });
+
+    //coding prev button click
+      $(".see-previous").click(function(){
+      if(slide_number > 0){
+        slide_number--;
+        if(slide_number == 0){
+          $(".see-previous").animate({opacity: 0});
+        }else{
+          $(".see-previous").animate({opacity: 1});
+        }
+        if(slide_number == max_pictures){
+          $(".see-next").animate({opacity: 0});
+        }else{
+          $(".see-next").animate({opacity: 1});
+        }
+        var item_width   = $(".gallery-item").width();
+        var pixels_moved = item_width * slide_number;
+        long_container.animate({
+          marginLeft: -pixels_moved
+        });
+        $(".gallery-item-desc").html(pic_descriptions[slide_number]);
+     } 
+    });
+
+  //toggling user galery
+  $('.galery-title').on("click", function(){
+      console.log("kliknieto galerie");
+      if($('.gallery-container').hasClass('#loader')){
+        console.log("has class");
+        $('.gallery-container').removeClass('#loader');
+        $('.gallery-container').slideDown("slow","swing");
+      }
+      else{
+        console.log("Doestnt have");
+        $('.gallery-container').addClass('#loader');
+        $('.gallery-container').slideUp("slow","swing");
+      }
+  });
+
+
+
 });
+
 </script>
 {% endblock %}

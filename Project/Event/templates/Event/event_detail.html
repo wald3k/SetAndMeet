@@ -41,7 +41,11 @@
               <a style="display: table-cell;vertical-align: middle;" href="{% url 'Profile:profile_detail' profile.user.id %}">{{profile.user.username}} </a>
             </div>
             <div class="col-md-3">
-              <span class="badge alert-success">12</span>
+            {% if forloop.counter  < event.person_limit %}
+              <span class="badge alert-success">{{ forloop.counter }} / {{ event.person_limit }}</span>
+            {% else %}
+              <span class="badge alert-danger">{{ forloop.counter }} / {{ event.person_limit }}</span>
+            {% endif %}
             </div>
             <div class="col-md-6">
               <div class="avatar-small" style="float:right;" >

@@ -10,6 +10,7 @@ from geoposition.fields import GeopositionField
 # Create your models here.
 class Location(models.Model):
     name = models.CharField(null=True,max_length = 225, blank=True)
+    secondary_name = models.CharField(null=True,max_length = 225, blank=True)
     #  street = models.CharField(null=True,max_length = 30, blank=True)
     #  street_number = models.PositiveIntegerField(null=True,blank=True)
     #  postal_code = models.CharField(null=True,max_length = 6,blank=True)
@@ -20,4 +21,4 @@ class Location(models.Model):
     position = GeopositionField(default='52.229,21.011')#holds latitude & longitude + adds admin widget
 
     def __unicode__(self):
-        return '%s' % (self.name[:40] + '...')#first X letters fro left
+        return '%s \t %s' % (self.name[:40] + '...', self.secondary_name)#first X letters fro left

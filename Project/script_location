@@ -1,0 +1,36 @@
+from Event.models import Event
+from Event.models import Category
+from django.utils import timezone
+from django.contrib.auth.models import User
+from Profile.models import Profile
+from Location.models import Location
+from geoposition.fields import GeopositionField
+from geoposition import Geoposition
+
+lokacje = {
+	'Teatr Muzyczny Roma': (52.2275805359794,21.00765260314938),
+	'Kinoteka': (52.2312461,21.006486999999993),
+	'Kino Femina': (52.24234999999999,20.99526000000003),
+	'Stadion Narodowy': (52.2394957,21.04579089999993),
+	'Złote Tarasy': (52.2299642,21.00317199999995),
+	'Multikino Ursynów': (52.149817,21.04680899999994),
+	'Boisko Ghandi/Dereniowej': (52.14845425636956,21.042453092559754),
+	'Boisko na Puszczyka': (52.1593162,21.02437850000001),
+	'Boisko na Koncertowej': (52.1640878,21.03080810000006),
+	'Muzeum Wojska Polskiego': (52.2321681,21.025887799999964),
+	'Muzeum Narodowe': (52.2315987,21.02479870000002),
+	'Zachęta - Narodowa Galeria Sztuki': (52.2393277,21.011522900000045),
+	'Ogród Zoologiczny w Warszawie': (52.2581092,21.021575600000006),
+	'Muzeum Historii Polski': (52.222033,21.01910399999997),
+	'Kawiarnia Kafka': (52.2395329,21.022719999999936),
+	'Kawiarnai Relaks': (52.202757,21.021764899999994),
+	'Kawiarnia Fawory': (52.2626745,20.991495399999963),
+	}
+
+for key, value in lokacje.items():
+	l=Location()
+	l.secondary_name = key
+	l.position= Geoposition(value[0],value[1])
+	l.save()
+
+

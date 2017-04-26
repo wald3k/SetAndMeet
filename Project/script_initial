@@ -1,0 +1,23 @@
+from Event.models import Event
+from Event.models import Category
+from django.utils import timezone
+from django.contrib.auth.models import User
+from Profile.models import Profile
+from Location.models import Location
+#Setting Encoding for polish letters
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+# Dodawanie uzytkowników
+imiona = ['Anna','Barbara','Bartłomiej','Dariusz','Emilia','Grzegorz','Maria','Małgorzata','Piotr','Paweł','Krzysztof','Kamila','Kataryzna']
+przezwiska = ['Ania','Basia','Bartek','Darek','Emilka','Gryeś','Marysia','Małgosia','Piotruś','Pawełek','Krzyś','Kamila','Kasia']
+
+for index, item in enumerate(imiona):
+	user=User.objects.create_user(item, email = item + '@gmail.com' , password=item) #create user with username & password
+	user.is_superuser=False
+	user.is_staff=False
+	user.save()
+	#Adding associated Profiles
+	p = Profile.objects.get(user_id = user.id)
+	p.przezwisko = przezwiska[index]
+	p.save()

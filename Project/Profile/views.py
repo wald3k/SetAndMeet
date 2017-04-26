@@ -17,9 +17,10 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-from Event.models import Event
+from Event.models import Event, EventImage
 from RatingSystem.models import ProfileRatingManager
-
+import json
+from django.core import serializers
 # def login_user(request):
 #     username = password = ''
 #     if request.POST:
@@ -104,7 +105,14 @@ def profile_detail(request,profile_pk):
     prm  = ProfileRatingManager()
     profile_rating = prm.calculate_rating(p)
     total_number_of_ratings = prm.get_number_of_ratings(p)
-    context = {'user':request.user,'profile':p,'hosted_events': events,'profile_rating':profile_rating,'ratings_qty':total_number_of_ratings}
+    #Getting list of all images uploaded by profile
+    imgs = EventImage.objects.filter(author = p)
+    number_of_pictures = len(imgs) #for javascript gallery
+    pic_descriptions = []
+    for desc in imgs:
+        pic_descriptions.append(desc.img_desc.encode('utf8'))
+    pic_descriptions = json.dumps(list(pic_descriptions))
+    context = {'user':request.user,'profile':p,'hosted_events': events,'profile_rating':profile_rating,'ratings_qty':total_number_of_ratings, 'uploaded_imgs':imgs, 'number_of_pictures':number_of_pictures,'pic_descriptions':pic_descriptions}
     template = 'Profile/profile_detail.html'
     return render(request,template,context)
 

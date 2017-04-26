@@ -75,6 +75,8 @@ class Event(models.Model):
 			self.created = timezone.now()
 			self.modified = self.created
 		self.modified = timezone.now()
+		#setting cur_capacity if profiles were assigned in administrator panel
+		self.cur_capacity = len(self.profiles.all())
 		return super(Event, self).save(*args, **kwargs)
 
 	"""

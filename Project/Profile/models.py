@@ -34,7 +34,7 @@ def create_profile(sender, instance, created, **kwargs):
         profile, new = Profile.objects.get_or_create(user = instance)
         print "Przezwisko to: " + profile.przezwisko
         profile.przezwisko = instance.username
-        print "Ustawione Przezwisko to: " + profile.przezwisko
+        print "Ustawione Przezwisko to: " + str(profile.przezwisko)
         #print "avatar to: " + profile.avatar
         profile.save()#saving Profile to DB
         print "New Profile saved"

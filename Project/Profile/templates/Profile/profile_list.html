@@ -28,7 +28,7 @@
             {% for profile in object_list %}
               <tr>
                 <td class="col-md-3"> <a href="{% url 'Profile:profile_detail' profile.user.id %}">  {{ profile.user.username }} </a> </td>
-                <td class="col-md-6"> {{ profile.user.email }} </td>
+                <td class="col-md-6"> {{ profile.user.email|slice:"0:3" |add:"*******" }} </td>
                 <td class="col-md-3">
                       <a href="{% url 'Profile:profile_detail' profile.user.id %}">
                           <img  src="../../{{ profile.avatar }}" class="img-circle" height="40" width="40"/>

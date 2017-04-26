@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^event_create/$', views.event_create, name='event_create'),
     url(r'^event_review/(?P<event_pk>\d+)/$', views.event_review, name='event_review'),
     url(r'^past_event_list/$', views.past_event_list, name='past_event_list'),
+    url(r'^historical_event_list/$', views.historical_event_list, name='historical_event_list'),
     url(r'^upcoming_event_list/$', views.UpcomingEventListView.as_view(), name='upcoming_event_list'),
     url(r'^event_rate/(?P<event_pk>\d+)/$', views.event_rate, name='event_rate'),
     url(r'^add_event_image/$', views.add_event_image, name='add_event_image'),
