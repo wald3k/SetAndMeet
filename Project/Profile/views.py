@@ -52,7 +52,14 @@ def auth_view(request):
             request.session.set_expiry(0)   #overwritting django session cookie age in seconds (0 means remember as long as browswer is opened)
         auth.login(request, user)
         #return HttpResponseRedirect('/')
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER','/')) #after login go to last loaction
+        try:
+            next = request.session['next']
+            if (next != ""):
+                print next
+                print request.path
+                return HttpResponseRedirect(next) #testowo
+        except:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER','')) #after login go to last loaction
     else:
         return HttpResponseRedirect('/')
 
@@ -81,7 +88,10 @@ def register_profile(request):
         return render(request, 'register_profile.html', context)
 
 def login_secondary(request):
-    return render(request, 'login.html')
+    next =  request.GET.get('next', '')
+    context = {'next':next}
+    request.session['next'] = next
+    return render(request, 'login.html', context)
 
 def user_created(request):
     return render_to_response('user_created.html')
@@ -171,6 +181,7 @@ class ProfileSearchView(ListView):
         return self.model.objects.filter(Q(user__username__icontains=query) | Q(user__email__icontains=query))
         #return self.model.objects.filter(user__username__icontains=query, user__email__icontains=query)
 
+@login_required
 def add_friend(request,profile_pk):
     logged_user = Profile.objects.get(user=request.user)                       #get currently logged user
     friend_user = Profile.objects.get(pk=profile_pk) #get user that we want to invite to friends
@@ -181,7 +192,8 @@ def add_friend(request,profile_pk):
     else:
         logged_user.friends.add(friend_user)             #added a new friend
         print "Friend added"
-    return redirect(request.META['HTTP_REFERER']) #redirect to previous url.
+    #return redirect(request.META['HTTP_REFERER']) #redirect to previous url.
+    return redirect ('/profile/' + profile_pk)
 
 def remove_friend(request,profile_pk):
     logged_user = Profile.objects.get(user=request.user)                       #get currently logged user

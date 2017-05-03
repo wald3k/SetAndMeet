@@ -93,13 +93,14 @@ class UpcomingEventListView(ListView):
 """
 Registers logged user for the event(if there are still spots for the event).
 """
+@login_required
 def event_join(request,event_pk):
         e  = Event.objects.get(pk=event_pk)                                     #get reference to an event user wants to join
         user = request.user
         context = {'user':user,'event':e}                               #adding user to the context dictinary
         if user.is_anonymous():
             #In future after successfull login it should redirect to the last location
-            return HttpResponseRedirect('/login_secondary/')
+            return HttpResponseRedirect('/login_secondary/event_join/' + event_pk)
         if(e.cur_capacity < e.person_limit):
             if (not e.profiles.filter(user_id=user.id).exists()):               #filters profile from profiles by user_id field
                 e.cur_capacity = e.cur_capacity + 1

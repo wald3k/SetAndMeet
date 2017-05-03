@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block my_js_scripts %}
   <script type="text/javascript" src="{% static "js/script.js" %}"></script>
   <script type="text/javascript" src="{% static "js/jquery.bsPhotoGallery.js" %}"></script>
@@ -33,18 +32,18 @@
             </span>
           </span>
           <br />
-          <a href="#" class="btn btn-primary">Message</a>
+          <a href="/messages/compose/{{ profile.user.id }}" class="btn btn-primary">Message</a>
           {% if user.pk == profile.user.pk %}
           <!--  Don't display anything-->
           {% else %}
             {% if user.profile in profile.friends.all %}
                 <a href="{% url 'Profile:remove_friend' profile.user.id %}" class="btn btn-danger">Remove friend</a>
             {% else  %}
-              <a href="{% url 'Profile:add_friend' profile.user.id %}" class="btn btn-success">Invite</a>
+                <a href="{% url 'Profile:add_friend' profile.user.id %}" class="btn btn-success">Invite</a>
             {% endif %}
           {% endif %}
-          <a href="#" class="btn btn-warning">Gallery</a>
-      </div>
+          <!-- <a href="#" class="btn btn-warning">Gallery</a> -->      
+        </div>
 </div>
 <div class="row">
   <div class="col-md-8">
@@ -75,7 +74,7 @@
   <div class="col-md-4">
     <!-- galery -->
     <div class="galery">
-      <div class="galery-title">
+      <div class="friends-gallery-title">
         List of friends
       </div>
       <div class="row">
@@ -99,7 +98,7 @@
       <a href="#">See all</a>
     </div>
 <!-- Adding galery with user pictures -->
-      <div class="galery-title">
+      <div class="gallery-title">
         Photos taken by: {{ profile.user.username }}
       </div>
       <div class="gallery-container">
@@ -195,7 +194,7 @@ $(document).ready(function(){
     });
 
   //toggling user galery
-  $('.galery-title').on("click", function(){
+  $('.gallery-title').on("click", function(){
       console.log("kliknieto galerie");
       if($('.gallery-container').hasClass('#loader')){
         console.log("has class");
