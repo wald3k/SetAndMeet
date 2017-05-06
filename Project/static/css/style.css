@@ -447,6 +447,20 @@ input[name=q]:focus{
 
 /*My slider END*/
 
+/*EMAIL_SENDER FORM START*/
+.email-sender-container{
+	margin: 0px;
+	padding: 20px;
+	vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.2em;
+	background-color: rgba(20, 70, 118, 0.1); 
+    border-radius: 15px;
+    padding: 20px ;  
+    width: 100%;
+}
+/*EMAIL_SENDER FORM END*/
 
 /* GALERY */
 .gallery-title, .friends-gallery-title{

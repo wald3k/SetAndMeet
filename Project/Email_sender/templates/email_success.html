@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block my_js_scripts %}
+	<script>
+	  window.setTimeout(function(){
+	    window.location.href = "/";
+	  }, 4500);
+	</script>
+{% endblock %}
+
+{% block tabs %}
+{% include "includes/tabs.html" with active_tab='contact' %}
+{% endblock %}
+{% block content %}
+	<div class="email-sender-container":
+	<h1>Thank you for your email! We will get in touch with you as soon as possible.</h1>
+	<h2>You will be redirected to the main page in a moment!</h2>
+	<img src="{% static "img/loading.gif" %}" alt="Loading Icon" width="256" height="256">
+	</div>
+{% endblock %}
+
+

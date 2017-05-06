@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     #'rest_framework', #adding django-rest-framework
     'RatingSystem',#for EventRating & ProfileRating
     'django.contrib.humanize',#possible to write in django-templates: {{ event.end_date|naturaltime|capfirst }}. Also dont forget to {% load humanize %} in a template file.
+    'Email_sender', #for contact form. On production server please change EMAIL_BACKEND to MailGun, SendGrid etc.
 ]
 #After adding 'django.contrib.sites', to installed apps
 SITE_ID = 1
@@ -208,3 +209,15 @@ SOCIAL_AUTH_PIPELINE = (
 )
 #Social auth settings end
 SESSION_COOKIE_AGE = 1209600 #Defining Django session cookie age in seconds 1209600(2 weeks, in seconds)
+
+#send_email application settings
+#Backend just for console output
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #On production server please change EMAIL_BACKEND to MailGun, SendGrid etc.
+#Backend for real emails
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#settings for email backendsEMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'SetAndMeet@gmail.com'
+EMAIL_HOST_PASSWORD = 'password_to_EMAIL_HOST_USER'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
