@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse #for getting url address from urls.py
 from .models import Event, Category
 from django.contrib.auth.decorators import login_required
 
@@ -164,15 +165,18 @@ def event_create(request):
         public = form1['public'].value()
         participant = request.user.profile                                              #reference to Logged Profile object
         #Create an Event object
+        print "Przed utworzeniem"
         newly_created_event = Event.objects.create(name=name,category=category,date_start=date_start, date_end=date_end,description=description,person_limit=person_limit,fee=fee,public=public,host=participant,where=location)
+        print "Po utworzeniu"
         newly_created_event.add_participant(participant)                                #Adds profile to profiles list in Event model and saves changes to database.
+        return redirect(reverse('Event:event_detail', kwargs = {'event_pk': newly_created_event.pk}))               #redirect to event detail page    
     else:   #If entered to this URL by GET request:
         #Create a context  dictionary and pass both forms with different prefixes
         context = {
             'event_form': EventForm(prefix='form1'),
             'location_form': LocationForm(prefix='form2'),
         }
-    template = 'Event/event_create.html'                                                #Destination template browswer will redirect to.
+        template = 'Event/event_create.html'                                                #Destination template browswer will redirect to.
     return render(request,template, context)
 
 """
