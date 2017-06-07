@@ -31,7 +31,11 @@
           <tbody>
             {% for event in object_list %}
               <tr>
-                <td class="col-md-3"> <a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a> </td>
+                <td class="col-md-3"> <a href="{% url 'Event:event_detail' event.id %}">  {{ event.name }} </a> 
+                  {% if not event.public %}
+                  <span style="font-weight: bold; color: red"> (private)</span>
+                  {% endif %}
+                </td>
                 <td class="col-md-2"> {{ event.category }} </td>
                 <td class="col-md-2"> {{ event.date_end|naturaltime|capfirst }} </td>
                 <td class="col-md-1"> <a href="{% url 'Profile:profile_detail' event.host.user.id %}">{{ event.host }} </a> </td>

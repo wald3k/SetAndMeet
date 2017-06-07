@@ -11,14 +11,14 @@ import json
 #http://stackoverflow.com/questions/32323683/why-ajax-success-not-called-when-json-passed-through-django
 @login_required
 def add_event_review(request, event_pk,author_pk, rating):
-	print "This is adding event review view!!!!!"
-	print "Event_pk: %s author: %s rating: %s" % (event_pk,author_pk, rating)
+	#print "This is adding event review view!!!!!"
+	#print "Event_pk: %s author: %s rating: %s" % (event_pk,author_pk, rating)
 	e  = Event.objects.get(pk=event_pk) #get reference to event with id passed to function as an argument
 	p = Profile.objects.get(pk = author_pk)
 	erm = EventRatingManager()
 	success = erm.add_event_rating(e,p,int(rating))
 	response = {'message': success}
-	print response
+	#print response
 	return HttpResponse(json.dumps(response), content_type='application/json')#return JSON to AJAX query
 
 """Returns HttpResponse with dict telling if target Profile has already been rated by given author Profile for a given Event. """

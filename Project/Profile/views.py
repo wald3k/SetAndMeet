@@ -55,8 +55,6 @@ def auth_view(request):
         try:
             next = request.session['next']
             if (next != ""):
-                print next
-                print request.path
                 return HttpResponseRedirect(next) #testowo
         except:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER','')) #after login go to last loaction
@@ -185,8 +183,6 @@ class ProfileSearchView(ListView):
 def add_friend(request,profile_pk):
     logged_user = Profile.objects.get(user=request.user)                       #get currently logged user
     friend_user = Profile.objects.get(pk=profile_pk) #get user that we want to invite to friends
-    print logged_user
-    print friend_user
     if(logged_user == friend_user):
         print "Can't be friend with himself."
     else:
@@ -203,5 +199,4 @@ def remove_friend(request,profile_pk):
     if(friend_user in logged_user.friends.all()):
         logged_user.friends.remove(friend_user)
         friend_user.friends.remove(logged_user)
-        print "friend removed"
     return redirect(request.META['HTTP_REFERER']) #redirect to previous url.

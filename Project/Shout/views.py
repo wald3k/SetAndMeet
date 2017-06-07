@@ -42,8 +42,6 @@ def shout_add(request):
     # all_objects = list(list(temp_list))
     response = {}
     response = serializers.serialize('json', event_shouts) #if you want to send all shouts
-    print "\n\n"
-    print response
     return HttpResponse(response, content_type='application/json')
 # @login_required
 # def shout_list(request):
@@ -58,7 +56,6 @@ def shout_add(request):
 """Returns a html response and not serialized objects that would have to be manipulated in javascript. This view can be used by javascript on specified intervals."""
 @login_required
 def shout_list(request):
-    print "Zwracam wszystkie shouty!"
     event = Event.objects.get(pk=request.POST.get('event_id')) #Take event_id value that is passed from AJAX
     user = request.user                         #Take the user that posted this request
     author = Profile.objects.get(user = user)

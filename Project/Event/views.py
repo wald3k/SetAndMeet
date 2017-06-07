@@ -154,9 +154,7 @@ def event_create(request):
         cat = form1['category'].value()                                                 #category is given as an integer i.e: 1,2,3....
         category = Category.objects.get(pk=cat)                                         #get Category by pk and not by name
         d_start = form1['date_start'].value()                                           #get Date string in format 2016-12-24
-        print d_start
         date_start = datetime.strptime(d_start, '%Y/%m/%d %H:%M')    #create a datetime object
-        print date_start
         d_end = form1['date_end'].value()
         date_end = datetime.strptime(d_end, '%Y/%m/%d %H:%M')          #create a datetime object
         description = form1['description'].value()
@@ -165,9 +163,7 @@ def event_create(request):
         public = form1['public'].value()
         participant = request.user.profile                                              #reference to Logged Profile object
         #Create an Event object
-        print "Przed utworzeniem"
         newly_created_event = Event.objects.create(name=name,category=category,date_start=date_start, date_end=date_end,description=description,person_limit=person_limit,fee=fee,public=public,host=participant,where=location)
-        print "Po utworzeniu"
         newly_created_event.add_participant(participant)                                #Adds profile to profiles list in Event model and saves changes to database.
         return redirect(reverse('Event:event_detail', kwargs = {'event_pk': newly_created_event.pk}))               #redirect to event detail page    
     else:   #If entered to this URL by GET request:
@@ -221,8 +217,7 @@ def event_rate(request, event_pk):
             template = 'Event/event_rate.html' 
             arr = [] #array that will store average rating for Profile in selected Event.
             arr2= [] #array that will store number of reviews for this Profile in selected Event.
-            arr3 = []#checks if already rated
-            print context      
+            arr3 = []#checks if already rated    
             prm = ProfileRatingManager()
             for prof in e.profiles.all():
                 temp = prm.calculate_rating_for_event(e,prof)
@@ -234,7 +229,6 @@ def event_rate(request, event_pk):
             context['profile_ratings'] = arr
             context['no_of_profile_ratings'] = arr2
             context['already_rated'] = arr3
-            print context   
         else:
             template = '/' #If user is not a participant then he cannot see event details
     else:
@@ -255,7 +249,6 @@ def add_event_image(request):
             return event_detail(request,event.pk)
         else:
             print "form not valid"
-    print form.errors
     template = 'Event/event_list.html'
     context = {}
     return render(request,template,context) #No matter what if. Return render shortcut class

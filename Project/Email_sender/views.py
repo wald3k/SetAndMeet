@@ -9,7 +9,10 @@ from .forms import ContactForm
 
 def email(request):
     if request.method == 'GET':
-        form = ContactForm()
+        initial = {'from_email':''}
+        if(request.user.is_authenticated()):
+            initial['from_email'] = request.user.email
+        form = ContactForm(initial) #passing dict to a constructor. Dict keys are named as form fields.
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
