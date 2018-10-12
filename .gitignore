@@ -2,3 +2,5 @@
 /myEnvWindows
 /Project/*/migrations/
 /Project/db.sqlite3
+*settings.py
+*.zip
